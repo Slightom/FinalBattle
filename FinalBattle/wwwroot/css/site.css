@@ -1,35 +1,1108 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    color: #ffffff;
+    /*background-color: #303030;*/
+    background-image: url(/images/tlo.jpg);
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
 }
 
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
+/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    /*max-width: 280px;*/
+}
+
+.header {
+    margin-top: -50px;
     width: 100%;
+    height: auto;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.logo {
+    width: 100%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+.navbar-inverse {
+    background-color: #ffd800 !important;
+    border-top: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+
+.navbar-collapse.collapse {
+    text-align: center !important;
+    color: white !important;
+}
+
+.navbarList > li {
+    color: #ffffff !important;
+    border-right: 1px dashed #DDB600;
+    margin-left: -3px;
+    width: 150px;
+}
+
+    .navbarList > li:first-child {
+        border-left: 1px dashed #DDB600;
+    }
+
+.sticky {
+    width: 100%;
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 100;
+}
+
+    /*.sticky + .container {
+        padding-top: 140px;
+    }*/
+
+.songListDiv {
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+}
+
+.search_panel {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.programmeDescription {
+    text-align: justify;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    border: 2px solid #ffd800 !important;
+}
+
+.homeSliderSquare {
+    text-align: center;
+    width: 100% !important;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+}
+
+.homeRow {
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+}
+
+.table th, .table td {
+    border-top: none !important;
+    text-align: center;
+}
+
+.table-hover tbody {
+    text-decoration: none;
+}
+
+    .table-hover tbody tr:hover td {
+        background: #303030;
+        border-top: none !important;
+    }
+
+    .table-hover tbody tr th {
+        background: #303030;
+        text-decoration: none;
+        border: none !important;
+    }
+
+    .table-hover tbody tr:hover th {
+        background: #303030;
+        border-top: none !important;
+    }
+
+.linkInTable {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.input-group {
+    padding: 0px;
+}
+
+.d1 {
+    text-align: center;
+    /*border: solid 1px #c3c3c3;*/
+    background-color: #ffd800 !important;
+    color: black;
+    /*border-color: #eea236;*/
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+    .d1:hover {
+        background-color: #ffe911 !important;
+    }
+
+.myFooter {
+    text-align: center;
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+img {
+    max-width: 100% !important;
+}
+
+iframe {
+    width: 100%;
+    height: 100%
+}
+
+.videoWrapper {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+.videoWrapper-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.panelHead {
+    background-color: #ffd800 !important;
+}
+
+.panelBody {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.myPanel {
+    padding: 10px;
+    text-align: center;
+}
+
+.myPanelHead {
+    background-color: #ffd800 !important;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 10px;
+    color: black;
+}
+
+.myPanelBody {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 10px;
+    border-bottom: solid 2px #ffd800 !important;
+    border-left: solid 2px #ffd800 !important;
+    border-right: solid 2px #ffd800 !important;
+}
+
+.postPanel {
+    padding: 10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.postPanelHead {
+    background-color: lawngreen;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    padding: 10px;
+    color: black;
+}
+
+.postPanelBody {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    padding: 30px;
+    border-bottom: solid 2px lawngreen !important;
+    border-left: solid 2px lawngreen !important;
+    border-right: solid 2px lawngreen !important;
+}
+
+.peopleDescribe {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #ffd800 !important;
+    color: black;
+}
+
+.yt {
+    width: 105px;
+    height: 142px;
+    margin: 0 auto;
+    background-color: #d94348;
+}
+
+    .yt:hover {
+        background-color: #c83237;
+    }
+
+.sociallink {
+    width: 105px;
+    height: 142px;
+    margin: 0 auto;
+    background-color: lawngreen;
+}
+
+.lb-image {
+    max-width: inherit !important;
+}
+
+.row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    height: 100%;
+    text-align: center !important;
+}
+
+.thumbnail2 {
+    height: 100%;
+    text-align: center !important;
+}
+
+@media (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+
+    .navbar-left, .navbar-right {
+        float: none !important;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-nav {
+        float: none !important;
+        margin-top: 7.5px;
+    }
+
+        .navbar-nav > li {
+            float: none;
+        }
+
+            .navbar-nav > li > a {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+    .collapse.in {
+        display: block !important;
     }
 }
+
+
+/* The container */
+.container2 {
+    display: block;
+    position: relative;
+    vertical-align:central;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-left: 35px;
+    /*border: solid 1px green;*/
+    cursor: pointer;
+    font-size: 13px;
+    text-align: left;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+    /* Hide the browser's default checkbox */
+    .container2 input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 22px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container2:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container2 input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.container2 input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.container2 .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.selecetDeselect {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    line-height: 100%;
+    font-size: 13px
+}
+
+.selecetDeselectDiv{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    padding-left:10px !important;
+    text-align: left;
+    height: 50px;
+}
+
+.MyProfileLink {
+    color: grey !important;
+}
+
+audio {
+    width: 100%;
+    display: block;
+    /*margin: 20px;*/
+}
+
+    /*audio:nth-child(2) {
+        width: 250px;
+    }
+
+    audio:nth-child(3) {
+        width: 350px;
+    }*/
+
+.modal-content {
+    background-color: mediumseagreen !important; 
+    border: 1px solid #ffd800 !important;
+}
+
+.modal-header {
+    background-color: #ffd800 !important; 
+    color: black !important;
+}
+
+/*                                              fullCalendar                                    */
+.fc-grid td {
+    background: #ffd800;
+    border-width: 1px 0 0 1px;
+}
+
+
+/*!
+ * FullCalendar v1.6.1 Stylesheet
+ * Docs & License: http://arshaw.com/fullcalendar/
+ * (c) 2013 Adam Shaw
+ */
+
+
+.fc {
+    direction: ltr;
+    text-align: left;
+}
+
+    .fc table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    html .fc,
+    .fc table {
+        font-size: 1em;
+    }
+
+    .fc td,
+    .fc th {
+        padding: 0px !important;
+        vertical-align: top;
+    }
+
+
+
+/* Header
+------------------------------------------------------------------------*/
+
+.fc-header td {
+    white-space: nowrap;
+}
+
+.fc-header-left {
+    width: 25%;
+    text-align: left;
+}
+
+.fc-header-center {
+    text-align: center;
+}
+
+.fc-header-right {
+    width: 25%;
+    text-align: right;
+}
+
+.fc-header-title {
+    display: inline-block;
+    vertical-align: top;
+}
+
+    .fc-header-title h2 {
+        margin-top: 0;
+        white-space: nowrap;
+    }
+
+.fc .fc-header-space {
+    padding-left: 10px;
+}
+
+.fc-header .fc-button {
+    margin-bottom: 1em;
+    vertical-align: top;
+}
+
+/* buttons edges butting together */
+
+.fc-header .fc-button {
+    margin-right: -1px;
+}
+
+.fc-header .fc-corner-right, /* non-theme */
+.fc-header .ui-corner-right { /* theme */
+    margin-right: 0; /* back to normal */
+}
+
+/* button layering (for border precedence) */
+
+.fc-header .fc-state-hover,
+.fc-header .ui-state-hover {
+    z-index: 2;
+}
+
+.fc-header .fc-state-down {
+    z-index: 3;
+}
+
+.fc-header .fc-state-active,
+.fc-header .ui-state-active {
+    z-index: 4;
+}
+
+
+
+/* Content
+------------------------------------------------------------------------*/
+
+.fc-content {
+    clear: both;
+}
+
+.fc-view {
+    width: 100%; /* needed for view switching (when view is absolute) */
+    overflow: hidden;
+}
+
+.fc-day-grid-container {
+    background-color: rgba(20,20,20,0.8);
+}
+
+
+
+/* Cell Styles
+------------------------------------------------------------------------*/
+
+.fc-widget-header, /* <th>, usually */
+.fc-widget-content { /* <td>, usually */
+    border: 1px solid #ddd;
+}
+
+.fc-day-content {
+    height: 90px !important;
+}
+
+.fc-agendaDay-view tr {
+    height: 40px;
+}
+
+.fc-widget-header{
+    border: 1px solid white !important;
+    background-color:  rgba(20,20,20,0.8);
+}
+
+.fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
+    background: #fcf8e3;
+}
+
+.fc-cell-overlay { /* semi-transparent rectangle while dragging */
+    background: #bce8f1;
+    opacity: .3;
+    filter: alpha(opacity=30); /* for IE */
+}
+
+
+
+/* Buttons
+------------------------------------------------------------------------*/
+
+.fc-button {
+    position: relative;
+    display: inline-block;
+    padding: 0 .6em;
+    overflow: hidden;
+    height: 1.9em;
+    line-height: 1.9em;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.fc-state-default { /* non-theme */
+    border: 1px solid;
+}
+
+    .fc-state-default.fc-corner-left { /* non-theme */
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .fc-state-default.fc-corner-right { /* non-theme */
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+/*
+	Our default prev/next buttons use HTML entities like &lsaquo; &rsaquo; &laquo; &raquo;
+	and we'll try to make them look good cross-browser.
+*/
+
+.fc-text-arrow {
+    margin: 0 .1em;
+    font-size: 2em;
+    font-family: "Courier New", Courier, monospace;
+    vertical-align: baseline; /* for IE7 */
+}
+
+.fc-button-prev .fc-text-arrow,
+.fc-button-next .fc-text-arrow { /* for &lsaquo; &rsaquo; */
+    font-weight: bold;
+}
+
+/* icon (for jquery ui) */
+
+.fc-button .fc-icon-wrap {
+    position: relative;
+    float: left;
+    top: 50%;
+}
+
+.fc-button .ui-icon {
+    position: relative;
+    float: left;
+    margin-top: -50%;
+    *margin-top: 0;
+    *top: -50%;
+}
+
+/*
+  button states
+  borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
+*/
+
+.fc-state-default {
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+    background-repeat: repeat-x;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    color: #333;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.fc-state-hover,
+.fc-state-down,
+.fc-state-active,
+.fc-state-disabled {
+    color: #333333;
+    background-color: #e6e6e6;
+}
+
+.fc-state-hover {
+    color: #333333;
+    text-decoration: none;
+    background-position: 0 -15px;
+    -webkit-transition: background-position 0.1s linear;
+    -moz-transition: background-position 0.1s linear;
+    -o-transition: background-position 0.1s linear;
+    transition: background-position 0.1s linear;
+}
+
+.fc-state-down,
+.fc-state-active {
+    background-color: #cccccc;
+    background-image: none;
+    outline: 0;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.fc-state-disabled {
+    cursor: default;
+    background-image: none;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    box-shadow: none;
+}
+
+
+
+/* Global Event Styles
+------------------------------------------------------------------------*/
+
+.fc-event {
+    border: 1px solid #3a87ad; /* default BORDER color */
+    background-color: #3a87ad; /* default BACKGROUND color */
+    color: #fff; /* default TEXT color */
+    font-size: .85em;
+    cursor: default;
+}
+
+a.fc-event {
+    text-decoration: none;
+}
+
+a.fc-event,
+.fc-event-draggable {
+    cursor: pointer;
+}
+
+.fc-rtl .fc-event {
+    text-align: right;
+}
+
+.fc-event-inner {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.fc-event-time,
+.fc-event-title {
+    padding: 0 1px;
+}
+
+.fc .ui-resizable-handle {
+    display: block;
+    position: absolute;
+    z-index: 99999;
+    overflow: hidden; /* hacky spaces (IE6/7) */
+    font-size: 300%; /* */
+    line-height: 50%; /* */
+}
+
+
+
+/* Horizontal Events
+------------------------------------------------------------------------*/
+
+.fc-event-hori {
+    border-width: 1px 0;
+    margin-bottom: 1px;
+}
+
+.fc-ltr .fc-event-hori.fc-event-start,
+.fc-rtl .fc-event-hori.fc-event-end {
+    border-left-width: 1px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.fc-ltr .fc-event-hori.fc-event-end,
+.fc-rtl .fc-event-hori.fc-event-start {
+    border-right-width: 1px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+/* resizable */
+
+.fc-event-hori .ui-resizable-e {
+    top: 0 !important; /* importants override pre jquery ui 1.7 styles */
+    right: -3px !important;
+    width: 7px !important;
+    height: 100% !important;
+    cursor: e-resize;
+}
+
+.fc-event-hori .ui-resizable-w {
+    top: 0 !important;
+    left: -3px !important;
+    width: 7px !important;
+    height: 100% !important;
+    cursor: w-resize;
+}
+
+.fc-event-hori .ui-resizable-handle {
+    _padding-bottom: 14px; /* IE6 had 0 height */
+}
+
+
+
+/* Reusable Separate-border Table
+------------------------------------------------------------*/
+
+table.fc-border-separate {
+    border-collapse: separate;
+}
+
+.fc-border-separate th,
+.fc-border-separate td {
+    border-width: 1px 0 0 1px;
+}
+
+    .fc-border-separate th.fc-last,
+    .fc-border-separate td.fc-last {
+        border-right-width: 1px;
+    }
+
+.fc-border-separate tr.fc-last th,
+.fc-border-separate tr.fc-last td {
+    border-bottom-width: 1px;
+}
+
+.fc-border-separate tbody tr.fc-first td,
+.fc-border-separate tbody tr.fc-first th {
+    border-top-width: 0;
+}
+
+
+
+/* Month View, Basic Week View, Basic Day View
+------------------------------------------------------------------------*/
+
+.fc-grid th {
+    text-align: center;
+}
+
+.fc .fc-week-number {
+    width: 22px;
+    text-align: center;
+}
+
+    .fc .fc-week-number div {
+        padding: 0 2px;
+    }
+
+.fc-grid .fc-day-number {
+    float: right;
+    padding: 0 2px;
+}
+
+.fc-grid .fc-other-month .fc-day-number {
+    opacity: 0.3;
+    filter: alpha(opacity=30); /* for IE */
+    /* opacity with small font can sometimes look too faded
+	   might want to set the 'color' property instead
+	   making day-numbers bold also fixes the problem */
+}
+
+.fc-grid .fc-day-content {
+    clear: both;
+    padding: 2px 2px 1px; /* distance between events and day edges */
+}
+
+/* event styles */
+
+.fc-grid .fc-event-time {
+    font-weight: bold;
+}
+
+/* right-to-left */
+
+.fc-rtl .fc-grid .fc-day-number {
+    float: left;
+}
+
+.fc-rtl .fc-grid .fc-event-time {
+    float: right;
+}
+
+
+
+/* Agenda Week View, Agenda Day View
+------------------------------------------------------------------------*/
+
+.fc-agenda table {
+    border-collapse: separate;
+}
+
+.fc-agenda-days th {
+    text-align: center;
+}
+
+.fc-agenda .fc-agenda-axis {
+    width: 50px;
+    padding: 0 4px;
+    vertical-align: middle;
+    text-align: right;
+    white-space: nowrap;
+    font-weight: normal;
+}
+
+.fc-agenda .fc-week-number {
+    font-weight: bold;
+}
+
+.fc-agenda .fc-day-content {
+    padding: 2px 2px 1px;
+}
+
+/* make axis border take precedence */
+
+.fc-agenda-days .fc-agenda-axis {
+    border-right-width: 1px;
+}
+
+.fc-agenda-days .fc-col0 {
+    border-left-width: 0;
+}
+
+/* all-day area */
+
+.fc-agenda-allday th {
+    border-width: 0 1px;
+}
+
+.fc-agenda-allday .fc-day-content {
+    min-height: 34px; /* TODO: doesnt work well in quirksmode */
+    _height: 34px;
+}
+
+/* divider (between all-day and slots) */
+
+.fc-agenda-divider-inner {
+    height: 2px;
+    overflow: hidden;
+}
+
+.fc-widget-header .fc-agenda-divider-inner {
+    background: #eee;
+}
+
+/* slot rows */
+
+.fc-agenda-slots th {
+    border-width: 1px 1px 0;
+}
+
+.fc-agenda-slots td {
+    border-width: 1px 0 0;
+    background: none;
+}
+
+    .fc-agenda-slots td div {
+        height: 20px;
+    }
+
+.fc-agenda-slots tr.fc-slot0 th,
+.fc-agenda-slots tr.fc-slot0 td {
+    border-top-width: 0;
+}
+
+.fc-agenda-slots tr.fc-minor th,
+.fc-agenda-slots tr.fc-minor td {
+    border-top-style: dotted;
+}
+
+    .fc-agenda-slots tr.fc-minor th.ui-widget-header {
+        *border-top-style: solid; /* doesn't work with background in IE6/7 */
+    }
+
+
+
+/* Vertical Events
+------------------------------------------------------------------------*/
+
+.fc-event-vert {
+    border-width: 0 1px;
+}
+
+    .fc-event-vert.fc-event-start {
+        border-top-width: 1px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    .fc-event-vert.fc-event-end {
+        border-bottom-width: 1px;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+    }
+
+    .fc-event-vert .fc-event-time {
+        white-space: nowrap;
+        font-size: 10px;
+    }
+
+    .fc-event-vert .fc-event-inner {
+        position: relative;
+        z-index: 2;
+    }
+
+    .fc-event-vert .fc-event-bg { /* makes the event lighter w/ a semi-transparent overlay  */
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        opacity: .25;
+        filter: alpha(opacity=25);
+    }
+
+.fc .ui-draggable-dragging .fc-event-bg, /* TODO: something nicer like .fc-opacity */
+.fc-select-helper .fc-event-bg {
+    display: none\9; /* for IE6/7/8. nested opacity filters while dragging don't work */
+}
+
+/* resizable */
+
+.fc-event-vert .ui-resizable-s {
+    bottom: 0 !important; /* importants override pre jquery ui 1.7 styles */
+    width: 100% !important;
+    height: 8px !important;
+    overflow: hidden !important;
+    line-height: 8px !important;
+    font-size: 11px !important;
+    font-family: monospace;
+    text-align: center;
+    cursor: s-resize;
+}
+
+.fc-agenda .ui-resizable-resizing { /* TODO: better selector */
+    _overflow: hidden;
+}
+
+.fc-past {
+    background-color: rgba(50,50,50,0.7);
+}
+
+
+.fc-today {
+    /*opacity: 0.7 !important;*/
+    background-color: dodgerblue !important;
+    /*background-color: green !important;*/
+}
+
+
+.actionLinkClass {
+    width: 100% !important; 
+    height: 100% !important;
+    text-align: center !important;
+}
+
+    .actionLinkClass:hover {
+        text-decoration: underline !important;
+        background-color: #ffe911 !important;
+        color: #303030 !important;
+    }
+
+    .actionLinkClass:active {
+        text-decoration: underline !important;
+        border: none;
+    }
+
+.activeLink {
+    text-decoration: underline !important;
+    background-color: #ffe911 !important;
+    color: #303030 !important;
+}
+
+.homeLink {
+    width: 100% !important;
+    height: 100% !important;
+    text-align: center !important;
+}
+
+    .homeLink:hover {
+        text-decoration: underline !important;
+        background-color: #fffa22 !important;
+        color: #303030 !important;
+    }

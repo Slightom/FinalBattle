@@ -1,0 +1,15 @@
+﻿@model IEnumerable<FinalBattle.Models.Song>
+
+@if (Model != null)
+{
+    <table class="table table-hover">
+        @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @item.DisplayTitle
+                </td>
+            </tr>
+        }
+    </table>
+}

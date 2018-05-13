@@ -39,6 +39,15 @@ namespace FinalBattle.Controllers
             _roleManager = roleManager;
         }
 
+        [HttpGet]
+        public async Task<string> GetCurrentUserId()
+        {
+            ApplicationUser usr = await GetCurrentUserAsync();
+            return usr?.Id;
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
         [TempData]
         public string ErrorMessage { get; set; }
 

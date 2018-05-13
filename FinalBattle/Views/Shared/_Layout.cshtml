@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FinalBattle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zespół Tytanik</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -13,36 +14,201 @@
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var NavY = $('#navigationPanel').offset().top;
+            var stickyNav = function () {
+                var ScrollY = $(window).scrollTop();
+
+                if (ScrollY >= NavY) {
+                    $('#navigationPanel').addClass('sticky');
+                } else {
+                    $('#navigationPanel').removeClass('sticky');
+                }
+            };
+
+
+            stickyNav();
+
+            $(window).scroll(function () {
+                stickyNav();
+            });
+
+            //new ResizeSensor(jQuery('#navigationPanel'), function () {
+
+            //    var newHeight = document.getElementById('navigationPanel').clientHeight;
+            //    document.getElementById('navigationWrapper').setAttribute("style", "height:" + newHeight + "px");
+            //});
+
+            
+            if (location.pathname != "/")
+            {
+                $("a[href='" + location.pathname + "']").addClass("activeLink");
+            }
+            else
+            {
+                $(".homeLink").addClass("activeLink");
+            }
+        });
+
+
+        var numer = Math.floor(Math.random() * 2) + 1;
+
+        var timer1 = 0;
+        var timer2 = 0;
+
+        function ustawslajd(nrslajdu) {
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+            numer = nrslajdu - 1;
+
+            schowaj();
+            setTimeout("zmienslajd()", 500);
+
+        }
+
+        function schowaj() {
+            $("#slider").fadeOut(500);
+        }
+
+        function changeSlide() {
+            numer++; if (numer > 2) numer = 1;
+
+            var plik = "<img src=\"/images/index" + numer + ".jpg\"/>";
+            document.getElementById("slider").innerHTML = plik;
+            $("#slider").fadeIn(500);
+
+            timer1 = setTimeout("changeSlide()", 5000);
+            timer2 = setTimeout("schowaj()", 4500);
+
+        }
+
+        function goToLogin() {
+            //alert("jestem");
+            //$.get("/Account/Login");
+            location.href = '@Url.Action("Login", "Account")';
+        }
+
+        function checkNewPosts() {
+            $.post("/Posts/howManyNewPosts", function (ile) {
+                if (ile != -1) {
+                    if (ile == 0) {
+                        document.getElementById("sumOfNewPosts").style.color = "gray";
+                    }
+                    else {
+                        document.getElementById("sumOfNewPosts").style.color = "red";
+                    }
+
+                    document.getElementById("sumOfNewPosts").innerHTML = "(" + ile + ")";
+                }
+            });
+
+            //setTimeout("newMs()", 3000);
+        }
+
+        $("#statekLogo").bind("taphold", tapholdHandler);
+
+        function tapholdHandler(event) {
+            location.href = '@Url.Action("Login", "Account")';
+        }
+
+    </script>
+
 </head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">FinalBattle</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
+<body onload="changeSlide(); checkNewPosts();">
+    <div class="header">
+        <div class="logo">
+            <img ondblclick="goToLogin()" id="statekLogo" src="~/images/statekZNetaAfterv1.png" />
+            <img src="~/images/MonikaKolo.png" width="100" />
+            <img src="~/images/AnetaKolo.png" width="100" />
+            <img src="~/images/TomKolo.png" width="100" />
+        </div>
+    </div>
+    <div id="navigationWrapper" style="height: 60px;">
+        <div class="navbar navbar-inverse" id="navigationPanel" @*style="height: 60px;" *@>
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbarList">
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("BandMember"))
+                        {
+                            <li style="width:auto">@Html.ActionLink("HOME", "Index", "Home", null, new { @class = "actionLinkClass; homeLink" })</li>
+                            <li style="width:auto">@Html.ActionLink("SKŁAD", "People", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li style="width:auto">@Html.ActionLink("REPERTUAR", "Programme2", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li style="width:auto">@Html.ActionLink("DEMO", "Demo", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li style="width:auto">@Html.ActionLink("GALERIA", "Gallery", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li style="width:auto">@Html.ActionLink("KONTAKT", "Contact", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li style="width:auto">@Html.ActionLink("KALENDARZ", "Calender", "Home", null, new { @class = "actionLinkClass" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("HOME", "Index", "Home", null, new { @class = "actionLinkClass; homeLink" })</li>
+                            <li>@Html.ActionLink("SKŁAD", "People", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li>@Html.ActionLink("REPERTUAR", "Programme", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li>@Html.ActionLink("DEMO", "Demo", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li>@Html.ActionLink("GALERIA", "Gallery", "Home", null, new { @class = "actionLinkClass" })</li>
+                            <li>@Html.ActionLink("KONTAKT", "Contact", "Home", null, new { @class = "actionLinkClass" })</li>
+                        }
+                        @*@if (!User.Identity.IsAuthenticated)
+                            {
+                                if (User.IsInRole("Admin"))
+                                {
+                                    int newPosts = FinalBattle.Controllers.PostsController.howManyNewPosts();
+                                    <li style="width: auto; height:auto">
+                                        <a href="@Url.Action("Index", "Posts")" class="MyProfileLink">
+                                            <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size:16px;"></span>
+                                            @if (newPosts == 0)
+                                            {
+                                                <span id="sumOfNewPosts" style="color:gray;">(0)</span>
+                                            }
+                                            else
+                                            {
+                                                <span id="sumOfNewPosts" style="color:red">(@newPosts)</span>
+                                            }
+                                        </a>
+                                    </li>
+
+                                    <li class="dropdown" style="width:auto; height:auto;">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                            <span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size:16px;"></span>Zarządzaj<span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="@Url.Action("Index", "Songs")">Utwory</a></li>
+                                            <li><a href="@Url.Action("Index", "Backings")">Podkłady</a></li>
+                                            <li><a href="@Url.Action("Index", "Categories")">Kategorie</a></li>
+                                            <li><a href="@Url.Action("Index", "Authors")">Autorzy</a></li>
+                                            <li><a href="@Url.Action("Index", "Places")">Miejsca</a></li>
+                                            <li><a href="@Url.Action("Index", "Photos")">Zdjęcia</a></li>
+                                            //li><a href="@Url.Action("Index", "Events")">Eventy</a></li>
+                                            <li><a href="@Url.Action("Users", "Home")">Users</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                            }*@
+                    </ul>
+                </div>
             </div>
         </div>
-    </nav>
-    <div class="container body-content">
+    </div>
+    <div class="container body-content" id="content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; 2018 - FinalBattle</p>
+        <footer class="myFooter">
+            <p>&copy; Zespół muzyczny Tytanik</p>
         </footer>
     </div>
 
@@ -66,7 +232,6 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", false)
 </body>
 </html>

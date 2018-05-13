@@ -21,4 +21,49 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\images\AndrzejR.jpg" />
+    <None Include="wwwroot\images\AnetaKolo.png" />
+    <None Include="wwwroot\images\AnetaR.jpg" />
+    <None Include="wwwroot\images\Gallery\dwl.PNG" />
+    <None Include="wwwroot\images\Gallery\everytimeYouUseHtmlInsteadCSSKittenDies.jpg" />
+    <None Include="wwwroot\images\Gallery\md.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos1.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos10.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos11.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos12.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos13.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos14.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos15.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos16.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos17.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos18.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos19.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos2.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos20.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos3.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos4.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos5.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos6.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos7.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos8.jpg" />
+    <None Include="wwwroot\images\Gallery\partyPhotos9.jpg" />
+    <None Include="wwwroot\images\Gallery\remizaJ.PNG" />
+    <None Include="wwwroot\images\Gallery\road_landscape_7-wallpaper-1366x768.jpg" />
+    <None Include="wwwroot\images\Gallery\salaWeselnaLapincy2.jpg" />
+    <None Include="wwwroot\images\Gallery\salaWeselnaLapincy3.jpg" />
+    <None Include="wwwroot\images\Gallery\sylw1.jpg" />
+    <None Include="wwwroot\images\Gallery\sylw2.jpg" />
+    <None Include="wwwroot\images\Gallery\wqdc.jpg" />
+    <None Include="wwwroot\images\index1.jpg" />
+    <None Include="wwwroot\images\index2.jpg" />
+    <None Include="wwwroot\images\MonikaKolo.png" />
+    <None Include="wwwroot\images\MonikaR.jpg" />
+    <None Include="wwwroot\images\statekZNetaAfterCut.png" />
+    <None Include="wwwroot\images\statekZNetaAfterv1.png" />
+    <None Include="wwwroot\images\tlo.jpg" />
+    <None Include="wwwroot\images\tomekR.jpg" />
+    <None Include="wwwroot\images\TomKolo.png" />
+  </ItemGroup>
+
 </Project>

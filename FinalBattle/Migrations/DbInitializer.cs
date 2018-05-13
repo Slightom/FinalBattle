@@ -18,16 +18,18 @@ namespace FinalBattle.Migrations
         {
             context.Database.EnsureCreated();//if db is not exist ,it will create database .but ,do nothing .
 
+           
+
+            //DeleteAllRecords(context);
+
             // Look for any students.
             if (context.Songs.Any())
             {
                 return;   // DB has been seeded
             }
 
-
-            //if (!await roleManager.RoleExistsAsync("Admin")) {await roleManager.CreateAsync(new IdentityRole("Admin")); }
-            //if (!await roleManager.RoleExistsAsync("User")) {await roleManager.CreateAsync(new IdentityRole("User")); }
-            //if (!await roleManager.RoleExistsAsync("BandMember")) {await roleManager.CreateAsync(new IdentityRole("BandMember")); }
+            HandleRolesAsync(roleManager).Wait();
+            
 
 
             #region users
@@ -41,8 +43,8 @@ namespace FinalBattle.Migrations
             u.SecurityStamp = Guid.NewGuid().ToString();
             context.Users.Add(u);
             context.SaveChanges();
-            //await userManager.AddToRoleAsync(u, "Admin");
-            //await userManager.AddToRoleAsync(u, "BandMember");
+            await userManager.AddToRoleAsync(u, "Admin");
+            await userManager.AddToRoleAsync(u, "BandMember");
 
             u = new ApplicationUser();
             u.Email = "zwyklyMail@gmail.com";
@@ -53,7 +55,7 @@ namespace FinalBattle.Migrations
             u.SecurityStamp = Guid.NewGuid().ToString();
             context.Users.Add(u);
             context.SaveChanges();
-            //await userManager.AddToRoleAsync(u, "BandMember");
+            await userManager.AddToRoleAsync(u, "BandMember");
 
 
 
@@ -66,7 +68,7 @@ namespace FinalBattle.Migrations
             u.SecurityStamp = Guid.NewGuid().ToString();
             context.Users.Add(u);
             context.SaveChanges();
-           // await userManager.AddToRoleAsync(u, "User");
+            await userManager.AddToRoleAsync(u, "User");
 
             u = new ApplicationUser();
             u.Email = "witek15@gmail.com";
@@ -77,7 +79,7 @@ namespace FinalBattle.Migrations
             u.SecurityStamp = Guid.NewGuid().ToString();
             context.Users.Add(u);
             context.SaveChanges();
-            //await userManager.AddToRoleAsync(u, "User");
+            await userManager.AddToRoleAsync(u, "User");
 
             #endregion
 
@@ -5921,8 +5923,49 @@ namespace FinalBattle.Migrations
 
             #endregion
         }
-   
 
-           
+        private static void DeleteAllRecords(ApplicationDbContext context)
+        {
+            context.Authors.RemoveRange(context.Authors);
+            context.SaveChanges();
+            context.Backings.RemoveRange(context.Backings);
+            context.SaveChanges();
+            context.Categories.RemoveRange(context.Categories);
+            context.SaveChanges();
+            context.Events.RemoveRange(context.Events);
+            context.SaveChanges();
+            context.Photos.RemoveRange(context.Photos);
+            context.SaveChanges();
+            context.PlacePhotos.RemoveRange(context.PlacePhotos);
+            context.SaveChanges();
+            context.Places.RemoveRange(context.Places);
+            context.SaveChanges();
+            context.Posts.RemoveRange(context.Posts);
+            context.SaveChanges();
+            context.SongAuthors.RemoveRange(context.SongAuthors);
+            context.SaveChanges();
+            context.SongCategories.RemoveRange(context.SongCategories);
+            context.SaveChanges();
+            context.Songs.RemoveRange(context.Songs);
+            context.SaveChanges();
+            context.Users.RemoveRange(context.Users);
+            context.SaveChanges();
+        }
+
+        private static async Task HandleRolesAsync(RoleManager<IdentityRole> roleManager)
+        {
+            string[] roleNames = { "Admin", "User", "BandMember" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database: Question 1
+                    roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+        }
     }
 }

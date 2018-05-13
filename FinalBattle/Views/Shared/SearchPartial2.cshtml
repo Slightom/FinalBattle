@@ -1,0 +1,19 @@
+﻿@model IEnumerable<FinalBattle.Models.Backing>
+
+@if (Model != null)
+{
+    <table class="table table-hover">
+        @foreach (var item in Model)
+                {
+            <tr>
+                <td>
+                    @item.Name<br/>
+                    <audio controls>
+                        <source src="~/Content/Music/@(item.Name)" type="audio/mpeg">
+                        @*<source src="~/Content/music/Akcent - Sonet dla milosci INSTRUMENTAL-1.mp3" type="audio/mpeg">*@
+                    </audio>
+                </td>
+            </tr>
+        }
+    </table>
+}
