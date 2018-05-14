@@ -34,7 +34,6 @@ namespace FinalBattle.Controllers
         {
             db = context;
             db2 = context;
-            GlobalData.context = context;
 
             _userManager = userManager;
             _signInManager = signInManager;
