@@ -1,0 +1,197 @@
+﻿@model FinalBattle.Models.ProgrammeViewModel2
+
+@{
+    ViewBag.Title = "Programme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-3 homeRow">
+        <div class="search_panel" style="padding: 20px;">
+            <input type="text" class="form-control" placeholder="Znajdź utwór..." value="@Model.SearchModel.SearchWord" name="SearchWord" id="SearchWord">
+        </div>
+
+        <div style="margin-top: 0px; margin-bottom: 0px;">
+            <div id="moreOptions" class="d1">
+                <span style="font-size:14px;" id="textSpecial">Więcej filtrów</span>
+                <span style="font-size:14px;" class="glyphicon glyphicon-chevron-down"></span>
+            </div>
+
+            <div id="SearchModelDiv" class="asd" style="display:none">
+                <table class="table table-hover" style="text-align: left">
+                    <tr>
+                        <div class="selecetDeselectDiv">
+                            <button type="button" class="btn btn-default selecetDeselect" onclick="selectAll()">Zaznacz wszystko</button>
+                            <button type="button" class="btn btn-default selecetDeselect" onclick="deSelectAll()">Odznacz wszystko</button>
+                        </div>
+                    </tr>
+                    @foreach (var item in Model.SearchModel.SearchCategories)
+                    {
+                        <tr>
+                            <td style="padding: 5px">
+                                <label class="container2">
+                                    @item.Name (@item.songAmount)
+                                    <input type="checkbox" checked="checked" name="@item.Name" id="@item.Name" class="myCheckBox" value="@item.Name">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </td>
+                            @*<td style="font-size: 12px; text-align:left; vertical-align:middle">
+                                    @item.Name
+                                </td>*@
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-9">
+        <div class="songListDiv" id="backingListDivID">
+
+            @if (ViewBag.BackingList != null)
+            {
+                <table class="table table-hover">
+                    @foreach (var item in ViewBag.BackingList)
+                {
+                        <tr>
+                            <td>
+                                @item.Name
+                                <audio controls>
+                                    @*<source src="~/Content/Music/Akcent - Życie to są chwile INSTRUMENTAL.mp3" type="audio/mpeg">*@
+                                    <source src="~/Music/@(item.Name)" type="audio/mpeg" class="audioSource">
+                                    @*<source src="~/Content/music/Akcent - Sonet dla milosci INSTRUMENTAL-1.mp3" type="audio/mpeg">*@
+                                </audio>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var biggerOneWorking = false;
+    var searchText = "";
+    var searchList = "";
+    var SearchModelDivOpen = false;
+
+    $(document).ready(function () {
+        $("#moreOptions").click(function () {
+            $(this).next('.asd').slideToggle("slow", function () {
+                SearchModelDivOpen = !SearchModelDivOpen;
+
+                if (SearchModelDivOpen) {
+                    document.getElementById("moreOptions").innerHTML =
+                        "<span style=\"font-size:14px;\">Schowaj filtry </span>" +
+                        "<span style=\"font-size:14px;\" class=\"glyphicon glyphicon-chevron-up\" ></span >";
+                }
+                else {
+                    document.getElementById("moreOptions").innerHTML =
+                        "<span style=\"font-size:14px;\">Więcej filtrów </span>" +
+                        "<span style=\"font-size:14px;\" class=\"glyphicon glyphicon-chevron-down\" ></span >";
+
+                    var checkboxes = $(".myCheckBox");
+                    for (var i = 0; i < checkboxes.length; i++) {
+                        if (checkboxes[i].checked == false)
+                        {
+                            selectAll();
+                            break;
+                        }
+                    }
+                }
+            });           
+        });
+
+        window.addEventListener("play", function (evt) {
+            if (window.$_currentlyPlaying && window.$_currentlyPlaying != evt.target) {
+                window.$_currentlyPlaying.pause();
+            }
+            window.$_currentlyPlaying = evt.target;
+        }, true);
+
+        var timeoutID = null;
+
+        $("#SearchWord").keyup(function (e) {
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(RunSearch.bind(undefined, e.target.value), 300);
+        });
+
+        function RunSearch(str) {
+            //alert(str);
+            searchText = str;
+            setSearchList();
+            sendSearchModel();
+        }
+
+        $('.myCheckBox').on('change.bootstrapSwitch', function (e) {
+            if (!biggerOneWorking) {
+                setSearchList();
+                sendSearchModel();
+            }
+        });
+    });
+
+    function setSearchList() {
+        var result = $('input[type="checkbox"]:checked');
+        searchList = "";
+        result.each(function () {
+            searchList += $(this).val() + "%";
+        });
+    };
+
+    function sendSearchModel() {
+        $.ajax({
+            url: '/Home/SearchBacking2',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                searchWord: searchText,
+                searchList: searchList
+            },
+            success: function (data) {
+                replacePartialView2();
+            }
+        });
+    };
+
+    function replacePartialView2() {
+        $.ajax({
+            type: "Post",
+            url: "/Home/ReplacePartialView2",
+            success: function (response) {
+                $("#loader").hide();
+                $("#backingListDivID").html(response);
+            }
+        })
+    }
+
+    function selectAll() {
+        biggerOneWorking = true;
+        var checkboxes = $(".myCheckBox");
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = true;
+        }
+        setSearchList();
+        sendSearchModel();
+        biggerOneWorking = false;
+    };
+
+    function deSelectAll() {
+        biggerOneWorking = true;
+        var checkboxes = $(".myCheckBox");
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false;
+        }
+        setSearchList();
+        sendSearchModel();
+        biggerOneWorking = false;
+    };
+
+</script>
+

@@ -9,8 +9,8 @@ namespace FinalBattle.Models.AccountViewModels
     public class LoginViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Nick")]
+        public string Nick { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

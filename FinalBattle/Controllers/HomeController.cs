@@ -34,6 +34,7 @@ namespace FinalBattle.Controllers
         {
             db = context;
             db2 = context;
+            GlobalData.context = context;
 
             _userManager = userManager;
             _signInManager = signInManager;
@@ -107,10 +108,12 @@ namespace FinalBattle.Controllers
 
             return View(programmeViewModel);
         }
-
-
+        
+        [HttpPost]
         public ActionResult ReplacePartialView()
         {
+            var songs = HttpContext.Session.GetObject<List<Song>>("searchedSongs");
+
             return PartialView("SearchPartial", HttpContext.Session.GetObject<List<Song>>("searchedSongs") as List<Song>);
         }
 
@@ -145,6 +148,7 @@ namespace FinalBattle.Controllers
                         {
                             if (scc == sc)
                             {
+                                s.SongCategories = null;
                                 searchedSongs.Add(s);
                                 goto SongFinded;
                             }
@@ -162,7 +166,8 @@ namespace FinalBattle.Controllers
                 searchedSongs = searchedSongs.Where(x => x.DisplayTitle.ToLower().Contains(SearchWord.ToLower())).ToList();
             }
 
-            HttpContext.Session.SetObject("searchedSongs", searchedSongs);
+
+           HttpContext.Session.SetObject("searchedSongs", searchedSongs);
 
             return Json("ok");
         }

@@ -9,6 +9,10 @@ namespace FinalBattle.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nick")]
+        public string Nick { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

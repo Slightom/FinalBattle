@@ -1,0 +1,203 @@
+﻿@model FinalBattle.Models.ProgrammeViewModel
+
+@{
+    ViewBag.Title = "Programme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-3 homeRow">
+        <div class="search_panel" style="padding: 20px;">
+            <input type="text" class="form-control" placeholder="Znajdź utwór..." value="@Model.SearchModel.SearchWord" name="SearchWord" id="SearchWord">
+        </div>
+
+        <div style="margin-top: 0px; margin-bottom: 0px;">
+            <div id="moreOptions" class="d1">
+                <span style="font-size:14px;" id="textSpecial">Więcej filtrów</span>
+                <span style="font-size:14px;" class="glyphicon glyphicon-chevron-down"></span>
+            </div>
+
+            <div id="SearchModelDiv" class="asd" style="display:none">
+                <table class="table table-hover" style="text-align: left">
+                    <tr>
+                        <div class="selecetDeselectDiv">
+                            <button type="button" class="btn btn-default selecetDeselect" onclick="selectAll()">Zaznacz wszystko</button>
+                            <button type="button" class="btn btn-default selecetDeselect" onclick="deSelectAll()">Odznacz wszystko</button>
+                        </div>
+                    </tr>
+                    @foreach (var item in Model.SearchModel.SearchCategories)
+                    {
+                    <tr>
+                        <td style="padding: 5px">
+                            <label class="container2">
+                                @item.Name (@item.songAmount)
+                                <input type="checkbox" checked="checked" name="@item.Name" id="@item.Name" class="myCheckBox" value="@item.Name">
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
+                        @*<td style="font-size: 12px; text-align:left; vertical-align:middle">
+                                @item.Name
+                            </td>*@
+                    </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+        <div class="songListDiv" id="songListDivID">
+
+            @if (ViewBag.SongList != null)
+            {
+            <table class="table table-hover">
+                @foreach (var item in ViewBag.SongList)
+                {
+                    <tr>
+                        <td>
+                            @item.DisplayTitle
+                        </td>
+                    </tr>
+                    }
+            </table>
+            }
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="myPanel">
+            <div class="myPanelHead">O repertuarze</div>
+            <div class="myPanelBody">
+                <p>
+                    Kochamy muzykę. Dysponujemy szerokim repertuarem utworów z&nbsp;wielu kategorii. Uwielbiamy rocka, Boney M, mamy polską i&nbsp;zagraniczną klasykę, nie brakuje disco polo
+                    czy nawet muzyki aletrantywnej - każdy znajdzie coś dla siebie ;)
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var biggerOneWorking = false;
+    var searchText = "";
+    var searchList = "";
+    var SearchModelDivOpen = false;
+
+    $(document).ready(function () {
+        //$("#moreOptions").click(function () {
+        //    if (!SearchModelDivOpen)
+        //    {
+        //        SearchModelDivOpen = true;
+        //        $(this).next('.asd').show(2000);
+        //    }
+        //    else {
+        //        SearchModelDivOpen = false;
+        //        $(this).next('.asd').hide(2000);
+        //    }
+
+        //});
+
+        $("#moreOptions").click(function () {
+            $(this).next('.asd').slideToggle("slow", function () {
+                SearchModelDivOpen = !SearchModelDivOpen;
+
+                if (SearchModelDivOpen) {
+                    document.getElementById("moreOptions").innerHTML =
+                        "<span style=\"font-size:14px;\">Schowaj filtry </span>" +
+                        "<span style=\"font-size:14px;\" class=\"glyphicon glyphicon-chevron-up\" ></span >";
+                }
+                else {
+                    document.getElementById("moreOptions").innerHTML =
+                        "<span style=\"font-size:14px;\">Więcej filtrów </span>" +
+                        "<span style=\"font-size:14px;\" class=\"glyphicon glyphicon-chevron-down\" ></span >";
+                    selectAll();
+                }
+            });
+        });
+
+        var timeoutID = null;
+
+        $("#SearchWord").keyup(function (e) {
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(RunSearch.bind(undefined, e.target.value), 300);
+
+        });
+
+        function RunSearch(str) {
+            //alert(str);
+            searchText = str;
+            setSearchList();
+            sendSearchModel();
+        }
+
+        $('.myCheckBox').on('change.bootstrapSwitch', function (e) {
+            if (!biggerOneWorking) {
+                setSearchList();
+                sendSearchModel();
+            }
+        });
+    });
+
+    function setSearchList() {
+        var result = $('input[type="checkbox"]:checked');
+        searchList = "";
+        result.each(function () {
+            searchList += $(this).val() + "%";
+        });
+    };
+
+    function sendSearchModel() {
+        //alert(searchText);
+        $.ajax({
+            url: '/Home/SearchSong',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                searchWord: searchText,
+                searchList: searchList
+            },
+            success: function (data) {
+                replacePartialView();
+            }
+        });
+    };
+
+    function replacePartialView() {
+        $.ajax({
+            type: "Post",
+            url: "/Home/ReplacePartialView",
+            success: function (response) {
+                $("#songListDivID").html(response);
+            }
+        })
+    }
+
+    function selectAll() {
+        biggerOneWorking = true;
+        var checkboxes = $(".myCheckBox");
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = true;
+        }
+        setSearchList();
+        sendSearchModel();
+        biggerOneWorking = false;
+    };
+
+    function deSelectAll() {
+        biggerOneWorking = true;
+        var checkboxes = $(".myCheckBox");
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false;
+        }
+        setSearchList();
+        sendSearchModel();
+        biggerOneWorking = false;
+    };
+
+</script>
+

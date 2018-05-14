@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FinalBattle.Data;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -43,5 +45,12 @@ namespace FinalBattle.Models
 
         public string roleName { get; set; }
         public string roleID { get; set; }
+    }
+
+
+    static public class GlobalData
+    {
+        public static ApplicationDbContext context { get; set; }
+        public static string connectionString { get; set; }
     }
 }

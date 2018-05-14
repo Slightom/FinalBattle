@@ -1,62 +1,194 @@
 ﻿@model FinalBattle.Models.Song
 
 @{
-    ViewData["Title"] = "Create";
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<div class="homeRow">
+    <h2>Create</h2>
 
-<h4>Song</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Song</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DisplayTitle" class="control-label"></label>
-                <input asp-for="DisplayTitle" class="form-control" />
-                <span asp-validation-for="DisplayTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="WithBacking" /> @Html.DisplayNameFor(model => model.WithBacking)
-                    </label>
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", style = "width: 100%; max-width: 100%;" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                 </div>
             </div>
+
             <div class="form-group">
-                <label asp-for="Info" class="control-label"></label>
-                <input asp-for="Info" class="form-control" />
-                <span asp-validation-for="Info" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TextLanguage" class="control-label"></label>
-                <select asp-for="TextLanguage" class="form-control"></select>
-                <span asp-validation-for="TextLanguage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="AuthorInTitle" /> @Html.DisplayNameFor(model => model.AuthorInTitle)
-                    </label>
+                @Html.LabelFor(model => model.DisplayTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.EditorFor(model => model.DisplayTitle, new { htmlAttributes = new { @class = "form-control", style = "width: 100%; max-width: 100%;" } })
+                    @Html.ValidationMessageFor(model => model.DisplayTitle, "", new { @class = "text-danger" })
                 </div>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <div class="control-label col-md-2">
+                    @Html.Label("Author")
+                </div>
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.DropDownList("Authors", null, htmlAttributes: new { @class = "form-control" })
+                </div>
             </div>
-        </form>
+
+            <div class="form-group" style="display:none" id="author2">
+                <div class="control-label col-md-2">
+                    @Html.Label("Author2")
+                </div>
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.DropDownList("Authors2", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group" style="display:none" id="author3">
+                <div class="control-label col-md-2">
+                    @Html.Label("Author3")
+                </div>
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.DropDownList("Authors3", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-10">
+                    <div>
+                        <button type="button" class="btn-success" onclick="addAuthorField()" id="addAuthorBtn" style="width:160px;">Dodaj autora</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn-danger" onclick="removeAuthorField()" id="removeAuthorBtn" style="display:none; width:160px;">Usuń autora</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="control-label col-md-2">
+                    @Html.Label("Categories")
+                </div>
+
+                @for (int i = 0; i < ViewBag.CategoriesAmount; i++)
+                {
+                    if (i != 0 && i % 5 == 0)
+                    {
+                    @:</div>
+                    @:<div class="row">
+                        @:<div class="col-md-2"></div>
+                    }
+
+                    string s = "Category-" + @ViewBag.Categories[i].CategoryID;
+                    <div class="form-group col-md-2" style="margin-left: 10px;">
+                        <label class="container2">
+                            @ViewBag.Categories[i].Name
+                            <input class="form-control myCheckBox" type="checkbox" name=@s id="@ViewBag.Categories[i].Name" value="@ViewBag.Categories[i].Name">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                }
+            </div>
+            <hr />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.WithBacking, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top:7px">
+                    <label class="container2">
+                        @Html.EditorFor(model => model.WithBacking)
+                        <span class="checkmark"></span>
+                    </label>
+                    @Html.ValidationMessageFor(model => model.WithBacking, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Info, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.EditorFor(model => model.Info, new { htmlAttributes = new { @class = "form-control", style = "width: 100%; max-width: 100%;" } })
+                    @Html.ValidationMessageFor(model => model.Info, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TextLanguage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.DropDownListFor(m => m.TextLanguage, Html.GetEnumSelectList(Model.GetType()), htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AuthorInTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10" style="margin-top:7px">
+                    <label class="container2">
+                        @Html.EditorFor(model => model.AuthorInTitle)
+                        <span class="checkmark"></span>
+                    </label>
+                    @Html.ValidationMessageFor(model => model.AuthorInTitle, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<script type="text/javascript">
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    $(document).ready(function () {
+        $("#Authors2").val("----");
+        $("#Authors3").val("----");
+    });
+
+    function addAuthorField() {
+        var author2display = $("#author2").css('display');
+        var author3display = $("#author3").css('display');
+
+        if (author2display == 'none') {
+            $("#author2").slideToggle("slow");
+            $("#removeAuthorBtn").slideToggle("slow");
+
+        }
+        else if (author3display == 'none') {
+            $("#author3").slideToggle("slow");
+            $("#addAuthorBtn").slideToggle("slow");
+        }
+    }
+
+    function removeAuthorField() {
+        var author2display = $("#author2").css('display');
+        var author3display = $("#author3").css('display');
+
+        if (!(author3display == 'none')) {
+            $("#author3").slideToggle("slow");
+            $("#addAuthorBtn").slideToggle("slow");
+            $("#Authors3").val("----");
+        }
+        else if (!(author2display == 'none')) {
+            $("#author2").slideToggle("slow");
+            $("#removeAuthorBtn").slideToggle("slow");
+            $("#Authors2").val("----");
+        }
+    }
+
+</script>
+
+

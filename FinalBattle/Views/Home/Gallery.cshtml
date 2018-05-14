@@ -1,0 +1,27 @@
+﻿@model IEnumerable<FinalBattle.Models.Photo>
+
+@{
+    ViewBag.Title = "Gallery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="homeRow">
+    <div class="row" style="margin-bottom: 15px">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            if (i != 0 && i % 4 == 0)
+            {
+                @:</div>
+                @:<div class="row" style="margin-bottom: 15px">
+            }
+
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <a href="@Model.ElementAt(i).Path" data-lightbox="gallery">
+                        <img src="@Model.ElementAt(i).Path" />
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

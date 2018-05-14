@@ -33,54 +33,26 @@ namespace FinalBattle.Migrations
 
 
             #region users
-            var passwordHash = new SHA256Managed();
-            ApplicationUser u = new ApplicationUser();
-            u.Email = "tomasz.suchwalko@gmail.com";
-            u.UserName = "Tomek";
-            u.EmailConfirmed = true;
-            //u.Nick = "slightom";
-            u.PasswordHash = BitConverter.ToString(passwordHash.ComputeHash(Encoding.UTF8.GetBytes("Slightom20p+"))).Replace("-", "").ToLower();
-            u.SecurityStamp = Guid.NewGuid().ToString();
-            context.Users.Add(u);
-            context.SaveChanges();
-            await userManager.AddToRoleAsync(u, "Admin");
-            await userManager.AddToRoleAsync(u, "BandMember");
+            ApplicationUser u =  new ApplicationUser { UserName = "Tomek", Email ="tomasz.suchwalko@gmail.com" };
+            userManager.CreateAsync(u, "Slightom20p+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "Admin").Wait();
+            userManager.AddToRoleAsync(u, "BandMember").Wait();
 
-            u = new ApplicationUser();
-            u.Email = "zwyklyMail@gmail.com";
-            u.UserName = "Stefan";
-            //u.Nick = "slightom";
-            u.EmailConfirmed = true;
-            u.PasswordHash = BitConverter.ToString(passwordHash.ComputeHash(Encoding.UTF8.GetBytes("Stefan20p+"))).Replace("-", "").ToLower();
-            u.SecurityStamp = Guid.NewGuid().ToString();
-            context.Users.Add(u);
-            context.SaveChanges();
-            await userManager.AddToRoleAsync(u, "BandMember");
+            u = new ApplicationUser { UserName = "Stefan", Email = "zwyklyMail@gmail.com" };
+            userManager.CreateAsync(u, "Stefan20p+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "BandMember").Wait();
 
+            u = new ApplicationUser { UserName = "szalonaOla20", Email = "szalonaOla@gmail.com" };
+            userManager.CreateAsync(u, "SzalonaOla20p+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "User").Wait();
 
-
-            u = new ApplicationUser();
-            u.Email = "szalonaOla@gmail.com";
-            u.UserName = "szalonaOla20";
-            //u.Nick = "witek15";
-            u.EmailConfirmed = true;
-            u.PasswordHash = BitConverter.ToString(passwordHash.ComputeHash(Encoding.UTF8.GetBytes("SzalonaOla20p+"))).Replace("-", "").ToLower();
-            u.SecurityStamp = Guid.NewGuid().ToString();
-            context.Users.Add(u);
-            context.SaveChanges();
-            await userManager.AddToRoleAsync(u, "User");
-
-            u = new ApplicationUser();
-            u.Email = "witek15@gmail.com";
-            u.UserName = "witek15";
-            u.EmailConfirmed = true;
-            //u.Nick = "witek15";
-            u.PasswordHash = BitConverter.ToString(passwordHash.ComputeHash(Encoding.UTF8.GetBytes("Witek15p+"))).Replace("-", "").ToLower();
-            u.SecurityStamp = Guid.NewGuid().ToString();
-            context.Users.Add(u);
-            context.SaveChanges();
-            await userManager.AddToRoleAsync(u, "User");
-
+            u = new ApplicationUser { UserName = "witek15", Email = "witek15@gmail.com" };
+            userManager.CreateAsync(u, "Witek15+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "User").Wait();
             #endregion
 
 
@@ -5749,174 +5721,174 @@ namespace FinalBattle.Migrations
 
             Photo photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/remizaJ.PNG";
+            photo.Path = "/images/Gallery/remizaJ.PNG";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/dwl.PNG";
+            photo.Path = "/images/Gallery/dwl.PNG";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos1.jpg";
+            photo.Path = "/images/Gallery/partyPhotos1.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos2.jpg";
+            photo.Path = "/images/Gallery/partyPhotos2.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos3.jpg";
+            photo.Path = "/images/Gallery/partyPhotos3.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos4.jpg";
+            photo.Path = "/images/Gallery/partyPhotos4.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos5.jpg";
+            photo.Path = "/images/Gallery/partyPhotos5.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos6.jpg";
+            photo.Path = "/images/Gallery/partyPhotos6.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos7.jpg";
+            photo.Path = "/images/Gallery/partyPhotos7.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos8.jpg";
+            photo.Path = "/images/Gallery/partyPhotos8.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos9.jpg";
+            photo.Path = "/images/Gallery/partyPhotos9.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos10.jpg";
+            photo.Path = "/images/Gallery/partyPhotos10.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos11.jpg";
+            photo.Path = "/images/Gallery/partyPhotos11.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos12.jpg";
+            photo.Path = "/images/Gallery/partyPhotos12.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos13.jpg";
+            photo.Path = "/images/Gallery/partyPhotos13.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos14.jpg";
+            photo.Path = "/images/Gallery/partyPhotos14.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos15.jpg";
+            photo.Path = "/images/Gallery/partyPhotos15.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos16.jpg";
+            photo.Path = "/images/Gallery/partyPhotos16.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos17.jpg";
+            photo.Path = "/images/Gallery/partyPhotos17.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos18.jpg";
+            photo.Path = "/images/Gallery/partyPhotos18.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos19.jpg";
+            photo.Path = "/images/Gallery/partyPhotos19.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/partyPhotos20.jpg";
+            photo.Path = "/images/Gallery/partyPhotos20.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2018, 01, 01, 03, 30, 0);
-            photo.Path = "/Content/Photos/Gallery/md.jpg";
+            photo.Path = "/images/Gallery/md.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             photo = new Photo();
             photo.DateCreated = new DateTime(2017, 12, 31, 22, 00, 0);
-            photo.Path = "/Content/Photos/Gallery/sylw2.jpg";
+            photo.Path = "/images/Gallery/sylw2.jpg";
             context.Photos.Add(photo);
             context.SaveChanges();
 
             PlacePhoto pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/Content/Photos/Gallery/remizaJ.PNG").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/remizaJ.PNG").Select(y => y.PhotoID).FirstOrDefault();
             pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
             context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
             pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/Content/Photos/Gallery/dwl.PNG").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/dwl.PNG").Select(y => y.PhotoID).FirstOrDefault();
             pp.PlaceID = context.Places.Where(x => x.Name == "Sala Weselna Łapińscy").Select(y => y.PlaceID).FirstOrDefault();
             context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
             pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/Content/Photos/Gallery/sylw2.jpg").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/sylw2.jpg").Select(y => y.PhotoID).FirstOrDefault();
             pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
             context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
             pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/Content/Photos/Gallery/md.jpg").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/md.jpg").Select(y => y.PhotoID).FirstOrDefault();
             pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
             context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
             pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/Content/Photos/Gallery/partyPhotos16.jpg").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/partyPhotos16.jpg").Select(y => y.PhotoID).FirstOrDefault();
             pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
             context.PlacePhotos.Add(pp);
             context.SaveChanges();

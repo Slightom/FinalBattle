@@ -1,57 +1,83 @@
 ﻿@model FinalBattle.Models.Song
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
+<div class="homeRow">
+    <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Song</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DisplayTitle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DisplayTitle)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WithBacking)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WithBacking)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Info)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Info)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TextLanguage)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TextLanguage)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AuthorInTitle)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AuthorInTitle)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="SongID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Song</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DisplayTitle)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DisplayTitle)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.WithBacking)
+            </dt>
+
+            <dd>
+                <label class="container2">
+                    @Html.DisplayFor(model => model.WithBacking)
+                    <span class="checkmark"></span>
+                </label>
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Info)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Info)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TextLanguage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TextLanguage)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.AuthorInTitle)
+            </dt>
+
+            <dd>
+                <label class="container2">
+                    @Html.DisplayFor(model => model.AuthorInTitle)
+                    <span class="checkmark"></span>
+                </label>
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+
 </div>

@@ -18,7 +18,7 @@
     </environment>
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-    @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
 
@@ -163,16 +163,16 @@
                             <li>@Html.ActionLink("GALERIA", "Gallery", "Home", null, new { @class = "actionLinkClass" })</li>
                             <li>@Html.ActionLink("KONTAKT", "Contact", "Home", null, new { @class = "actionLinkClass" })</li>
                         }
-                        @*@if (!User.Identity.IsAuthenticated)
-                            {
-                                if (User.IsInRole("Admin"))
-                                {
-                                    int newPosts = FinalBattle.Controllers.PostsController.howManyNewPosts();
+                        @if (User.Identity.IsAuthenticated)
+                                {                          
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        int newPosts = FinalBattle.Controllers.PostsController.howManyNewPosts();
                                     <li style="width: auto; height:auto">
                                         <a href="@Url.Action("Index", "Posts")" class="MyProfileLink">
                                             <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size:16px;"></span>
                                             @if (newPosts == 0)
-                                            {
+                            {
                                                 <span id="sumOfNewPosts" style="color:gray;">(0)</span>
                                             }
                                             else
@@ -193,12 +193,12 @@
                                             <li><a href="@Url.Action("Index", "Authors")">Autorzy</a></li>
                                             <li><a href="@Url.Action("Index", "Places")">Miejsca</a></li>
                                             <li><a href="@Url.Action("Index", "Photos")">Zdjęcia</a></li>
-                                            //li><a href="@Url.Action("Index", "Events")">Eventy</a></li>
+                                            @*<li><a href="@Url.Action("Index", "Events")">Eventy</a></li>*@
                                             <li><a href="@Url.Action("Users", "Home")">Users</a></li>
                                         </ul>
                                     </li>
                                 }
-                            }*@
+                            }
                     </ul>
                 </div>
             </div>

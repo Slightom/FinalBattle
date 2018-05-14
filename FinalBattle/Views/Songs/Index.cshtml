@@ -1,65 +1,72 @@
 ﻿@model IEnumerable<FinalBattle.Models.Song>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Title)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DisplayTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.WithBacking)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Info)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TextLanguage)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.AuthorInTitle)
-                </th>
+
+<div class="homeRow">
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-hover table-bordered" style="text-align:center">
+        <tr style="border: solid 1px white;">
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WithBacking)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TextLanguage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuthorInTitle)
+            </th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DisplayTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WithBacking)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Info)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TextLanguage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorInTitle)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SongID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SongID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SongID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayTitle)
+                </td>
+                <td>
+                    <label class="container2">
+                        @Html.DisplayFor(modelItem => item.WithBacking)
+                        <span class="checkmark"></span>
+                    </label>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Info)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TextLanguage)
+                </td>
+                <td>
+                    <label class="container2">
+                        @Html.DisplayFor(modelItem => item.AuthorInTitle)
+                        <span class="checkmark"></span>
+                    </label>
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SongID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.SongID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

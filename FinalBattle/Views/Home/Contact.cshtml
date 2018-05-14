@@ -1,17 +1,33 @@
-﻿@{
-    ViewData["Title"] = "Contact";
+﻿
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="row homeRow">
+    <div class="col-md-2"></div>
+
+    <div class="col-md-5">
+        <div class="homeSliderSquare">
+            <div class="myPanel">
+                <div class="myPanelHead">Skontaktuj się z nami:</div>
+                <div class="myPanelBody">
+                    tel: 517 827 306<br/>
+                    mail: zespoltytanik@gmail.com
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="homeSliderSquare">
+            <img src="~/images/AndrzejR.jpg" />
+            <div class="peopleDescribe">
+                Andrzej<br />-Manager-
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2"></div>
+</div>

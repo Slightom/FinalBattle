@@ -1,0 +1,38 @@
+﻿
+<div class="homeRow">
+
+    @using (Html.BeginForm("CreateUserRole", "Home", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    @Html.Label("User")
+                </div>
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.DropDownList("UserList", null, htmlAttributes: new { @class = "form-control" } )
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="control-label col-md-2">
+                    @Html.Label("Role")
+                </div>
+                <div class="col-md-10" style="margin-top:7px">
+                    @Html.DropDownList("RoleList", null, htmlAttributes: new { @class = "form-control" } )
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn-success" />
+                </div>
+            </div>
+        </div>
+    }
+</div>

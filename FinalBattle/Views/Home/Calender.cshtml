@@ -1,0 +1,399 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row homeRow" id="mainDiv">
+    <div id="calender"></div>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog myModalStyle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span id="eventTitle"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <p id="pDetails"></p>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnEdit" class="btn btn-default btn-sm pull-left" style="margin-right: 5px;">
+                        <span class="glyphicon glyphicon-pencil"></span> Edytuj
+                    </button>
+                    <button id="btnDelete" class="btn btn-default btn-sm pull-left">
+                        <span class="glyphicon glyphicon-remove"></span> Usuń
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalSave" class="modal fade" role="dialog">
+        <div class="modal-dialog myModalStyle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Zapisz wydarzenie</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="col-md-12 form-horizontal">
+                        <input type="hidden" id="hdEventID" value="0" />
+                        <div class="form-group">
+                            <label>Nazwa</label>
+                            <input type="text" id="txtSubject" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Start</label>
+                            <div class="input-group date" id="dtp1" style="color: black;">
+                                <input type="text" id="txtStart" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Koniec</label>
+                            <div class="input-group date" id="dtp2" style="color: black;">
+                                <input type="text" id="txtEnd" class="form-control" />
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Rodzaj wydarzenia</label>
+                            <div class="input-group date" id="eventTypeDiv">
+                                @Html.DropDownList("EventType", null, htmlAttributes: new { @class = "form-control", @onchange = "EventTypeChanged()" })
+                            </div>
+                        </div>
+                        <div class="form-group" id="placeFormGroup">
+                            <label>Miejsce</label>
+                            <div class="input-group date" id="placeDiv">
+                                @Html.DropDownList("Place", null, htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Info</label>
+                            <textarea id="txtDescription" rows="3" class="form-control"></textarea>
+                        </div>
+                        <button type="button" id="btnSave" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myModalGallery" class="modal fade" role="dialog">
+        <div class="modal-dialog myModalStyle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span></span></h4>
+                </div>
+                <div class="modal-body">
+                    <div id="placePhotosGallery">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
+<link href="~/Content/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+@section Scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/fullcalendar.min.js"></script>
+    <script src='~/Scripts/locale-all.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        var selectedEvent = null;
+        $(document).ready(function () {
+
+            var events = [];
+            FetchEventAndRenderCalendar();
+
+            function FetchEventAndRenderCalendar() {
+                events = [];
+                $.ajax({
+                    type: "GET",
+                    url: "/home/GetEvents",
+                    success: function (data) {
+                        $.each(data, function (i, v) {
+                            events.push({
+                                eventID: v.EventModelID,
+                                title: v.Title,
+                                description: v.Info,
+                                eventType: v.EventType,
+                                start: moment(v.Date),
+                                end: moment(v.DateEnd),
+                                color: v.Color,
+                                author: v.UserName,
+                                placeName: v.PlaceName
+                            });
+                        })
+
+                        $('#mainDiv').height(700);
+                        GenerateCalender(events);
+                        $('#mainDiv').css('height', 'auto');
+                        scroll();
+
+                    },
+                    error: function (error) {
+                        alert(error.responseText);
+                    }
+                })
+            }
+
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 440,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    locale: 'pl',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events,
+
+
+                    eventClick: function (calEvent, jsEvent, view) {
+                        selectedEvent = calEvent;
+                        $('#myModal #eventTitle').text(calEvent.title);
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<span style=\"color:black !important\"><b>Start: </b></span>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<span style=\"color:black\"><b>Koniec: </b></span>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                        $description.append($('<p/>').html('<span style=\"color:black\"><b>Info: </b></span>' + calEvent.description));
+                        $description.append($('<p/>').html('<span style=\"color:black\"><b>Typ: </b></span>' + calEvent.eventType));
+                        if (calEvent.eventType == "granie") {
+                            //alert($('#Place').options[calEvent.placeID].text());
+                            $description.append($('<p/>').html('<span style=\"color:black\"><b>Miejsce: </b></span>' + calEvent.placeName + "&nbsp;&nbsp;&nbsp;" +
+                                "<button type=\"button\" class=\"btn btn-default\" style=\"padding: 2px\" onClick=PlacePhotosClicked()>" +
+                                "<span class=\"glyphicon glyphicon-picture\" onClick=></span> zdjęcia" +
+                                "</button>"));
+
+
+                        }
+                        $description.append($('<p/>').html('<span style=\"color:black\"><b>Autor: </b></span>' + calEvent.author));
+
+                        var userIsAdmin = '@HttpContext.Current.User.IsInRole("Admin")';
+                        var userName = "@HttpContext.Current.User.Identity.Name";
+
+                        //alert("userIsAdmin:" + userIsAdmin + " userName:" + userName + " selectedEvent.author:" + selectedEvent.author);
+
+                        if (userName === selectedEvent.author || userIsAdmin === 'True')
+                        {
+                            $('#btnEdit').show();
+                            $('#btnDelete').show();
+                        }
+                        else
+                        {
+                            $('#btnEdit').hide();
+                            $('#btnDelete').hide();
+                        }
+
+                        $('#myModal #pDetails').empty().html($description);
+
+                        $('#myModal').modal();
+                    },
+                    selectable: true,
+                    select: function (start, end) {
+                        selectedEvent = {
+                            eventID: 0,
+                            title: '',
+                            description: '',
+                            start: start,
+                            end: end,
+                            eventType: 'niedostępność',
+                            placeName: 'Remiza w Jaziewie (Jaziewo 47, podlaskie, gmina sztabin)'
+                        }
+                        openAddEditForm();
+                        $('#calendar').fullCalendar('unselect');
+                    }
+                })
+            }
+
+
+            function scroll() {
+                //window.scrollTo(0, 130);
+                $("HTML, BODY").animate({ scrollTop: 130 }, 1000);
+            }
+
+
+            $('#btnEdit').click(function () {
+                //Open modal dialog for edit event
+                openAddEditForm();
+            })
+
+            $('#btnDelete').click(function () {
+                if (selectedEvent != null && confirm('Na pewno chcesz usunąć to wydarzenie?')) {
+                    $.ajax({
+                        type: "POST",
+                        url: '/home/DeleteEvent',
+                        data: { 'eventID': selectedEvent.eventID },
+                        success: function (data) {
+                            if (data.status) {
+                                FetchEventAndRenderCalendar();
+                                $('#myModal').modal('hide');
+                            }
+                        },
+                        error: function () {
+                            alert('Nie udało się usunąć wydarzenia.');
+                        }
+                    })
+                }
+            })
+
+
+            $('#dtp1, #dtp2').datetimepicker({
+                format: 'DD/MM/YYYY HH:mm A'
+            });
+
+
+            function openAddEditForm() {
+                if (selectedEvent != null) {
+                    $('#hdEventID').val(selectedEvent.eventID);
+                    $('#txtSubject').val(selectedEvent.title);
+                    $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+                    $('#txtEnd').val(selectedEvent.end.format('DD/MM/YYYY HH:mm A'));
+                    $('#txtDescription').val(selectedEvent.description);
+                    $('#EventType').val(selectedEvent.eventType);
+                    $('#Place').val(selectedEvent.placeName);
+                    HandlePlaceVisibility();
+                }
+                $('#myModal').modal('hide');
+                $('#myModalSave').modal();
+            }
+
+
+            $('#btnSave').click(function () {
+                //Validation/
+                if ($('#txtSubject').val().trim() == "") {
+                    alert('Nazwa nie może być pusta.');
+                    return;
+                }
+                if ($('#txtStart').val().trim() == "") {
+                    alert('Podaj godzinę rozpoczęcia');
+                    return;
+                }
+                if ($('#EventType option:selected').text() == "granie" && $('#Place option:selected').val() == null) {
+                    alert('wybierz miejsce');
+                    return;
+                }
+                else {
+                    var startDate = moment($('#txtStart').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY HH:mm A").toDate();
+                    if (startDate > endDate) {
+                        alert('Invalid end date');
+                        return;
+                    }
+                }
+
+
+                var s = $('#EventType option:selected').text();
+                var data = {
+                    EventModelID: $('#hdEventID').val(),
+                    Title: $('#txtSubject').val().trim(),
+                    Date: $('#txtStart').val().trim(),
+                    DateEnd: $('#txtEnd').val().trim(),
+                    Info: $('#txtDescription').val(),
+                    EventType: s,
+                    PlaceName: $('#Place option:selected').val()
+                }
+                SaveEvent(data);
+                // call function for submit data to the server
+            })
+
+
+            function SaveEvent(data) {
+                $.ajax({
+                    type: "POST",
+                    url: '/home/SaveEvent',
+                    data: data,
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            FetchEventAndRenderCalendar();
+                            $('#myModalSave').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Failed');
+                    }
+                })
+            }
+
+        })
+
+        function EventTypeChanged() {
+            if ($('#EventType option:selected').text() == "granie") {
+                $('#placeFormGroup').show(1000);
+            }
+            else {
+                $('#placeFormGroup').hide(1000);
+            }
+        }
+
+        function HandlePlaceVisibility() {
+            if ($('#EventType option:selected').text() == "granie") {
+                $('#placeFormGroup').show();
+            }
+            else {
+                $('#placeFormGroup').hide();
+            }
+        }
+
+        var placePhotos = [];
+        function PlacePhotosClicked() {
+            $.ajax({
+                type: "GET",
+                url: "/home/GetPlacePhotos",
+                data: { 'placeNameAddress': selectedEvent.placeName },
+                success: function (data) {
+
+                    placePhotos = [];
+                    $.each(data, function (i, v) {
+                        placePhotos.push({
+                            photoID: v.PhotoID,
+                            path: v.Path
+                        });
+
+                        var $gallery = $('#placePhotosGallery');
+                        var i;
+                        $gallery.empty();
+                        $gallery.append("<div>");
+                        for (i = 0; i < placePhotos.length; ++i) {
+                            $gallery.append("<div class=\"thumbnail\">" +
+                                "<a href=\"" + placePhotos[i].path + "\" data-lightbox=\"gallery\" >" +
+                                "<img src=\"" + placePhotos[i].path + "\">" +
+                                "</a></div>");
+                        };
+                        $gallery.append("</div>");
+                        $('#myModalGallery').modal();
+                    })
+
+                },
+                error: function (error) {
+                    alert(error.responseText);
+                }
+            })
+        }
+
+    </script>
+}

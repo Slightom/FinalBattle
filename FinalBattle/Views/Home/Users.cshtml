@@ -1,0 +1,35 @@
+﻿@model IEnumerable<FinalBattle.Models.Helperek>
+
+<div class="homeRow">
+    <p>
+        @Html.ActionLink("Create New User Role", "CreateUserRole")
+    </p>
+    <table class="table table-hover table-bordered" style="text-align:center">
+        <tr style="border: solid 1px white;">
+            <th>
+                @Html.DisplayNameFor(model => model.userName)
+            </th>
+            <th>
+                Role
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.roleName)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "DeleteUserRole", new { userID = item.userID, roleName = item.roleName })
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>

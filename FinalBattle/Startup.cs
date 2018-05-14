@@ -20,6 +20,7 @@ namespace FinalBattle
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            GlobalData.connectionString = Configuration.GetConnectionString("DefaultConnection");
         }
 
         public IConfiguration Configuration { get; }
