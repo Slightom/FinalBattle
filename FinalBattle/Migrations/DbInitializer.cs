@@ -20,7 +20,7 @@ namespace FinalBattle.Migrations
 
            
 
-            //DeleteAllRecords(context);
+            DeleteAllRecords(context);
 
             // Look for any students.
             if (context.Songs.Any())
@@ -4494,7 +4494,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Biorę urlop od Ciebie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4504,7 +4504,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Czekam na Ciebie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4514,7 +4514,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Kochana wierzę w miłość").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4524,7 +4524,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Królowa nocy").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Królowa nocy INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - Królowa nocy INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Królowa nocy INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4534,7 +4534,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Prawdziwa miłość to Ty").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4544,7 +4544,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Przekorny los").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Przekorny los INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - Przekorny los INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Przekorny los INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4554,7 +4554,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Przez Twe oczy zielone").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4564,7 +4564,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Sonet dla miłości").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4574,7 +4574,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Taką Cię Wyśniłem").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4584,7 +4584,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "W sercu mi graj").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - W sercu mi graj INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Akcent - W sercu mi graj INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - W sercu mi graj INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4594,7 +4594,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Życie to są chwile").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4604,7 +4604,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Chodź, Przytul, Przebacz").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Andrzej Piaseczny - Chodź, Przytul, Przebacz INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Andrzej Piaseczny - Chodź, Przytul, Przebacz INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Andrzej Piaseczny - Chodź, Przytul, Przebacz INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4614,7 +4614,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Nie liczę godzin i lat").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
+            b.Path = "/Music/Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4624,7 +4624,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Moje jedyne marzenie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
-            b.Path = "/Content/Backings/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
+            b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4634,7 +4634,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Moje jedyne marzenie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
-            b.Path = "/Content/Backings/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
+            b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4644,7 +4644,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Bogini niepojęta").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
+            b.Path = "/Music/Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4654,7 +4654,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "No 1. Parthy anthem").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Arctic Monkeys - No.1 Party anthem INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Arctic Monkeys - No.1 Party anthem INSTRUMENTAL ^.mp3";
+            b.Path = "/Music/Arctic Monkeys - No.1 Party anthem INSTRUMENTAL ^.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4665,7 +4665,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "You're a woman, I'm a man").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Bad Boys Blue - You're a woman, I'm a man INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Bad Boys Blue - You're a woman, I'm a man INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Bad Boys Blue - You're a woman, I'm a man INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4675,7 +4675,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Cyganeczka Zosia").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Cyganeczka Zosia INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Cyganeczka Zosia INSTRUMENTAL.mp3";
+            b.Path = "/Music/Cyganeczka Zosia INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4685,7 +4685,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Rudy się żeni").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
+            b.Path = "/Music/Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4695,7 +4695,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Bombonierka").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Bombonierka INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Bombonierka INSTRUMENTALL.mp3";
+            b.Path = "/Music/Bombonierka INSTRUMENTALL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4705,7 +4705,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Moja Kochana").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Boys - Moja Kochana INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Boys - Moja Kochana INSTRUMENTAL.mp3";
+            b.Path = "/Music/Boys - Moja Kochana INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4715,7 +4715,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Za szkłem").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Bracia - Za szkłem INSTRUMENTAL v3.mp3";
-            b.Path = "/Content/Backings/Bracia - Za szkłem INSTRUMENTAL v3.mp3";
+            b.Path = "/Music/Bracia - Za szkłem INSTRUMENTAL v3.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4725,7 +4725,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Let's Twist Again").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Chubby Checker - Let's Twist Again INSTRUMENTAL v2 MONIKA.mp3";
-            b.Path = "/Content/Backings/Chubby Checker - Let's Twist Again INSTRUMENTAL v2 MONIKA.mp3";
+            b.Path = "/Music/Chubby Checker - Let's Twist Again INSTRUMENTAL v2 MONIKA.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4735,7 +4735,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Let's Twist Again").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Chubby Checker - Let's Twist Again INSTRUMENTAL BETTER v5 Tomek.mp3";
-            b.Path = "/Content/Backings/Chubby Checker - Let's Twist Again INSTRUMENTAL BETTER v5 Tomek.mp3";
+            b.Path = "/Music/Chubby Checker - Let's Twist Again INSTRUMENTAL BETTER v5 Tomek.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4745,7 +4745,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Moje ciało oszalało").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
+            b.Path = "/Music/Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4755,7 +4755,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Wezmę Cię ze sobą").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4765,7 +4765,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "This Year's Love").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "David Gray - This Year's Love INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/David Gray - This Year's Love INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/David Gray - This Year's Love INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4775,7 +4775,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Zakochane Oczy").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4785,7 +4785,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Dumka na dwa serca").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Dumka na dwa serca INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Dumka na dwa serca INSTRUMENTAL.mp3";
+            b.Path = "/Music/Dumka na dwa serca INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4795,7 +4795,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Do kołyski").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Dżem - Do kołyski INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Dżem - Do kołyski INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Dżem - Do kołyski INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4805,7 +4805,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "September").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = true;
             context.Backings.Add(b);
@@ -4815,7 +4815,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Always on my mind").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
+            b.Path = "/Music/Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4825,7 +4825,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Burning Love").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4835,7 +4835,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Can't help falling in love").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
-            b.Path = "/Content/Backings/Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
+            b.Path = "/Music/Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4845,7 +4845,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Kamień z napisem Love").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
-            b.Path = "/Content/Backings/Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
+            b.Path = "/Music/Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4855,7 +4855,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Skrzydlate ręce").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4865,7 +4865,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Flames of love").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Fancy - Flames of love INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Fancy - Flames of love INSTRUMENTAL.mp3";
+            b.Path = "/Music/Fancy - Flames of love INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4875,7 +4875,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "My way").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Frank Sinatra - My way INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Frank Sinatra - My way INSTRUMENTAL.mp3";
+            b.Path = "/Music/Frank Sinatra - My way INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4885,7 +4885,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Uno Paloma Blanca").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
+            b.Path = "/Music/George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4895,7 +4895,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Pędzą konie po betonie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4905,7 +4905,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Pieniądze to nie wszystko").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4915,7 +4915,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Ściernisko").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4925,7 +4925,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Słodycze").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4935,7 +4935,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Życie jest muzyką").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
-            b.Path = "/Content/Backings/Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4945,7 +4945,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "21 guns").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Green Day - 21 guns INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Green Day - 21 guns INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Green Day - 21 guns INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4955,7 +4955,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Stray heart").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Green Day - Stray heart INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Green Day - Stray heart INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Green Day - Stray heart INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4965,7 +4965,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Niebieska piosenka").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
+            b.Path = "/Music/Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4975,7 +4975,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Ballada Boa").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
+            b.Path = "/Music/Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4985,7 +4985,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Razem a jednak osobno").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
+            b.Path = "/Music/Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -4995,7 +4995,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Zawsze z Tobą chciałbym być").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5005,7 +5005,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Kolorowe jarmarki").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
-            b.Path = "/Content/Backings/Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
+            b.Path = "/Music/Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5015,7 +5015,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Siedem dziewcząt z Albatrosa").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5025,7 +5025,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Bo z dziewczynami").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5035,7 +5035,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Będziesz moja").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5045,7 +5045,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Intryguj, uwodź, prowokuj mnie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
-            b.Path = "/Content/Backings/Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5055,7 +5055,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Ja chcę mieć żonę").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5065,7 +5065,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Kiedy patrzę na Nią").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5075,7 +5075,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Mama ci mówiła").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Mama ci mówiła INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Jorrgus - Mama ci mówiła INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Mama ci mówiła INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5085,7 +5085,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Niebezpieczna").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5095,7 +5095,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Piękna Nieznajoma").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Piękna Nieznajoma INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Jorrgus - Piękna Nieznajoma INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Jorrgus - Piękna Nieznajoma INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5105,7 +5105,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Black and white").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Kombi - Black nad white INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Kombi - Black nad white INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Kombi - Black nad white INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5115,7 +5115,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Słodkiego miłego życia").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5125,7 +5125,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Chciałem być").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
-            b.Path = "/Content/Backings/Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
+            b.Path = "/Music/Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5135,7 +5135,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Zatańczysz ze mną").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
+            b.Path = "/Music/Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5145,7 +5145,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Zawsze tam, gdzie Ty").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5155,7 +5155,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Hello").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Lionel Richie - Hello INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Lionel Richie - Hello INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Lionel Richie - Hello INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5165,7 +5165,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Dwudziestolatki").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
+            b.Path = "/Music/Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5175,7 +5175,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Zuza").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mamzel - Zuza INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mamzel - Zuza INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mamzel - Zuza INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5185,7 +5185,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Dni, których nie znamy").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Marek Grechuta - Dni, których  nie znamy.mp3";
-            b.Path = "/Content/Backings/Marek Grechuta - Dni, których  nie znamy.mp3";
+            b.Path = "/Music/Marek Grechuta - Dni, których  nie znamy.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5195,7 +5195,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Moja dumka").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
-            b.Path = "/Content/Backings/Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
+            b.Path = "/Music/Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5205,7 +5205,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Żono moja").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Masters - Żono moja INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Masters - Żono moja INSTRUMENTAL.mp3";
+            b.Path = "/Music/Masters - Żono moja INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5215,7 +5215,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Ai se ue te pego").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
+            b.Path = "/Music/Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5225,7 +5225,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Będę przy Tobie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5235,7 +5235,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Dziewczyna z sąsiedniej ulicy").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5245,7 +5245,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Jej dotyk").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Jej dotyk INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Jej dotyk INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Jej dotyk INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5255,7 +5255,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Lalunia").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Lalunia INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Mig - Lalunia INSTRUMENTAL.mp3";
+            b.Path = "/Music/Mig - Lalunia INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5265,7 +5265,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Miód malina").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Miód malina  INSTRUMENATL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Miód malina  INSTRUMENATL v1.mp3";
+            b.Path = "/Music/Mig - Miód malina  INSTRUMENATL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5275,7 +5275,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Nie ma mocnych na Mariolę").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5285,7 +5285,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Ona jedyna").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Ona jedyna INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Ona jedyna INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Ona jedyna INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5295,7 +5295,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Słodka wariatka").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Słodka wariatka INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Mig - Słodka wariatka INSTRUMENTAL.mp3";
+            b.Path = "/Music/Mig - Słodka wariatka INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5305,7 +5305,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Ta malutka blondynka").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5315,7 +5315,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Wymarzona").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Wymarzona INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Mig - Wymarzona INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Wymarzona INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5325,7 +5325,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Mario Magdaleno").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5335,7 +5335,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Niewiara").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
-            b.Path = "/Content/Backings/Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
+            b.Path = "/Music/Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5345,7 +5345,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Bałkanica").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
-            b.Path = "/Content/Backings/Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
+            b.Path = "/Music/Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5355,7 +5355,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Konstelacje").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Pin - Konstelacje INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Pin - Konstelacje INSTRUMENTAL.mp3";
+            b.Path = "/Music/Pin - Konstelacje INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5365,7 +5365,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Kochać, jak to łatwo powiedzieć").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5375,7 +5375,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Goniąc Kormorany").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piotr Szczepanik - Goniąc Kormorany INSTRUMENTAL ^2.mp3";
-            b.Path = "/Content/Backings/Piotr Szczepanik - Goniąc Kormorany INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Piotr Szczepanik - Goniąc Kormorany INSTRUMENTAL ^2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5385,7 +5385,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Byłaś dla mnie wszystkim").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
-            b.Path = "/Content/Backings/Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5395,7 +5395,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Kawałek do tańca").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5405,7 +5405,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Okrutna, zła i podła").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5415,7 +5415,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Wezmę Cię").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
-            b.Path = "/Content/Backings/Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5425,7 +5425,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Okrutna, zła i podła").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5435,7 +5435,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Wezmę Cię").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
-            b.Path = "/Content/Backings/Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5445,7 +5445,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Oczy szmaragdowe").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
+            b.Path = "/Music/Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5455,7 +5455,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Każdy swoje 10 minut ma").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5465,7 +5465,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Nagroda za odwagę").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5475,7 +5475,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Najpiękniejsza").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5485,7 +5485,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Nie mówmy o zmartwieniach").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5495,7 +5495,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Uciekaj moje serce").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5505,7 +5505,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Wielka miłość").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5515,7 +5515,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Uciekaj moje serce").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5525,7 +5525,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Wielka miłość").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5535,7 +5535,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Give me your heart tonight").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
-            b.Path = "/Content/Backings/Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5545,7 +5545,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Może ze mną zatańczysz").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
+            b.Path = "/Music/Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5555,7 +5555,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Prześliczna wiolonczelistka").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5565,7 +5565,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Wierniejsza od marzenia").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
+            b.Path = "/Music/Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5575,7 +5575,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Aneta").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Sławomir - Aneta INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Sławomir - Aneta INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Sławomir - Aneta INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5585,7 +5585,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Miłość w Zakopanem").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
+            b.Path = "/Music/Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5595,7 +5595,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "YMCA").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Village People - YMCA INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Village People - YMCA INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Village People - YMCA INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5605,7 +5605,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Ona tańczy dla mnie").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
-            b.Path = "/Content/Backings/Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
@@ -5615,7 +5615,7 @@ namespace FinalBattle.Migrations
             sid = context.Songs.Where(x => x.Title == "Baśka").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Wilki - Baśka INSTRUMENTAL.mp3";
-            b.Path = "/Content/Backings/Wilki - Baśka INSTRUMENTAL.mp3";
+            b.Path = "/Music/Wilki - Baśka INSTRUMENTAL.mp3";
             b.SongID = sid;
             b.MainBacking = false;
             context.Backings.Add(b);
