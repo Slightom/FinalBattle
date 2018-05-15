@@ -79,7 +79,7 @@ namespace FinalBattle.Controllers
         // POST: Backings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost("UploadFiles")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind("BackingID", "Name", "SongID", "BackingStatus", "MainBacking", "Path")] Backing backing)
         {
@@ -90,6 +90,7 @@ namespace FinalBattle.Controllers
                 {
                     var fileName = string.Empty;
                     var newFileName = string.Empty;
+                    var filePath = string.Empty;
                     string PathDB = string.Empty;
 
                     var file = HttpContext.Request.Form.Files[0];
@@ -99,27 +100,20 @@ namespace FinalBattle.Controllers
                         //Getting FileName
                         fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
-                        //Assigning Unique Filename (Guid)
-                        var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                        //Getting file Extension
-                        var FileExtension = Path.GetExtension(fileName);
-
-                        // concating  FileName + FileExtension
-                        newFileName = myUniqueFileName + FileExtension;
-
                         // Combines two strings into a path.
-                        fileName = Path.Combine(_hostingEnvironment.WebRootPath, "Music") + $@"\{newFileName}";
+                        filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Music\\" + fileName);
 
                         // if you want to store path of folder in database
-                        PathDB = "Music/" + newFileName;
+                        PathDB = "/Music/" + fileName;
 
-                        using (FileStream fs = System.IO.File.Create(fileName))
+                        using (FileStream fs = System.IO.File.Create(filePath))
                         {
                             file.CopyTo(fs);
                             fs.Flush();
                         }
 
+                        backing.Name = fileName;
+                        backing.Path = PathDB;
                         db.Backings.Add(backing);
                         db.SaveChanges();
                         return RedirectToAction("Index");

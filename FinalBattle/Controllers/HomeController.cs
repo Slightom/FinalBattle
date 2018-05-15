@@ -303,7 +303,7 @@ namespace FinalBattle.Controllers
         [Authorize(Roles = "BandMember")]
         public JsonResult GetEvents()
         {
-            List<EventModel> list = new List<EventModel>();
+            IList<EventModel> list = new List<EventModel>();
             EventModel em;
 
             foreach (var e in db.Events.Include(x => x.User))
@@ -329,6 +329,8 @@ namespace FinalBattle.Controllers
                 list.Add(em);
 
             }
+
+            var wq = Json(list);
 
             return Json(list);
         }
@@ -446,25 +448,32 @@ namespace FinalBattle.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> UsersAsync()
+        public ActionResult Users()
         {
             List<Helperek> userRoles = new List<Helperek>();
             string roleName;
             Helperek h;
-            ApplicationUser logged = (await _userManager.GetUserAsync(HttpContext.User));
+            ApplicationUser logged = db.Users.Where(x => x.UserName == User.Identity.Name).FirstOrDefault();
             var roles = _roleManager.Roles.ToList();
             var users = db.Users.Include(x => x.Roles).ToList();
+            
 
 
             foreach (var u in users)
             {
-                foreach (var r in u.Roles)
+                var userRolesId = db.UserRoles.Where(x => x.UserId == u.Id).Select(p=>p.RoleId);
+                List<IdentityRole> userRoles2 = new List<IdentityRole>();
+                foreach(var uri in userRolesId)
                 {
-                    roleName = roles.Where(x => x.Id == r.RoleId).FirstOrDefault().Name;
+                    userRoles2.Add(db.Roles.Find(uri));
+                }
+                foreach (var r in userRoles2)
+                {
+                    roleName = r.Name;
                     h = new Helperek();
                     h.userID = u.Id;
                     h.userName = u.UserName;
-                    h.roleID = r.RoleId;
+                    h.roleID = r.Id;
                     h.roleName = roleName;
 
                     userRoles.Add(h);
@@ -498,13 +507,15 @@ namespace FinalBattle.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult CreateUserRole(FormCollection fc)
+        public ActionResult CreateUserRole(IFormCollection fc)
         {
             string userID = fc["UserList"].ToString();
             string roleName = fc["RoleList"].ToString();
 
-           _userManager.AddToRoleAsync(db.Users.Find(userID), roleName);
+            ApplicationUser au = db.Users.Find(userID);
+           _userManager.AddToRoleAsync(au, roleName).Wait();
 
+            db.SaveChanges();
             return RedirectToAction("Users");
         }
 
@@ -521,7 +532,7 @@ namespace FinalBattle.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteUserRole(string userID, string roleName)
         {
-            _userManager.RemoveFromRoleAsync(db.Users.Find(userID), roleName);
+            _userManager.RemoveFromRoleAsync(db.Users.Find(userID), roleName).Wait();
 
             return RedirectToAction("Users");
         }

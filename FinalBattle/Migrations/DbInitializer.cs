@@ -20,7 +20,7 @@ namespace FinalBattle.Migrations
 
            
 
-            DeleteAllRecords(context);
+            //DeleteAllRecords(context);
 
             // Look for any students.
             if (context.Songs.Any())

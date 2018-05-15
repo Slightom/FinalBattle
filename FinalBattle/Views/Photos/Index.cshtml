@@ -1,0 +1,50 @@
+﻿@model IEnumerable<FinalBattle.Models.Photo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="homeRow">
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Add new Photo", "Create")
+    </p>
+    <table class="table table-hover table-bordered" style="text-align:center">
+        <tr style="border: solid 1px white;">
+            <th>
+                @Html.DisplayNameFor(model => model.Path)
+            </th>
+            <th>
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Path)
+                </td>
+                <td>
+                    <div class="thumbnail">
+                        <img src="@item.Path" />
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PhotoID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PhotoID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

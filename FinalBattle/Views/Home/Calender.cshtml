@@ -105,15 +105,15 @@
 </div>
 
 
-<link href="~/Content/fullcalendar.min.css" rel="stylesheet" />
-<link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
-<link href="~/Content/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="~/css/fullcalendar.css" rel="stylesheet" />
+<link href="~/css/fullcalendar.print.min.css" rel="stylesheet" media="print" />
+<link href="~/css/fullcalendar.min.css" rel="stylesheet" media="print" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
 @section Scripts{
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/fullcalendar.min.js"></script>
-    <script src='~/Scripts/locale-all.js'></script>
+    <script src="~/js/moment.min.js"></script>
+    <script src="~/js/fullcalendar.min.js"></script>
+    <script src='~/js/locale-all.js'></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
     <script>
@@ -130,16 +130,17 @@
                     url: "/home/GetEvents",
                     success: function (data) {
                         $.each(data, function (i, v) {
+                            console.log(v);
                             events.push({
-                                eventID: v.EventModelID,
-                                title: v.Title,
-                                description: v.Info,
-                                eventType: v.EventType,
-                                start: moment(v.Date),
-                                end: moment(v.DateEnd),
-                                color: v.Color,
-                                author: v.UserName,
-                                placeName: v.PlaceName
+                                eventID: v.eventModelID,
+                                title: v.title,
+                                description: v.info,
+                                eventType: v.eventType,
+                                start: moment(v.date),
+                                end: moment(v.dateEnd),
+                                color: v.color,
+                                author: v.userName,
+                                placeName: v.placeName
                             });
                         })
 
@@ -192,8 +193,8 @@
                         }
                         $description.append($('<p/>').html('<span style=\"color:black\"><b>Autor: </b></span>' + calEvent.author));
 
-                        var userIsAdmin = '@HttpContext.Current.User.IsInRole("Admin")';
-                        var userName = "@HttpContext.Current.User.Identity.Name";
+                        var userIsAdmin = '@User.IsInRole("Admin")';
+                        var userName = "@User.Identity.Name";
 
                         //alert("userIsAdmin:" + userIsAdmin + " userName:" + userName + " selectedEvent.author:" + selectedEvent.author);
 
@@ -370,8 +371,8 @@
                     placePhotos = [];
                     $.each(data, function (i, v) {
                         placePhotos.push({
-                            photoID: v.PhotoID,
-                            path: v.Path
+                            photoID: v.photoID,
+                            path: v.path
                         });
 
                         var $gallery = $('#placePhotosGallery');
