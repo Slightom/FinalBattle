@@ -431,8 +431,19 @@ iframe {
 }
 
 .MyProfileLink {
-    color: grey !important;
+    /*color: grey !important;*/
 }
+
+    .MyProfileLink:hover {
+        text-decoration: underline !important;
+        background-color: #ffe911 !important;
+        color: #303030 !important;
+    }
+
+    .MyProfileLink:active {
+        text-decoration: underline !important;
+        border: none;
+    }
 
 audio {
     width: 100%;

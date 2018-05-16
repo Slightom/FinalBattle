@@ -286,11 +286,11 @@ namespace FinalBattle.Controllers
         }
         #endregion
 
-        public async Task<string> PostPopupAsync(string postText)
+        public string PostPopup(string postText)
         {
             Post p = new Post();
             p.Date = DateTime.Now;
-            p.ApplicationUserID = (await _userManager.GetUserAsync(HttpContext.User))?.Id;
+            p.ApplicationUserID = _userManager.GetUserId(HttpContext.User);
             p.Status = Enums.PostStatusEnum.New;
             p.Text = postText;
 
@@ -298,6 +298,27 @@ namespace FinalBattle.Controllers
             db.SaveChanges();
 
             return "Dziękujęmy za napisanie opinii na nasz temat ;) Pojawi się ona na stronie po akceptacji administratora.";
+        }
+
+        static public Boolean DidNotWritePostYet(string userName)
+        {
+
+            var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            builder.UseSqlServer(GlobalData.connectionString);
+
+            var _context = new ApplicationDbContext(builder.Options);
+
+            string uid = _context.Users.Where(p => p.UserName == userName).Select(c => c.Id).FirstOrDefault();
+
+            foreach(var p in _context.Posts)
+            {
+                if(p.ApplicationUserID == uid)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         [Authorize(Roles = "BandMember")]

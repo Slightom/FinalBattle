@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-FinalBattle-5CE19D14-4EA6-4A96-B051-8CE35E67FAEA</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />

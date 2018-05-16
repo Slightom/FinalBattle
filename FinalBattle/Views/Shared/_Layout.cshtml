@@ -47,7 +47,7 @@
             //    document.getElementById('navigationWrapper').setAttribute("style", "height:" + newHeight + "px");
             //});
 
-            
+
             if (location.pathname != "/")
             {
                 $("a[href='" + location.pathname + "']").addClass("activeLink");
@@ -164,41 +164,50 @@
                             <li>@Html.ActionLink("KONTAKT", "Contact", "Home", null, new { @class = "actionLinkClass" })</li>
                         }
                         @if (User.Identity.IsAuthenticated)
-                                {                          
-                                    if (User.IsInRole("Admin"))
-                                    {
-                                        int newPosts = FinalBattle.Controllers.PostsController.howManyNewPosts();
-                                    <li style="width: auto; height:auto">
-                                        <a href="@Url.Action("Index", "Posts")" class="MyProfileLink">
-                                            <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size:16px;"></span>
-                                            @if (newPosts == 0)
+                        {
+                            if (User.IsInRole("Admin"))
                             {
-                                                <span id="sumOfNewPosts" style="color:gray;">(0)</span>
-                                            }
-                                            else
-                                            {
-                                                <span id="sumOfNewPosts" style="color:red">(@newPosts)</span>
-                                            }
-                                        </a>
-                                    </li>
+                                int newPosts = FinalBattle.Controllers.PostsController.howManyNewPosts();
+                                <li style="width: auto; height:auto">
+                                    <a href="@Url.Action("Index", "Posts")" class="MyProfileLink">
+                                        <span class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size:16px;"></span>
+                                        @if (newPosts == 0)
+                                        {
+                                            <span id="sumOfNewPosts" style="color:gray;">(0)</span>
+                                        }
+                                        else
+                                        {
+                                            <span id="sumOfNewPosts" style="color:red">(@newPosts)</span>
+                                        }
+                                    </a>
+                                </li>
 
-                                    <li class="dropdown" style="width:auto; height:auto;">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                            <span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size:16px;"></span>Zarządzaj<span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="@Url.Action("Index", "Songs")">Utwory</a></li>
-                                            <li><a href="@Url.Action("Index", "Backings")">Podkłady</a></li>
-                                            <li><a href="@Url.Action("Index", "Categories")">Kategorie</a></li>
-                                            <li><a href="@Url.Action("Index", "Authors")">Autorzy</a></li>
-                                            <li><a href="@Url.Action("Index", "Places")">Miejsca</a></li>
-                                            <li><a href="@Url.Action("Index", "Photos")">Zdjęcia</a></li>
-                                            @*<li><a href="@Url.Action("Index", "Events")">Eventy</a></li>*@
-                                            <li><a href="@Url.Action("Users", "Home")">Users</a></li>
-                                        </ul>
-                                    </li>
-                                }
+                                <li class="dropdown" style="width:auto; height:auto;">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <span class="glyphicon glyphicon-cog" aria-hidden="true" style="font-size:16px;"></span>Zarządzaj<span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("Index", "Songs")">Utwory</a></li>
+                                        <li><a href="@Url.Action("Index", "Backings")">Podkłady</a></li>
+                                        <li><a href="@Url.Action("Index", "Categories")">Kategorie</a></li>
+                                        <li><a href="@Url.Action("Index", "Authors")">Autorzy</a></li>
+                                        <li><a href="@Url.Action("Index", "Places")">Miejsca</a></li>
+                                        <li><a href="@Url.Action("Index", "Photos")">Zdjęcia</a></li>
+                                        @*<li><a href="@Url.Action("Index", "Events")">Eventy</a></li>*@
+                                        <li><a href="@Url.Action("Users", "Home")">Users</a></li>
+                                    </ul>
+                                </li>
                             }
+                        }
+
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                        {
+                            <li style="width: auto; height:auto;">
+                                <a href="@Url.Action("UserProfile", "Account")" class="MyProfileLink">
+                                    Mój Profil <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:16px;"></span>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

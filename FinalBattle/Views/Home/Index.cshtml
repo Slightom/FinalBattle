@@ -41,12 +41,21 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <button style="margin-left: 50px; margin-top: 5px; text-align: left;" type="button" class="btn-primary" onclick="showPopup()" id="napiszOpinieBtn">
-                            Napisz Opinię
-                        </button>
+
+                        @if (FinalBattle.Controllers.HomeController.DidNotWritePostYet(User.Identity.Name))
+                        {
+                            <button style="margin-left: 50px; margin-top: 5px; text-align: left;" type="button" class="btn-primary" onclick="showPopup()" id="napiszOpinieBtn">
+                                Napisz Opinię
+                            </button>
+                        }
+                        else
+                        {
+                            <label style=" margin-top:16px; font-size:12px">Już napisałeś opinię o zespole. Przejdź do zakładki @Html.ActionLink("Mój Profil", "UserProfile", "Account") aby sprawdzić status opinii.</label>
+                        }
                     }
                     else
                     {
+
                         <div style="margin-top: 30px;">
                             <p>Aby dodać opinię musisz być zalogowany.</p>
                             <p>
@@ -92,12 +101,10 @@
     }
 
     function report(o) {
-        //alert('jestem');
         var pt = $('#postTextArea').val();
-        //alert(rt);
 
         $.post("/Home/PostPopup", { postText: pt }, function (p) {
-
+            $('#napiszOpinieBtn').hide();
             $('#postPopup').hide("slow", function () {
                 alert(p);
             });
@@ -109,7 +116,7 @@
     }
     $(document).ready(function () {
         $('#postPopup').on('hidden.bs.modal', function () {
-            $('#napiszOpinieBtn').show();
+            //$('#napiszOpinieBtn').show();
         });
     });
 </script>

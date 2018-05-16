@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using FinalBattle.Models;
 using FinalBattle.Models.AccountViewModels;
 using FinalBattle.Services;
+using FinalBattle.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalBattle.Controllers
 {
@@ -20,18 +22,22 @@ namespace FinalBattle.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private RoleManager<IdentityRole> _roleManager;
         public AccountController(
+            ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger,
             RoleManager<IdentityRole> roleManager)
         {
+            db = context;
+
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -248,6 +254,9 @@ namespace FinalBattle.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
+
+                    _userManager.AddToRoleAsync(user, "User").Wait();
+
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -264,6 +273,15 @@ namespace FinalBattle.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        public ActionResult LogOff()
+        {
+            _signInManager.SignOutAsync().Wait();
+            _logger.LogInformation("User logged out.");
+
+            ViewBag.Info = "Zostałeś wylogowany";
+            return RedirectToAction("Login", "Account");
         }
 
         [HttpPost]
@@ -451,6 +469,94 @@ namespace FinalBattle.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+
+        public ActionResult UserProfile()
+        {
+            ApplicationUser au = db.Users.Where(x => x.Id == _userManager.GetUserId(HttpContext.User)).FirstOrDefault();
+            Post p = db.Posts.Where(x => x.ApplicationUserID == au.Id).FirstOrDefault();
+
+            UserProfileViewModel upvm = new UserProfileViewModel();
+
+            string text = p is null ? "" : p.Text;
+            upvm.Id = au.Id;
+            upvm.Nick = au.UserName;
+            upvm.Email = au.Email;
+            upvm.PostText = text;
+            upvm.PostStatus = "";
+            if(p != null)
+            {
+                switch(p.Status)
+                {
+                    case Enums.PostStatusEnum.New:
+                        upvm.PostStatus = "Twoja opinia czeka na akceptację administratora.";
+                        break;
+                    case Enums.PostStatusEnum.Approved:
+                        upvm.PostStatus = "Twoja opinia jest zaakceptowana i jest dostępna na stronie głównej.";
+                        break;
+                    case Enums.PostStatusEnum.Rejected:
+                        upvm.PostStatus = "Twoja opinia czeka na akceptację administratora";
+                        break;
+                }
+            }
+
+            return View(upvm);
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserProfile(UserProfileViewModel upvm)
+        {
+            if (ModelState.IsValid)
+            {
+                ApplicationUser au = db.Users.Where(x => x.Id ==upvm.Id).FirstOrDefault();
+                Post p = db.Posts.Where(x => x.ApplicationUserID == au.Id).FirstOrDefault();
+
+                au.UserName = upvm.Nick;
+                au.Email = upvm.Email;
+                db.Entry(au).State = EntityState.Modified;
+                db.SaveChanges();
+
+                if(p != null)
+                {
+                    p.Text = upvm.PostText;
+                    p.Status = Enums.PostStatusEnum.New;
+                    db.Entry(p).State = EntityState.Modified;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(upvm.PostText))
+                    {
+                        p = new Post();
+                        p.ApplicationUserID = au.Id;
+                        p.Date = DateTime.Now;
+                        p.Status = Enums.PostStatusEnum.New;
+                        p.Text = upvm.PostText;
+
+                        db.Posts.Add(p);
+                        db.SaveChanges();
+                    }
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        public ActionResult DeletePost()
+        {
+            Post p = db.Posts.Where(x => x.ApplicationUserID == _userManager.GetUserId(HttpContext.User)).FirstOrDefault();
+
+            if(p != null)
+            {
+                db.Posts.Remove(p);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("UserProfile");
         }
 
         #region Helpers
