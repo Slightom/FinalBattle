@@ -200,13 +200,18 @@
                             }
                         }
 
-                        @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li style="width: auto; height:auto;">
-                                <a href="@Url.Action("UserProfile", "Account")" class="MyProfileLink">
-                                    Mój Profil <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:16px;"></span>
-                                </a>
-                            </li>
+                            var u = User;
+                            @if (User.IsInRole("User"))
+                            {
+                                <li style="width: auto; height:auto;">
+                                    <a href="@Url.Action("UserProfile", "Account")" class="MyProfileLink">
+                                        Mój Profil <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:16px;"></span>
+                                    </a>
+                                </li>
+                            }
+
                         }
                     </ul>
                 </div>

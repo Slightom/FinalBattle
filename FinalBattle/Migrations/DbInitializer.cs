@@ -44,12 +44,12 @@ namespace FinalBattle.Migrations
             u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
             userManager.AddToRoleAsync(u, "BandMember").Wait();
 
-            u = new ApplicationUser { UserName = "szalonaOla20", Email = "szalonaOla@gmail.com" };
+            u = new ApplicationUser { UserName = "Aleksandra Sosnowska", Email = "szalonaOla@gmail.com" };
             userManager.CreateAsync(u, "SzalonaOla20p+").Wait();
             u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
             userManager.AddToRoleAsync(u, "User").Wait();
 
-            u = new ApplicationUser { UserName = "witek15", Email = "witek15@gmail.com" };
+            u = new ApplicationUser { UserName = "witek102", Email = "witek15@gmail.com" };
             userManager.CreateAsync(u, "Witek15+").Wait();
             u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
             userManager.AddToRoleAsync(u, "User").Wait();

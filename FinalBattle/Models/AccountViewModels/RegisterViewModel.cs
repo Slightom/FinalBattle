@@ -25,7 +25,7 @@ namespace FinalBattle.Models.AccountViewModels
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Wartości pól 'Hasło' i 'Potwierdź hasło' nie są takie same.")]
         public string ConfirmPassword { get; set; }
     }
 }

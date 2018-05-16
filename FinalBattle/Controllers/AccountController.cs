@@ -15,6 +15,8 @@ using FinalBattle.Models.AccountViewModels;
 using FinalBattle.Services;
 using FinalBattle.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Mail;
+using System.Net;
 
 namespace FinalBattle.Controllers
 {
@@ -246,18 +248,21 @@ namespace FinalBattle.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    
+                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    //var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    //await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation("User created a new account with password.");
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    //_logger.LogInformation("User created a new account with password.");
 
                     _userManager.AddToRoleAsync(user, "User").Wait();
+                    db.SaveChanges();
 
-                    return RedirectToLocal(returnUrl);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -395,7 +400,7 @@ namespace FinalBattle.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null/* || !(await _userManager.IsEmailConfirmedAsync(user))*/)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return RedirectToAction(nameof(ForgotPasswordConfirmation));
@@ -405,8 +410,30 @@ namespace FinalBattle.Controllers
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+
+                //await _emailSender.SendEmailAsync(model.Email, "Reset Password", $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+
+                MailMessage mailMessage = new MailMessage("zespoltytanik@gmail.com", user.Email);
+                mailMessage.Subject = "Resetowanie hasła";
+                if (user.UserName == "Monika")
+                {
+                    mailMessage.Body = "Możesz zresetować swoje hasło klikając link: <a href=\"" + callbackUrl + "\"> tutaj</a>. No i słuchaj: idą 3 żółwie przez pustynię.. :D";
+                }
+                else
+                {
+                    mailMessage.Body = "Możesz zresetować swoje hasło klikając link: <a href=\"" + callbackUrl + "\"> tutaj</a>";
+                }
+                mailMessage.IsBodyHtml = true;
+
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com"))
+                {
+                    smtp.EnableSsl = true;
+                    NetworkCredential NetworkCred = new NetworkCredential("zespoltytanik@gmail.com", "Kalejdoskop2010");
+                    smtp.UseDefaultCredentials = false;
+                    smtp.Credentials = NetworkCred;
+                    smtp.Port = 587;
+                    smtp.Send(mailMessage);
+                }
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 
@@ -557,6 +584,17 @@ namespace FinalBattle.Controllers
             }
 
             return RedirectToAction("UserProfile");
+        }
+
+        public Boolean UserIsInRole(string roleName)
+        {
+            ApplicationUser au = db.Users.Where(x => x.Id == _userManager.GetUserId(HttpContext.User)).FirstOrDefault();
+            var roleId = db.Roles.Where(x => x.Name == roleName).Select(p => p.Id).FirstOrDefault();
+
+            var r1 = User.IsInRole(roleName);
+            var r2 = db.UserRoles.Where(x => x.UserId == au.Id && x.RoleId == roleId).FirstOrDefault() != null ? true : false;
+
+            return r1;
         }
 
         #region Helpers
