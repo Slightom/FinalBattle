@@ -206,9 +206,10 @@ namespace FinalBattle.Controllers
             return View(programmeViewModel2);
         }
 
-
+        [HttpPost]
         public ActionResult ReplacePartialView2()
         {
+            var backs = HttpContext.Session.GetObject<List<Backing>>("searchedBackings") as List<Backing>;
             return PartialView("SearchPartial2", HttpContext.Session.GetObject<List<Backing>>("searchedBackings") as List<Backing>);
         }
 
@@ -242,6 +243,7 @@ namespace FinalBattle.Controllers
                             {
                                 foreach (var b in s.Backings)
                                 {
+                                    b.Song = null;
                                     searchedBackings.Add(b);
                                 }
                                 goto SongFinded;
