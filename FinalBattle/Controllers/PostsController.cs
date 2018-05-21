@@ -155,7 +155,7 @@ namespace FinalBattle.Controllers
         static public int howManyNewPosts()
         {
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            builder.UseNpgsql(GlobalData.connectionString);
+            builder.UseSqlServer(GlobalData.connectionString);
 
             var _context = new ApplicationDbContext(builder.Options);
 
