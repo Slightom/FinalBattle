@@ -306,7 +306,7 @@ namespace FinalBattle.Controllers
         {
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            builder.UseSqlServer(GlobalData.connectionString);
+            builder.UseNpgsql(GlobalData.connectionString);
 
             var _context = new ApplicationDbContext(builder.Options);
 
