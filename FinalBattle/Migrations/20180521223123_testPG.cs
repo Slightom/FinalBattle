@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FinalBattle.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class testPG : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,7 +53,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     AuthorID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Country = table.Column<int>(nullable: false),
                     Info = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false)
@@ -68,7 +68,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     CategoryID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false)
                 },
@@ -82,7 +82,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     PhotoID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     Path = table.Column<string>(nullable: true)
                 },
@@ -96,7 +96,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     PlaceID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Address = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false)
@@ -111,7 +111,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     SongID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     AuthorInTitle = table.Column<bool>(nullable: false),
                     DisplayTitle = table.Column<string>(nullable: true),
                     Info = table.Column<string>(nullable: true),
@@ -129,7 +129,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     RoleId = table.Column<string>(nullable: false)
@@ -150,7 +150,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
@@ -191,11 +191,18 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    RoleId = table.Column<string>(nullable: false)
+                    RoleId = table.Column<string>(nullable: false),
+                    ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
@@ -235,7 +242,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     PostID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     ApplicationUserID = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     Status = table.Column<int>(nullable: false),
@@ -257,7 +264,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     EventID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     DateEnd = table.Column<DateTime>(nullable: true),
                     EventType = table.Column<int>(nullable: false),
@@ -312,7 +319,7 @@ namespace FinalBattle.Migrations
                 columns: table => new
                 {
                     BackingID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     BackingStatus = table.Column<int>(nullable: false),
                     MainBacking = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
@@ -388,8 +395,7 @@ namespace FinalBattle.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -400,6 +406,11 @@ namespace FinalBattle.Migrations
                 name: "IX_AspNetUserLogins_UserId",
                 table: "AspNetUserLogins",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_ApplicationUserId",
+                table: "AspNetUserRoles",
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoles_RoleId",
@@ -415,8 +426,7 @@ namespace FinalBattle.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Backings_SongID",

@@ -16,9 +16,7 @@ namespace FinalBattle.Migrations
     {
         public static async Task InitializeAsync(ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            context.Database.EnsureCreated();//if db is not exist ,it will create database .but ,do nothing .
-
-           
+           context.Database.EnsureCreated();//if db is not exist ,it will create database .but ,do nothing .
 
             //DeleteAllRecords(context);
 
@@ -29,8 +27,6 @@ namespace FinalBattle.Migrations
             }
 
             HandleRolesAsync(roleManager).Wait();
-            
-
 
             #region users
             ApplicationUser u =  new ApplicationUser { UserName = "Tomek", Email ="tomasz.suchwalko@gmail.com" };
@@ -54,8 +50,7 @@ namespace FinalBattle.Migrations
             u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
             userManager.AddToRoleAsync(u, "User").Wait();
             #endregion
-
-
+        
             #region posts
             Post p = new Post();
             string ids;
@@ -85,7 +80,6 @@ namespace FinalBattle.Migrations
             context.Posts.Add(p);
             context.SaveChanges();
             #endregion
-
 
             #region categories
             Category c = new Category();
@@ -143,7 +137,6 @@ namespace FinalBattle.Migrations
             context.Categories.Add(c);
             context.SaveChanges();
             #endregion
-
 
             #region authors
             Author a = new Author();
@@ -555,8 +548,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             #endregion
-
-
+        
             #region songs, songCategories, songAuthors
 
             int catIdPol = context.Categories.Where(x => x.Name == "Polskie").Select(y => y.CategoryID).First();
@@ -580,7 +572,7 @@ namespace FinalBattle.Migrations
             s.DisplayTitle = "Akcent - Biorę urlop od Ciebie";
             context.Songs.Add(s);
             context.SaveChanges();
-            int songID = context.Songs.Where(x => x.Title == "Biorę urlop od Ciebie").Select(y => y.SongID).First();
+            int songID = context.Songs.Where(x => x.Title.ToLower() == "Biorę urlop od Ciebie".ToLower()).Select(y => y.SongID).First();
 
             SongCategory sc = new SongCategory();
             sc.SongID = songID;
@@ -611,7 +603,7 @@ namespace FinalBattle.Migrations
             context.Songs.Add(s);
             s.AuthorInTitle = true;
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Czekam na Ciebie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Czekam na Ciebie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -642,7 +634,7 @@ namespace FinalBattle.Migrations
             s.AuthorInTitle = true;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Kochana wierzę w miłość").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Kochana wierzę w miłość".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -673,7 +665,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Królowa nocy").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Królowa nocy".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -704,7 +696,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Prawdziwa miłość to Ty").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Prawdziwa miłość to Ty".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -735,7 +727,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Przekorny los").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Przekorny los".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -766,7 +758,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Przez Twe oczy zielone").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Przez Twe oczy zielone".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -797,7 +789,7 @@ namespace FinalBattle.Migrations
             s.AuthorInTitle = true;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Sonet dla miłości").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Sonet dla miłości".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -834,7 +826,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Taką Cię wyśniłem").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Taką Cię wyśniłem".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -866,7 +858,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "W sercu mi graj").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "W sercu mi graj".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -905,7 +897,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Życie to są chwile").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Życie to są chwile".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -936,7 +928,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Chodź, przytul, przebacz").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Chodź, przytul, przebacz".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -968,7 +960,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Nie liczę godzin i lat").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Nie liczę godzin i lat".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -994,7 +986,7 @@ namespace FinalBattle.Migrations
             s.Info = "Przetańczyć z Tobą chcę całą noc";
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Moje jedyne marzenie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Moje jedyne marzenie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1025,7 +1017,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Bogini niepojęta").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Bogini niepojęta".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1056,7 +1048,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "No 1. Parthy anthem").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "No 1. Parthy anthem".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1093,7 +1085,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "You're a woman, I'm a man").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "You're a woman, I'm a man".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1124,7 +1116,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Cyganeczka Zosia").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Cyganeczka Zosia".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1155,7 +1147,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Rudy się żeni").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Rudy się żeni".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1186,7 +1178,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Bombonierka").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Bombonierka".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1224,7 +1216,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Moja Kochana").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Moja Kochana".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1255,7 +1247,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Za szkłem").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Za szkłem".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1292,7 +1284,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Let's twist again").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Let's twist again".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1323,7 +1315,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Moje ciało oszalało").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Moje ciało oszalało".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1355,7 +1347,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Wezmę Cię ze sobą").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię ze sobą".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1386,7 +1378,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "This Year's Love").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "This Year's Love".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1423,7 +1415,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Zakochane oczy").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Zakochane oczy".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1462,7 +1454,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Dumka na dwa serca").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Dumka na dwa serca".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1500,7 +1492,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Do kołyski").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Do kołyski".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1532,7 +1524,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "September").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "September".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1564,7 +1556,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Always on my mind").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Always on my mind".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1607,7 +1599,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Burning Love").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Burning Love".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1638,7 +1630,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Can't help falling in love").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Can't help falling in love".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1681,7 +1673,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Kamień z napisem Love").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Kamień z napisem Love".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1713,7 +1705,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Skrzydlate ręce").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Skrzydlate ręce".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1744,7 +1736,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Flames of love").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Flames of love".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1774,7 +1766,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "My way").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "My way".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1799,7 +1791,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Uno Paloma Blanca").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Uno Paloma Blanca".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1830,7 +1822,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Pędzą konie po betonie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Pędzą konie po betonie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1861,7 +1853,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Pieniądze to nie wszystko").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Pieniądze to nie wszystko".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1893,7 +1885,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Słodycze").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Słodycze".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1925,7 +1917,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Ściernisko").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Ściernisko".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1956,7 +1948,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Życie jest muzyką").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Życie jest muzyką".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -1986,7 +1978,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "21 guns").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "21 guns".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2017,7 +2009,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Stray heart").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Stray heart".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2048,7 +2040,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Niebieska piosenka").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Niebieska piosenka".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2079,7 +2071,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.portugalski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Ballada Boa").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Ballada Boa".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2110,7 +2102,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Hej sokoły!").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Hej sokoły!".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2141,7 +2133,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Razem a jednak osobno").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Razem a jednak osobno".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2172,7 +2164,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Zawsze z Tobą chciałbym być").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Zawsze z Tobą chciałbym być".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2203,7 +2195,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Kolorowe jarmarki").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Kolorowe jarmarki".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2235,7 +2227,7 @@ namespace FinalBattle.Migrations
             s.Info = "Beata";
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Siedem dziewcząt z Albatrosa").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Siedem dziewcząt z Albatrosa".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2266,7 +2258,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Bo z dziewczynami").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Bo z dziewczynami".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2297,7 +2289,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Będziesz moja").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Będziesz moja".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2328,7 +2320,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Intryguj, uwodź, prowokuj mnie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Intryguj, uwodź, prowokuj mnie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2359,7 +2351,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Ja chcę mieć żonę").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Ja chcę mieć żonę".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2391,7 +2383,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Kiedy patrzę na Nią").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Kiedy patrzę na Nią".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2422,7 +2414,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Mama Ci mówiła").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Mama Ci mówiła".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2453,7 +2445,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Niebezpieczna").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Niebezpieczna".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2484,7 +2476,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Piękna nieznajoma").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Piękna nieznajoma".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2515,7 +2507,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Black and white").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Black and white".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2546,7 +2538,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Słodkiego miłego życia").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Słodkiego miłego życia".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2577,7 +2569,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Chciałem być").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Chciałem być".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2609,7 +2601,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Zatańczysz ze mną").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Zatańczysz ze mną".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2641,7 +2633,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Zawsze tam, gdzie Ty").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Zawsze tam, gdzie Ty".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2672,7 +2664,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Hello").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Hello".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2703,7 +2695,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Say You Say Me").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Say You Say Me".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2735,7 +2727,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Dwudziestolatki").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Dwudziestolatki".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2766,7 +2758,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Zuza").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Zuza".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2798,7 +2790,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Dni, których nie znamy").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Dni, których nie znamy".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2831,7 +2823,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Moja dumka").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Moja dumka".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2862,7 +2854,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Bella").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Bella".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2895,7 +2887,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Szukam dziewczyny").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Szukam dziewczyny".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2927,7 +2919,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Żono moja").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Żono moja".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2958,7 +2950,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.portugalski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Ai se ue te pego").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Ai se ue te pego".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -2990,7 +2982,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Będę przy Tobie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Będę przy Tobie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3021,7 +3013,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Dziewczyna z sąsiedniej ulicy").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Dziewczyna z sąsiedniej ulicy".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3053,7 +3045,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Jej dotyk").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Jej dotyk".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3086,7 +3078,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Lalunia").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Lalunia".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3120,7 +3112,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Miód malina").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Miód malina".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3153,7 +3145,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Nie ma mocnych na Mariolę").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Nie ma mocnych na Mariolę".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3186,7 +3178,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Ona jedyna").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Ona jedyna".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3219,7 +3211,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Słodka wariatka").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Słodka wariatka".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3251,7 +3243,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Ta malutka blondynka").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Ta malutka blondynka".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3284,7 +3276,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Wymarzona").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Wymarzona".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3315,7 +3307,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Brother Louie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Brother Louie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3346,7 +3338,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Chery chery Lady").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Chery chery Lady".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3378,7 +3370,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "You're my heart You're my soul").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "You're my heart You're my soul".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3410,7 +3402,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Mario Magdaleno").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Mario Magdaleno".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3442,7 +3434,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Całuj mnie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Całuj mnie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3481,7 +3473,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Niewiara").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Niewiara".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3512,7 +3504,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Bałkanica").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Bałkanica".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3543,7 +3535,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Konstelacje").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Konstelacje".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3575,7 +3567,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Goniąc kormorany").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Goniąc kormorany".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3606,7 +3598,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Kochać, jak to łatwo powiedzieć").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Kochać, jak to łatwo powiedzieć".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3638,7 +3630,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Byłaś dla mnie wszystkim").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Byłaś dla mnie wszystkim".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3669,7 +3661,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Kawałek do tańca").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Kawałek do tańca".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3701,7 +3693,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Okrutna, zła i podła").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Okrutna, zła i podła".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3734,7 +3726,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Wezmę Cię").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3765,7 +3757,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Oczy szmaragdowe").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Oczy szmaragdowe".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3796,7 +3788,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Stay").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Stay".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3840,7 +3832,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Każdy swoje 10 minut ma").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Każdy swoje 10 minut ma".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3883,7 +3875,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Nagroda za odwagę").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Nagroda za odwagę".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3914,7 +3906,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Najpiękniejsza").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Najpiękniejsza".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3945,7 +3937,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Nie mówmy o zmartwieniach").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Nie mówmy o zmartwieniach".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -3977,7 +3969,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Uciekaj moje serce").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Uciekaj moje serce".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4010,7 +4002,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Wielka miłość").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Wielka miłość".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4053,7 +4045,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Give me your heart tonight").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Give me your heart tonight".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4085,7 +4077,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Marie Marie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Marie Marie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4117,7 +4109,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Oh Julie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Oh Julie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4149,7 +4141,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "This Ole House").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "This Ole House".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4181,7 +4173,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "You drive me crazy").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "You drive me crazy".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4212,7 +4204,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Może ze mną zatańczysz").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Może ze mną zatańczysz".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4243,7 +4235,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Prześliczna wiolonczelistka").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Prześliczna wiolonczelistka".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4274,7 +4266,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Wierniejsza od marzenia").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Wierniejsza od marzenia".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4306,7 +4298,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Aneta").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Aneta".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4338,7 +4330,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Miłość w Zakopanem").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Miłość w Zakopanem".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4369,7 +4361,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Sex Bomb").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Sex Bomb".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4401,7 +4393,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.angielski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "YMCA").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "YMCA".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4433,7 +4425,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Ona tańczy dla mnie").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Ona tańczy dla mnie".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4465,7 +4457,7 @@ namespace FinalBattle.Migrations
             s.TextLanguage = Enums.LanguageEnum.polski;
             context.Songs.Add(s);
             context.SaveChanges();
-            songID = context.Songs.Where(x => x.Title == "Baśka").Select(y => y.SongID).First();
+            songID = context.Songs.Where(x => x.Title.ToLower() == "Baśka".ToLower()).Select(y => y.SongID).First();
 
             sc = new SongCategory();
             sc.SongID = songID;
@@ -4487,11 +4479,11 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             #endregion
-
+        
             #region backings
             int sid;
             Backing b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Biorę urlop od Ciebie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Biorę urlop od Ciebie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
@@ -4501,7 +4493,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Czekam na Ciebie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Czekam na Ciebie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
@@ -4511,7 +4503,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Kochana wierzę w miłość").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kochana wierzę w miłość".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
@@ -4521,7 +4513,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Królowa nocy").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Królowa nocy".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Królowa nocy INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - Królowa nocy INSTRUMENTAL.mp3";
@@ -4531,7 +4523,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Prawdziwa miłość to Ty").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Prawdziwa miłość to Ty".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
@@ -4541,7 +4533,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Przekorny los").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Przekorny los".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Przekorny los INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - Przekorny los INSTRUMENTAL.mp3";
@@ -4551,7 +4543,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Przez Twe oczy zielone").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Przez Twe oczy zielone".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
@@ -4561,7 +4553,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Sonet dla miłości").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Sonet dla miłości".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
@@ -4571,7 +4563,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Taką Cię wyśniłem").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Taką Cię wyśniłem".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
@@ -4581,7 +4573,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "W sercu mi graj").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "W sercu mi graj".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - W sercu mi graj INSTRUMENTAL.mp3";
             b.Path = "/Music/Akcent - W sercu mi graj INSTRUMENTAL.mp3";
@@ -4591,7 +4583,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Życie to są chwile").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Życie to są chwile".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
@@ -4601,7 +4593,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Chodź, przytul, przebacz").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Chodź, przytul, przebacz".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Andrzej Piaseczny - Chodź, przytul, przebacz INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Andrzej Piaseczny - Chodź, przytul, przebacz INSTRUMENTAL v2.mp3";
@@ -4611,7 +4603,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Nie liczę godzin i lat").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie liczę godzin i lat".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
             b.Path = "/Music/Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
@@ -4621,7 +4613,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Moje jedyne marzenie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje jedyne marzenie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
             b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
@@ -4631,7 +4623,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Moje jedyne marzenie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje jedyne marzenie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
             b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
@@ -4641,7 +4633,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Bogini niepojęta").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bogini niepojęta".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
             b.Path = "/Music/Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
@@ -4653,7 +4645,7 @@ namespace FinalBattle.Migrations
             b = new Backing();
             sid = context.Songs.Where(x => x.Title == "No 1. Parthy anthem").Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Arctic Monkeys - No.1 Party anthem INSTRUMENTAL ^1.mp3";
+            b.Name = "Arctic Monkeys - No. 1 Party anthem INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Arctic Monkeys - No.1 Party anthem INSTRUMENTAL ^.mp3";
             b.SongID = sid;
             b.MainBacking = false;
@@ -4672,7 +4664,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Cyganeczka Zosia").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Cyganeczka Zosia".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Cyganeczka Zosia INSTRUMENTAL.mp3";
             b.Path = "/Music/Cyganeczka Zosia INSTRUMENTAL.mp3";
@@ -4682,7 +4674,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Rudy się żeni").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Rudy się żeni".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
             b.Path = "/Music/Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
@@ -4692,7 +4684,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Bombonierka").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bombonierka".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Bombonierka INSTRUMENTAL.mp3";
             b.Path = "/Music/Bombonierka INSTRUMENTALL.mp3";
@@ -4702,7 +4694,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Moja Kochana").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moja Kochana".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Boys - Moja Kochana INSTRUMENTAL.mp3";
             b.Path = "/Music/Boys - Moja Kochana INSTRUMENTAL.mp3";
@@ -4712,7 +4704,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Za szkłem").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Za szkłem".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Bracia - Za szkłem INSTRUMENTAL v3.mp3";
             b.Path = "/Music/Bracia - Za szkłem INSTRUMENTAL v3.mp3";
@@ -4722,7 +4714,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Let's twist again").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Let's twist again".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Chubby Checker - Let's twist again INSTRUMENTAL v2 MONIKA.mp3";
             b.Path = "/Music/Chubby Checker - Let's twist again INSTRUMENTAL v2 MONIKA.mp3";
@@ -4732,7 +4724,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Let's twist again").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Let's twist again".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Chubby Checker - Let's twist again INSTRUMENTAL BETTER v5 Tomek.mp3";
             b.Path = "/Music/Chubby Checker - Let's twist again INSTRUMENTAL BETTER v5 Tomek.mp3";
@@ -4742,7 +4734,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Moje ciało oszalało").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje ciało oszalało".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
             b.Path = "/Music/Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
@@ -4752,7 +4744,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Wezmę Cię ze sobą").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię ze sobą".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
@@ -4762,7 +4754,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "This Year's Love").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "This Year's Love".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "David Gray - This Year's Love INSTRUMENTAL v1.mp3";
             b.Path = "/Music/David Gray - This Year's Love INSTRUMENTAL v1.mp3";
@@ -4772,7 +4764,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Zakochane oczy").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zakochane oczy".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
@@ -4782,7 +4774,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Dumka na dwa serca").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dumka na dwa serca".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Dumka na dwa serca INSTRUMENTAL.mp3";
             b.Path = "/Music/Dumka na dwa serca INSTRUMENTAL.mp3";
@@ -4792,7 +4784,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Do kołyski").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Do kołyski".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Dżem - Do kołyski INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Dżem - Do kołyski INSTRUMENTAL v2.mp3";
@@ -4802,7 +4794,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "September").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "September".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
@@ -4812,7 +4804,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Always on my mind").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Always on my mind".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
             b.Path = "/Music/Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
@@ -4822,7 +4814,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Burning Love").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Burning Love".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
@@ -4832,7 +4824,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Can't help falling in love").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Can't help falling in love".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
             b.Path = "/Music/Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
@@ -4842,7 +4834,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Kamień z napisem Love").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kamień z napisem Love".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
             b.Path = "/Music/Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
@@ -4852,7 +4844,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Skrzydlate ręce").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Skrzydlate ręce".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
@@ -4862,7 +4854,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Flames of love").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Flames of love".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Fancy - Flames of love INSTRUMENTAL.mp3";
             b.Path = "/Music/Fancy - Flames of love INSTRUMENTAL.mp3";
@@ -4872,7 +4864,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "My way").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "My way".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Frank Sinatra - My way INSTRUMENTAL.mp3";
             b.Path = "/Music/Frank Sinatra - My way INSTRUMENTAL.mp3";
@@ -4882,7 +4874,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Uno Paloma Blanca").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Uno Paloma Blanca".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
             b.Path = "/Music/George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
@@ -4892,7 +4884,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Pędzą konie po betonie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Pędzą konie po betonie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
             b.Path = "/Music/Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
@@ -4902,7 +4894,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Pieniądze to nie wszystko").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Pieniądze to nie wszystko".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
             b.Path = "/Music/Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
@@ -4912,7 +4904,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Ściernisko").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ściernisko".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
@@ -4922,7 +4914,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Słodycze").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodycze".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
@@ -4932,7 +4924,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Życie jest muzyką").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Życie jest muzyką".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
             b.Path = "/Music/Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
@@ -4942,7 +4934,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "21 guns").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "21 guns".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Green Day - 21 guns INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Green Day - 21 guns INSTRUMENTAL v1.mp3";
@@ -4952,7 +4944,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Stray heart").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Stray heart".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Green Day - Stray heart INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Green Day - Stray heart INSTRUMENTAL v1.mp3";
@@ -4962,7 +4954,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Niebieska piosenka").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Niebieska piosenka".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
             b.Path = "/Music/Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
@@ -4972,7 +4964,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Ballada Boa").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ballada Boa".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
             b.Path = "/Music/Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
@@ -4982,7 +4974,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Razem a jednak osobno").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Razem a jednak osobno".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
             b.Path = "/Music/Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
@@ -4992,7 +4984,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Zawsze z Tobą chciałbym być").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zawsze z Tobą chciałbym być".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
@@ -5002,7 +4994,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Kolorowe jarmarki").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kolorowe jarmarki".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
             b.Path = "/Music/Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
@@ -5012,7 +5004,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Siedem dziewcząt z Albatrosa").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Siedem dziewcząt z Albatrosa".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
@@ -5022,7 +5014,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Bo z dziewczynami").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bo z dziewczynami".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
@@ -5032,7 +5024,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Będziesz moja").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Będziesz moja".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
             b.Path = "/Music/Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
@@ -5042,7 +5034,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Intryguj, uwodź, prowokuj mnie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Intryguj, uwodź, prowokuj mnie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
             b.Path = "/Music/Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
@@ -5052,7 +5044,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Ja chcę mieć żonę").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ja chcę mieć żonę".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
@@ -5062,7 +5054,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Kiedy patrzę na Nią").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kiedy patrzę na Nią".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
             b.Path = "/Music/Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
@@ -5072,7 +5064,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Mama Ci mówiła").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Mama Ci mówiła".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Mama Ci mówiła INSTRUMENTAL.mp3";
             b.Path = "/Music/Jorrgus - Mama Ci mówiła INSTRUMENTAL.mp3";
@@ -5082,7 +5074,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Niebezpieczna").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Niebezpieczna".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
             b.Path = "/Music/Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
@@ -5092,7 +5084,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Piękna nieznajoma").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Piękna nieznajoma".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Jorrgus - Piękna nieznajoma INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Jorrgus - Piękna nieznajoma INSTRUMENTAL ^1.mp3";
@@ -5102,7 +5094,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Black and white").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Black and white".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Kombi - Black nad white INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Kombi - Black nad white INSTRUMENTAL v2.mp3";
@@ -5112,7 +5104,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Słodkiego miłego życia").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodkiego miłego życia".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
@@ -5122,7 +5114,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Chciałem być").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Chciałem być".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
             b.Path = "/Music/Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
@@ -5132,7 +5124,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Zatańczysz ze mną").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zatańczysz ze mną".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
             b.Path = "/Music/Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
@@ -5142,7 +5134,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Zawsze tam, gdzie Ty").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zawsze tam, gdzie Ty".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
@@ -5152,7 +5144,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Hello").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Hello".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Lionel Richie - Hello INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Lionel Richie - Hello INSTRUMENTAL v2.mp3";
@@ -5162,7 +5154,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Dwudziestolatki").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dwudziestolatki".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
             b.Path = "/Music/Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
@@ -5172,7 +5164,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Zuza").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zuza".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mamzel - Zuza INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mamzel - Zuza INSTRUMENTAL v1.mp3";
@@ -5182,7 +5174,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Dni, których nie znamy").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dni, których nie znamy".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Marek Grechuta - Dni, których  nie znamy.mp3";
             b.Path = "/Music/Marek Grechuta - Dni, których  nie znamy.mp3";
@@ -5192,7 +5184,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Moja dumka").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moja dumka".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
             b.Path = "/Music/Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
@@ -5202,7 +5194,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Żono moja").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Żono moja".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Masters - Żono moja INSTRUMENTAL.mp3";
             b.Path = "/Music/Masters - Żono moja INSTRUMENTAL.mp3";
@@ -5212,7 +5204,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Ai se ue te pego").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ai se ue te pego".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
             b.Path = "/Music/Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
@@ -5222,7 +5214,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Będę przy Tobie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Będę przy Tobie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
@@ -5232,7 +5224,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Dziewczyna z sąsiedniej ulicy").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dziewczyna z sąsiedniej ulicy".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
@@ -5242,7 +5234,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Jej dotyk").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Jej dotyk".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Jej dotyk INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mig - Jej dotyk INSTRUMENTAL v1.mp3";
@@ -5252,7 +5244,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Lalunia").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Lalunia".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Lalunia INSTRUMENTAL.mp3";
             b.Path = "/Music/Mig - Lalunia INSTRUMENTAL.mp3";
@@ -5262,7 +5254,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Miód malina").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Miód malina".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Miód malina  INSTRUMENATL v1.mp3";
             b.Path = "/Music/Mig - Miód malina  INSTRUMENATL v1.mp3";
@@ -5272,7 +5264,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Nie ma mocnych na Mariolę").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie ma mocnych na Mariolę".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
@@ -5282,7 +5274,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Ona jedyna").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ona jedyna".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Ona jedyna INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mig - Ona jedyna INSTRUMENTAL v1.mp3";
@@ -5292,7 +5284,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Słodka wariatka").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodka wariatka".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Słodka wariatka INSTRUMENTAL.mp3";
             b.Path = "/Music/Mig - Słodka wariatka INSTRUMENTAL.mp3";
@@ -5302,7 +5294,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Ta malutka blondynka").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ta malutka blondynka".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
@@ -5312,7 +5304,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Wymarzona").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wymarzona".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Mig - Wymarzona INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Mig - Wymarzona INSTRUMENTAL v1.mp3";
@@ -5322,7 +5314,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Mario Magdaleno").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Mario Magdaleno".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
@@ -5332,7 +5324,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Niewiara").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Niewiara".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
             b.Path = "/Music/Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
@@ -5342,7 +5334,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Bałkanica").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bałkanica".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
             b.Path = "/Music/Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
@@ -5352,7 +5344,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Konstelacje").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Konstelacje".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Pin - Konstelacje INSTRUMENTAL.mp3";
             b.Path = "/Music/Pin - Konstelacje INSTRUMENTAL.mp3";
@@ -5362,7 +5354,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Kochać, jak to łatwo powiedzieć").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kochać, jak to łatwo powiedzieć".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
@@ -5372,7 +5364,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Goniąc kormorany").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Goniąc kormorany".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Piotr Szczepanik - Goniąc kormorany INSTRUMENTAL ^2.mp3";
             b.Path = "/Music/Piotr Szczepanik - Goniąc kormorany INSTRUMENTAL ^2.mp3";
@@ -5382,7 +5374,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Byłaś dla mnie wszystkim").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Byłaś dla mnie wszystkim".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
             b.Path = "/Music/Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
@@ -5392,7 +5384,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Kawałek do tańca").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kawałek do tańca".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
             b.Path = "/Music/Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
@@ -5402,7 +5394,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Wezmę Cię").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
             b.Path = "/Music/Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
@@ -5412,7 +5404,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Okrutna, zła i podła").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Okrutna, zła i podła".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
@@ -5422,7 +5414,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Oczy szmaragdowe").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Oczy szmaragdowe".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
             b.Path = "/Music/Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
@@ -5432,7 +5424,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Każdy swoje 10 minut ma").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Każdy swoje 10 minut ma".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
@@ -5442,7 +5434,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Nagroda za odwagę").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nagroda za odwagę".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
             b.Path = "/Music/Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
@@ -5452,7 +5444,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Najpiękniejsza").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Najpiękniejsza".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
             b.Path = "/Music/Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
@@ -5462,7 +5454,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Nie mówmy o zmartwieniach").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie mówmy o zmartwieniach".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
             b.Path = "/Music/Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
@@ -5472,7 +5464,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Wielka miłość").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wielka miłość".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
             b.Path = "/Music/Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
@@ -5482,7 +5474,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Uciekaj moje serce").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Uciekaj moje serce".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
             b.Path = "/Music/Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
@@ -5492,7 +5484,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Give me your heart tonight").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Give me your heart tonight".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
             b.Path = "/Music/Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
@@ -5502,7 +5494,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Może ze mną zatańczysz").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Może ze mną zatańczysz".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
             b.Path = "/Music/Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
@@ -5512,7 +5504,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Prześliczna wiolonczelistka").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Prześliczna wiolonczelistka".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
@@ -5522,7 +5514,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Wierniejsza od marzenia").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wierniejsza od marzenia".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
             b.Path = "/Music/Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
@@ -5532,7 +5524,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Aneta").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Aneta".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Sławomir - Aneta INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Sławomir - Aneta INSTRUMENTAL ^1.mp3";
@@ -5542,7 +5534,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Miłość w Zakopanem").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Miłość w Zakopanem".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
             b.Path = "/Music/Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
@@ -5552,7 +5544,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "YMCA").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "YMCA".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Village People - YMCA INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Village People - YMCA INSTRUMENTAL ^1.mp3";
@@ -5562,7 +5554,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Ona tańczy dla mnie").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ona tańczy dla mnie".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
             b.Path = "/Music/Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
@@ -5572,7 +5564,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "Baśka").Select(y => y.SongID).First();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Baśka".ToLower()).Select(y => y.SongID).First();
             b.BackingStatus = Enums.BackingStatusEnum.Good;
             b.Name = "Wilki - Baśka INSTRUMENTAL.mp3";
             b.Path = "/Music/Wilki - Baśka INSTRUMENTAL.mp3";
@@ -5580,9 +5572,7 @@ namespace FinalBattle.Migrations
             b.MainBacking = false;
             context.Backings.Add(b);
             context.SaveChanges();
-            #endregion
-
-
+             #endregion
 
             #region place
 
@@ -5854,7 +5844,7 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             #endregion
-        }
+         }
 
         private static void DeleteAllRecords(ApplicationDbContext context)
         {
