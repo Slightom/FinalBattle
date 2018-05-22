@@ -118,9 +118,9 @@ namespace FinalBattle
             RunDbInitializator(context, roleManager, userManager);
         }
 
-        private void RunDbInitializator(ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        private async void RunDbInitializator(ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            DbInitializer.InitializeAsync(context, roleManager, userManager);
+            //DbInitializer.InitializeAsync(context, roleManager, userManager).Wait();
         }
     }
 }
