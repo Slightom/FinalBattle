@@ -31,12 +31,15 @@ namespace FinalBattle.Migrations
                 InsertAuthors(context, userManager);
                 InsertSongs(context, userManager);
 
+                if (!context.Backings.Any())
+                {
+                    InsertBackings(context, userManager);
+                    InsertPlace(context, userManager);
+                }
+
                 return;
             }
 
-            
-            InsertBackings(context, userManager);
-            InsertPlace(context, userManager);
             
          }
 
