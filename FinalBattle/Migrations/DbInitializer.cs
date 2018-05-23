@@ -71,7 +71,7 @@ namespace FinalBattle.Migrations
             e.Title = "Sylwester 2017";
             e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
             e.EventType = Enums.EventType.granie;
-            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
+            string ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
             e.UserID = ids;
             context.Events.Add(e);
             context.SaveChanges();
