@@ -21,534 +21,1398 @@ namespace FinalBattle.Migrations
             //DeleteAllRecords(context);
 
             // Look for any students.
-            if (context.Songs.Any())
+            if (!context.Users.Any() && !context.Backings.Any())
             {
-                return;   // DB has been seeded
+                HandleRolesAsync(roleManager).Wait();
+
+                InsertUsers(context, userManager);
+                InsertPosts(context, userManager);
+                InsertCategories(context, userManager);
+                InsertAuthors(context, userManager);
+                InsertSongs(context, userManager);
+
+                return;
             }
 
-            HandleRolesAsync(roleManager).Wait();
-
-            #region users
-            ApplicationUser u =  new ApplicationUser { UserName = "Tomek", Email ="tomasz.suchwalko@gmail.com" };
-            userManager.CreateAsync(u, "Slightom20p+").Wait();
-            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
-            userManager.AddToRoleAsync(u, "Admin").Wait();
-            userManager.AddToRoleAsync(u, "BandMember").Wait();
-
-            u = new ApplicationUser { UserName = "Stefan", Email = "zwyklyMail@gmail.com" };
-            userManager.CreateAsync(u, "Stefan20p+").Wait();
-            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
-            userManager.AddToRoleAsync(u, "BandMember").Wait();
-
-            u = new ApplicationUser { UserName = "AleksandraSosnowska", Email = "szalonaOla@gmail.com" };
-            userManager.CreateAsync(u, "SzalonaOla20p+").Wait();
-            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
-            userManager.AddToRoleAsync(u, "User").Wait();
-
-            u = new ApplicationUser { UserName = "witek102", Email = "witek15@gmail.com" };
-            userManager.CreateAsync(u, "Witek15+").Wait();
-            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
-            userManager.AddToRoleAsync(u, "User").Wait();
-            #endregion
-        
-            #region posts
-            Post p = new Post();
-            string ids;
-            ids = context.Users.Where(n => n.UserName == "witek102").Select(n => n.Id).FirstOrDefault();
-            p.ApplicationUserID = ids;
-            p.Text = "Świetny zespół!! Bawiliśmy się cudownie do białego rana, polecam.";
-            p.Status = Enums.PostStatusEnum.Approved;
-            p.Date = new DateTime(2017, 10, 08, 10, 10, 10);
-            context.Posts.Add(p);
-            context.SaveChanges();
-
-            p = new Post();
-            ids = context.Users.Where(n => n.UserName == "AleksandraSosnowska").Select(n => n.Id).FirstOrDefault();
-            p.ApplicationUserID = ids;
-            p.Text = "Gorąco polecam, super zespół. Pięknie zagrane, extra zaśpiewane, 10/10.";
-            p.Status = Enums.PostStatusEnum.Approved;
-            p.Date = new DateTime(2017, 06, 28, 11, 11, 11);
-            context.Posts.Add(p);
-            context.SaveChanges();
-
-            p = new Post();
-            ids = context.Users.Where(n => n.UserName == "Stefan").Select(n => n.Id).FirstOrDefault();
-            p.ApplicationUserID = ids;
-            p.Text = "fatalny zespół ja pierniczę";
-            p.Status = Enums.PostStatusEnum.Rejected;
-            p.Date = new DateTime(2017, 07, 24, 12, 12, 12);
-            context.Posts.Add(p);
-            context.SaveChanges();
-            #endregion
-
-            #region categories
-            Category c = new Category();
-            c.Name = "Polskie";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Zagraniczne";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Disco polo";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Biesiadne i przyśpiewki";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Rock";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Pop";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Wolne";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Alternatywa";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Propozycje na I taniec";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Propozycje na podziękowania rodzicom";
-            context.Categories.Add(c);
-            context.SaveChanges();
-
-            c = new Category();
-            c.Name = "Oprawa ślubów";
-            context.Categories.Add(c);
-            context.SaveChanges();
-            #endregion
-
-            #region authors
-            Author a = new Author();
-            a.Name = "Akcent";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Exaited";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Andrzej Piaseczny";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Andrzej Rybiński";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Anna Jantar";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Antek Mójkowski";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Arctic Monkeys";
-            a.Country = Enums.CountryEnum.GB;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Bad Boys Blue";
-            a.Country = Enums.CountryEnum.Niemcy;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Big Cyc";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Basia Stępniak-Wilk";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Grzegorz Turnau";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Boys";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Bracia";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Chubby Checker";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Cliver";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Biesiadne";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Czerwone Gitary";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "David Gray";
-            a.Country = Enums.CountryEnum.GB;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Defis";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Marcin Miller";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Edyta Górniak";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Mieczysław Szcześniak";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Dżem";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Earth, Wind & Fire";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Elvis Presley";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Enej";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Fancy";
-            a.Country = Enums.CountryEnum.Niemcy;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Frank Sinatra";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "George Baker";
-            a.Country = Enums.CountryEnum.Holandia;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Golec Uorkiestra";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Green Day";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Grzegorz Tomczak";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Gusttavo";
-            a.Country = Enums.CountryEnum.Brazylia;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Ich troje";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Janusz Laskowski";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Jerzy Połomski";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
-            context.SaveChanges();
-
-            a = new Author();
-            a.Name = "Jorrgus";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            
+            InsertBackings(context, userManager);
+            InsertPlace(context, userManager);
+            
+         }
+
+        private static void InsertPlace(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            #region place
+
+            Place plc = new Place();
+            plc.Name = "Remiza w Jaziewie";
+            plc.Address = "Jaziewo 47, podlaskie, gmina sztabin";
+            plc.Description = "dość kameralna sala główna, kominek, fajna sala z bilardem i kanapami, zadbana, po remoncie, toaleta, kuchnia, miejsce na ognisko";
+            context.Places.Add(plc);
+            context.SaveChanges();
+
+            plc = new Place();
+            plc.Name = "EmptyPlace";
+            plc.Address = "empty";
+            plc.Description = "empty";
+            context.Places.Add(plc);
+            context.SaveChanges();
+
+            plc = new Place();
+            plc.Name = "Sala Weselna Łapińscy";
+            plc.Address = "Stare Kupiski, ul.Janowska 1, Łomża";
+            context.Places.Add(plc);
+            context.SaveChanges();
+
+            Event e = new Event();
+            e.Date = new DateTime(2017, 12, 31, 19, 00, 0);
+            e.DateEnd = new DateTime(2018, 01, 01, 04, 00, 0);
+            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            e.Title = "Sylwester 2017";
+            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
+            e.EventType = Enums.EventType.granie;
+            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
+            e.UserID = ids;
+            context.Events.Add(e);
+            context.SaveChanges();
+
+            e = new Event();
+            e.Date = new DateTime(2018, 01, 04, 19, 00, 0);
+            e.DateEnd = new DateTime(2018, 01, 05, 04, 00, 0);
+
+            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            e.Title = "Sylwester 2017";
+            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
+            e.EventType = Enums.EventType.granie;
+            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
+            e.UserID = ids;
+            context.Events.Add(e);
+            context.SaveChanges();
+
+            e = new Event();
+            e.Date = new DateTime(2018, 01, 03, 19, 00, 0);
+            e.DateEnd = new DateTime(2018, 01, 04, 04, 00, 0);
+            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            e.Title = "Sylwester 2017";
+            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
+            e.EventType = Enums.EventType.granie;
+            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
+            e.UserID = ids;
+            context.Events.Add(e);
+            context.SaveChanges();
+
+            e = new Event();
+            e.Date = new DateTime(2018, 01, 02, 19, 00, 0);
+            e.DateEnd = new DateTime(2018, 01, 03, 04, 00, 0);
+            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            e.Title = "Sylwester 2017";
+            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
+            e.EventType = Enums.EventType.granie;
+            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
+            e.UserID = ids;
+            context.Events.Add(e);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Kombi";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            e = new Event();
+            e.Date = new DateTime(2018, 01, 01, 19, 00, 0);
+            e.DateEnd = new DateTime(2018, 01, 02, 04, 00, 0);
+            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            e.Title = "Sylwester 2017";
+            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
+            e.EventType = Enums.EventType.granie;
+            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
+            e.UserID = ids;
+            context.Events.Add(e);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Krzysztof Krawczyk";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            e = new Event();
+            e.Date = new DateTime(2018, 05, 12, 13, 00, 0);
+            e.DateEnd = new DateTime(2018, 05, 13, 04, 00, 0);
+            e.PlaceID = context.Places.Where(x => x.Name == "Sala Weselna Łapińscy").Select(y => y.PlaceID).FirstOrDefault();
+            e.Title = "Wesele";
+            e.Info = "Wesele, młodzi życzą sobie repertuar z ogrnaiczoną ilością discopolo";
+            e.EventType = Enums.EventType.granie;
+            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
+            e.UserID = ids;
+            context.Events.Add(e);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Lady Pank";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            Photo photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/remizaJ.PNG";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Lionel Richie";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/dwl.PNG";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Maciej Kossowski";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos1.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Mamzel";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos2.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Marek Grechuta";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos3.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Marek Tranda";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos4.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Masters";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos5.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Michel Telo";
-            a.Country = Enums.CountryEnum.Brazylia;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos6.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Mig";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos7.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Modern Talking";
-            a.Country = Enums.CountryEnum.Niemcy;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos8.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Nazir";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos9.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Paweł Kukiz";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos10.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Piersi";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos11.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Piękni i Młodzi";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos12.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Pin";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos13.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Piotr Szczepanik";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos14.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Poparzeni Kawą Trzy";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos15.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Rezonans";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos16.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Rihanna";
-            a.Country = Enums.CountryEnum.Barbados;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos17.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Mikky Ekko";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos18.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Seweryn Krajewski";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos19.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Shakin' Stevens";
-            a.Country = Enums.CountryEnum.Walia;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
+            photo.Path = "/images/Gallery/partyPhotos20.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Shantel";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2018, 01, 01, 03, 30, 0);
+            photo.Path = "/images/Gallery/md.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Skaldowie";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            photo = new Photo();
+            photo.DateCreated = new DateTime(2017, 12, 31, 22, 00, 0);
+            photo.Path = "/images/Gallery/sylw2.jpg";
+            context.Photos.Add(photo);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Sławomir";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            PlacePhoto pp = new PlacePhoto();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/remizaJ.PNG").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Tom Jones";
-            a.Country = Enums.CountryEnum.GB;
-            context.Authors.Add(a);
+            pp = new PlacePhoto();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/dwl.PNG").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PlaceID = context.Places.Where(x => x.Name == "Sala Weselna Łapińscy").Select(y => y.PlaceID).FirstOrDefault();
+            context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Village People";
-            a.Country = Enums.CountryEnum.USA;
-            context.Authors.Add(a);
+            pp = new PlacePhoto();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/sylw2.jpg").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Weekend";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            pp = new PlacePhoto();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/md.jpg").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
-            a = new Author();
-            a.Name = "Wilki";
-            a.Country = Enums.CountryEnum.Polska;
-            context.Authors.Add(a);
+            pp = new PlacePhoto();
+            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/partyPhotos16.jpg").Select(y => y.PhotoID).FirstOrDefault();
+            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
+            context.PlacePhotos.Add(pp);
             context.SaveChanges();
 
             #endregion
-        
+        }
+
+        private static void InsertBackings(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            #region backings
+            int sid;
+            Backing b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Biorę urlop od Ciebie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Czekam na Ciebie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kochana wierzę w miłość".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Królowa nocy".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Królowa nocy INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Królowa nocy INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Prawdziwa miłość to Ty".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Przekorny los".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Przekorny los INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Przekorny los INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Przez Twe oczy zielone".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Sonet dla miłości".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Taką Cię wyśniłem".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "W sercu mi graj".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - W sercu mi graj INSTRUMENTAL.mp3";
+            b.Path = "/Music/Akcent - W sercu mi graj INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Życie to są chwile".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Chodź, przytul, przebacz".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Andrzej Piaseczny - Chodź, przytul, przebacz INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Andrzej Piaseczny - Chodź, przytul, przebacz INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie liczę godzin i lat".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
+            b.Path = "/Music/Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje jedyne marzenie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
+            b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje jedyne marzenie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
+            b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bogini niepojęta".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
+            b.Path = "/Music/Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title == "No 1. Parthy anthem").Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Arctic Monkeys - No. 1 Party anthem INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Arctic Monkeys - No.1 Party anthem INSTRUMENTAL ^.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title == "You're a woman, I'm a man").Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Bad Boys Blue - You're a woman, I'm a man INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Bad Boys Blue - You're a woman, I'm a man INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Cyganeczka Zosia".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Cyganeczka Zosia INSTRUMENTAL.mp3";
+            b.Path = "/Music/Cyganeczka Zosia INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Rudy się żeni".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
+            b.Path = "/Music/Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bombonierka".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Bombonierka INSTRUMENTAL.mp3";
+            b.Path = "/Music/Bombonierka INSTRUMENTALL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moja Kochana".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Boys - Moja Kochana INSTRUMENTAL.mp3";
+            b.Path = "/Music/Boys - Moja Kochana INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Za szkłem".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Bracia - Za szkłem INSTRUMENTAL v3.mp3";
+            b.Path = "/Music/Bracia - Za szkłem INSTRUMENTAL v3.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Let's twist again".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Chubby Checker - Let's twist again INSTRUMENTAL v2 MONIKA.mp3";
+            b.Path = "/Music/Chubby Checker - Let's twist again INSTRUMENTAL v2 MONIKA.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Let's twist again".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Chubby Checker - Let's twist again INSTRUMENTAL BETTER v5 Tomek.mp3";
+            b.Path = "/Music/Chubby Checker - Let's twist again INSTRUMENTAL BETTER v5 Tomek.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje ciało oszalało".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
+            b.Path = "/Music/Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię ze sobą".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "This Year's Love".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "David Gray - This Year's Love INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/David Gray - This Year's Love INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zakochane oczy".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dumka na dwa serca".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Dumka na dwa serca INSTRUMENTAL.mp3";
+            b.Path = "/Music/Dumka na dwa serca INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Do kołyski".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Dżem - Do kołyski INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Dżem - Do kołyski INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "September".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = true;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Always on my mind".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
+            b.Path = "/Music/Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Burning Love".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Can't help falling in love".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
+            b.Path = "/Music/Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kamień z napisem Love".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
+            b.Path = "/Music/Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Skrzydlate ręce".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Flames of love".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Fancy - Flames of love INSTRUMENTAL.mp3";
+            b.Path = "/Music/Fancy - Flames of love INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "My way".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Frank Sinatra - My way INSTRUMENTAL.mp3";
+            b.Path = "/Music/Frank Sinatra - My way INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Uno Paloma Blanca".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
+            b.Path = "/Music/George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Pędzą konie po betonie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Pieniądze to nie wszystko".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ściernisko".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodycze".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Życie jest muzyką".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
+            b.Path = "/Music/Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "21 guns".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Green Day - 21 guns INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Green Day - 21 guns INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Stray heart".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Green Day - Stray heart INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Green Day - Stray heart INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Niebieska piosenka".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
+            b.Path = "/Music/Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ballada Boa".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
+            b.Path = "/Music/Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Razem a jednak osobno".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
+            b.Path = "/Music/Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zawsze z Tobą chciałbym być".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kolorowe jarmarki".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
+            b.Path = "/Music/Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Siedem dziewcząt z Albatrosa".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bo z dziewczynami".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Będziesz moja".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Intryguj, uwodź, prowokuj mnie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ja chcę mieć żonę".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kiedy patrzę na Nią".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Mama Ci mówiła".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jorrgus - Mama Ci mówiła INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Mama Ci mówiła INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Niebezpieczna".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
+            b.Path = "/Music/Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Piękna nieznajoma".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Jorrgus - Piękna nieznajoma INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Jorrgus - Piękna nieznajoma INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Black and white".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Kombi - Black nad white INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Kombi - Black nad white INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodkiego miłego życia".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Chciałem być".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
+            b.Path = "/Music/Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zatańczysz ze mną".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
+            b.Path = "/Music/Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zawsze tam, gdzie Ty".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Hello".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Lionel Richie - Hello INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Lionel Richie - Hello INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dwudziestolatki".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
+            b.Path = "/Music/Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Zuza".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mamzel - Zuza INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mamzel - Zuza INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dni, których nie znamy".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Marek Grechuta - Dni, których  nie znamy.mp3";
+            b.Path = "/Music/Marek Grechuta - Dni, których  nie znamy.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Moja dumka".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
+            b.Path = "/Music/Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Żono moja".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Masters - Żono moja INSTRUMENTAL.mp3";
+            b.Path = "/Music/Masters - Żono moja INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ai se ue te pego".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
+            b.Path = "/Music/Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Będę przy Tobie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Dziewczyna z sąsiedniej ulicy".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Jej dotyk".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Jej dotyk INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Jej dotyk INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Lalunia".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Lalunia INSTRUMENTAL.mp3";
+            b.Path = "/Music/Mig - Lalunia INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Miód malina".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Miód malina  INSTRUMENATL v1.mp3";
+            b.Path = "/Music/Mig - Miód malina  INSTRUMENATL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie ma mocnych na Mariolę".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ona jedyna".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Ona jedyna INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Ona jedyna INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodka wariatka".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Słodka wariatka INSTRUMENTAL.mp3";
+            b.Path = "/Music/Mig - Słodka wariatka INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ta malutka blondynka".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wymarzona".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Mig - Wymarzona INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Mig - Wymarzona INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Mario Magdaleno".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Niewiara".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
+            b.Path = "/Music/Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Bałkanica".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
+            b.Path = "/Music/Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Konstelacje".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Pin - Konstelacje INSTRUMENTAL.mp3";
+            b.Path = "/Music/Pin - Konstelacje INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kochać, jak to łatwo powiedzieć".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Goniąc kormorany".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Piotr Szczepanik - Goniąc kormorany INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Piotr Szczepanik - Goniąc kormorany INSTRUMENTAL ^2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Byłaś dla mnie wszystkim".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Kawałek do tańca".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Okrutna, zła i podła".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Oczy szmaragdowe".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
+            b.Path = "/Music/Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Każdy swoje 10 minut ma".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nagroda za odwagę".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Najpiękniejsza".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie mówmy o zmartwieniach".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wielka miłość".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Uciekaj moje serce".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
+            b.Path = "/Music/Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Give me your heart tonight".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
+            b.Path = "/Music/Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Może ze mną zatańczysz".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
+            b.Path = "/Music/Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Prześliczna wiolonczelistka".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Wierniejsza od marzenia".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
+            b.Path = "/Music/Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Aneta".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Sławomir - Aneta INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Sławomir - Aneta INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Miłość w Zakopanem".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
+            b.Path = "/Music/Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "YMCA".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Village People - YMCA INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Village People - YMCA INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Ona tańczy dla mnie".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
+            b.Path = "/Music/Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+
+            b = new Backing();
+            sid = context.Songs.Where(x => x.Title.ToLower() == "Baśka".ToLower()).Select(y => y.SongID).First();
+            b.BackingStatus = Enums.BackingStatusEnum.Good;
+            b.Name = "Wilki - Baśka INSTRUMENTAL.mp3";
+            b.Path = "/Music/Wilki - Baśka INSTRUMENTAL.mp3";
+            b.SongID = sid;
+            b.MainBacking = false;
+            context.Backings.Add(b);
+            context.SaveChanges();
+            #endregion
+        }
+
+        private static void InsertSongs(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
             #region songs, songCategories, songAuthors
 
             int catIdPol = context.Categories.Where(x => x.Name == "Polskie").Select(y => y.CategoryID).First();
@@ -4479,1372 +5343,540 @@ namespace FinalBattle.Migrations
             context.SaveChanges();
 
             #endregion
-        
-            #region backings
-            int sid;
-            Backing b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Biorę urlop od Ciebie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - Biorę urlop od Ciebie INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Czekam na Ciebie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - Czekam na Ciebie INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Kochana wierzę w miłość".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - Kochana wierzę w miłość INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Królowa nocy".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Królowa nocy INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - Królowa nocy INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Prawdziwa miłość to Ty".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - Prawdziwa miłość to Ty INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Przekorny los".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Przekorny los INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - Przekorny los INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Przez Twe oczy zielone".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - Przez Twe oczy zielone INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Sonet dla miłości".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Akcent - Sonet dla miłości INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Taką Cię wyśniłem".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Akcent - Taką Cię Wyśniłem INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "W sercu mi graj".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - W sercu mi graj INSTRUMENTAL.mp3";
-            b.Path = "/Music/Akcent - W sercu mi graj INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Życie to są chwile".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Akcent - Życie to są chwile INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Chodź, przytul, przebacz".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Andrzej Piaseczny - Chodź, przytul, przebacz INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Andrzej Piaseczny - Chodź, przytul, przebacz INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie liczę godzin i lat".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
-            b.Path = "/Music/Andrzej Rybinski - Nie liczę godzin i lat INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje jedyne marzenie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
-            b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL ^2 Tomek.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje jedyne marzenie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
-            b.Path = "/Music/Anna Jantar - Moje jedyne marzenie INSTRUMENTAL v1 Monika.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Bogini niepojęta".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
-            b.Path = "/Music/Antek Mojkowski - Bogini niepojęta INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "No 1. Parthy anthem").Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Arctic Monkeys - No. 1 Party anthem INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Arctic Monkeys - No.1 Party anthem INSTRUMENTAL ^.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title == "You're a woman, I'm a man").Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Bad Boys Blue - You're a woman, I'm a man INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Bad Boys Blue - You're a woman, I'm a man INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Cyganeczka Zosia".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Cyganeczka Zosia INSTRUMENTAL.mp3";
-            b.Path = "/Music/Cyganeczka Zosia INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Rudy się żeni".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
-            b.Path = "/Music/Big Cyc - Rudy się żeni INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Bombonierka".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Bombonierka INSTRUMENTAL.mp3";
-            b.Path = "/Music/Bombonierka INSTRUMENTALL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Moja Kochana".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Boys - Moja Kochana INSTRUMENTAL.mp3";
-            b.Path = "/Music/Boys - Moja Kochana INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Za szkłem".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Bracia - Za szkłem INSTRUMENTAL v3.mp3";
-            b.Path = "/Music/Bracia - Za szkłem INSTRUMENTAL v3.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Let's twist again".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Chubby Checker - Let's twist again INSTRUMENTAL v2 MONIKA.mp3";
-            b.Path = "/Music/Chubby Checker - Let's twist again INSTRUMENTAL v2 MONIKA.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Let's twist again".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Chubby Checker - Let's twist again INSTRUMENTAL BETTER v5 Tomek.mp3";
-            b.Path = "/Music/Chubby Checker - Let's twist again INSTRUMENTAL BETTER v5 Tomek.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Moje ciało oszalało".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
-            b.Path = "/Music/Cliver - Moje cialo oszalało INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię ze sobą".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Czerwone Gitary - Wezmę Cię ze sobą INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "This Year's Love".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "David Gray - This Year's Love INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/David Gray - This Year's Love INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Zakochane oczy".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Defis & Marcin Miller - Zakochane Oczy INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Dumka na dwa serca".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Dumka na dwa serca INSTRUMENTAL.mp3";
-            b.Path = "/Music/Dumka na dwa serca INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Do kołyski".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Dżem - Do kołyski INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Dżem - Do kołyski INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "September".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Earth, Wind and Fire - September INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = true;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Always on my mind".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
-            b.Path = "/Music/Elvis Presley - Always on my mind INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Burning Love".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Elvis Presley - Burning Love INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Can't help falling in love".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
-            b.Path = "/Music/Elvis Presley - Can't help falling in love INSTRUMENTAL BETTER ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Kamień z napisem Love".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
-            b.Path = "/Music/Enej - Kamień z napisem Love INSTRUMENTAL v3.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Skrzydlate ręce".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Enej - Skrzydlate ręce INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Flames of love".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Fancy - Flames of love INSTRUMENTAL.mp3";
-            b.Path = "/Music/Fancy - Flames of love INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "My way".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Frank Sinatra - My way INSTRUMENTAL.mp3";
-            b.Path = "/Music/Frank Sinatra - My way INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Uno Paloma Blanca".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
-            b.Path = "/Music/George Baker - Uno Paloma Blanca INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Pędzą konie po betonie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
-            b.Path = "/Music/Golec Uorkiestra - Pędzą konie po betonie INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Pieniądze to nie wszystko".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
-            b.Path = "/Music/Golec Uorkiestra - Pieniądze to nie wszystko INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Ściernisko".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Golec Uorkiestra - Ściernisko INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodycze".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Golec Uorkiestra - Słodycze INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Życie jest muzyką".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
-            b.Path = "/Music/Golec Uorkiestra - Życie jest muzyką INSTRUMNETAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "21 guns".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Green Day - 21 guns INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Green Day - 21 guns INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Stray heart".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Green Day - Stray heart INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Green Day - Stray heart INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Niebieska piosenka".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
-            b.Path = "/Music/Grzegorz Tomczak - Niebieska piosenka INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Ballada Boa".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
-            b.Path = "/Music/Gusttavo - Ballada Boa INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Razem a jednak osobno".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
-            b.Path = "/Music/Ich troje - Razem a jednak osobno INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Zawsze z Tobą chciałbym być".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Ich troje - Zawsze z Tobą chciałbym być INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Kolorowe jarmarki".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
-            b.Path = "/Music/Janusz Laskowski - Kolorowe jarmarki INSTRUMENTAL laskowski ^5 Tomek.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Siedem dziewcząt z Albatrosa".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Janusz Laskowski - Siedem dziewcząt z Albatrosa  INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Bo z dziewczynami".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Jerzy Polomski - Bo z dziewczynami INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Będziesz moja".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
-            b.Path = "/Music/Jorrgus - Będziesz moja INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Intryguj, uwodź, prowokuj mnie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
-            b.Path = "/Music/Jorrgus - Intryguj uwodź prowokuj mnie INSTRUMENTAL ^2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Ja chcę mieć żonę".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Jorrgus - Ja chcę mieć żonę INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Kiedy patrzę na Nią".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
-            b.Path = "/Music/Jorrgus - Kiedy patrzę na Nią INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Mama Ci mówiła".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jorrgus - Mama Ci mówiła INSTRUMENTAL.mp3";
-            b.Path = "/Music/Jorrgus - Mama Ci mówiła INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Niebezpieczna".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
-            b.Path = "/Music/Jorrgus - Niebezpieczna INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Piękna nieznajoma".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Jorrgus - Piękna nieznajoma INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Jorrgus - Piękna nieznajoma INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Black and white".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Kombi - Black nad white INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Kombi - Black nad white INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodkiego miłego życia".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Kombi - Słodkiego miłego życia INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Chciałem być".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
-            b.Path = "/Music/Krzysztof Krawczyk - Chciałem być INSTRUMENTAL  ^2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Zatańczysz ze mną".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
-            b.Path = "/Music/Krzysztof Krawczyk - Zatańczysz ze mną INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Zawsze tam, gdzie Ty".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Lady Pank - Zawsze tam, gdzie Ty INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Hello".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Lionel Richie - Hello INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Lionel Richie - Hello INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Dwudziestolatki".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
-            b.Path = "/Music/Maciej Kossowski - Dwudziestolatki INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Zuza".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mamzel - Zuza INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mamzel - Zuza INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Dni, których nie znamy".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Marek Grechuta - Dni, których  nie znamy.mp3";
-            b.Path = "/Music/Marek Grechuta - Dni, których  nie znamy.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Moja dumka".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
-            b.Path = "/Music/Marek Tranda - Moja dumka INSTRUMENATL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Żono moja".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Masters - Żono moja INSTRUMENTAL.mp3";
-            b.Path = "/Music/Masters - Żono moja INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Ai se ue te pego".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
-            b.Path = "/Music/Michel Telo - Ai se ue te pego INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Będę przy Tobie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mig - Będę przy Tobie INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Dziewczyna z sąsiedniej ulicy".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mig - Dziewczyna z sąsiedniej ulicy INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Jej dotyk".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Jej dotyk INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mig - Jej dotyk INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Lalunia".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Lalunia INSTRUMENTAL.mp3";
-            b.Path = "/Music/Mig - Lalunia INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Miód malina".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Miód malina  INSTRUMENATL v1.mp3";
-            b.Path = "/Music/Mig - Miód malina  INSTRUMENATL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie ma mocnych na Mariolę".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mig - Nie ma mocnych na Mariolę INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Ona jedyna".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Ona jedyna INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mig - Ona jedyna INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Słodka wariatka".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Słodka wariatka INSTRUMENTAL.mp3";
-            b.Path = "/Music/Mig - Słodka wariatka INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Ta malutka blondynka".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mig - Ta malutka blondynka INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Wymarzona".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Mig - Wymarzona INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Mig - Wymarzona INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Mario Magdaleno".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Nazir - Mario Magdaleno INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Niewiara".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
-            b.Path = "/Music/Piękni i Młodzi - Niewiara INSTRUMENTAL  v2 Monika.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Bałkanica".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
-            b.Path = "/Music/Piersi - Bałkanica INSTRUMENTAL v3 Tomek.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Konstelacje".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Pin - Konstelacje INSTRUMENTAL.mp3";
-            b.Path = "/Music/Pin - Konstelacje INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Kochać, jak to łatwo powiedzieć".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Piotr Szczepanik - Kochać, jak to łatwo powiedzieć INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Goniąc kormorany".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Piotr Szczepanik - Goniąc kormorany INSTRUMENTAL ^2.mp3";
-            b.Path = "/Music/Piotr Szczepanik - Goniąc kormorany INSTRUMENTAL ^2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Byłaś dla mnie wszystkim".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
-            b.Path = "/Music/Poparzeni Kawą Trzy - Byłaś dla mnie wszystkim INSTRUMENTAL ^2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Kawałek do tańca".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
-            b.Path = "/Music/Poparzeni Kawą Trzy - Kawałek do tańca INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Wezmę Cię".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
-            b.Path = "/Music/Poparzeni Kawą Trzy - Wezmę Cię INSTRUMENTAL ^2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Okrutna, zła i podła".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Poparzeni Kawą Trzy - Okrutna, zła i podła INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Oczy szmaragdowe".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
-            b.Path = "/Music/Rezonans - Oczy szmaragdowe INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Każdy swoje 10 minut ma".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Seweryn Krajewski - Każdy swoje 10 minut ma INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Nagroda za odwagę".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
-            b.Path = "/Music/Seweryn Krajewski - Nagroda za odwagę INSTRUMENTAL v1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Najpiękniejsza".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
-            b.Path = "/Music/Seweryn Krajewski - Najpiękniejsza INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Nie mówmy o zmartwieniach".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
-            b.Path = "/Music/Seweryn Krajewski - Nie mówmy o zmartwieniach INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Wielka miłość".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
-            b.Path = "/Music/Seweryn Krajewski - Wielka miłość INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Uciekaj moje serce".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
-            b.Path = "/Music/Seweryn Krajewski - Uciekaj moje serce INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Give me your heart tonight".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
-            b.Path = "/Music/Shakin Stevens - Give me your heart tonight INSTRUMENTAL v2.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Może ze mną zatańczysz".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
-            b.Path = "/Music/Shantel - Może ze mną zatańczysz INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Prześliczna wiolonczelistka".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Skaldowie - Prześliczna wiolonczelistka INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Wierniejsza od marzenia".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
-            b.Path = "/Music/Skaldowie - Wierniejsza od marzenia INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Aneta".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Sławomir - Aneta INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Sławomir - Aneta INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Miłość w Zakopanem".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
-            b.Path = "/Music/Sławomir - Miłość w Zakopanem INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "YMCA".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Village People - YMCA INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Village People - YMCA INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Ona tańczy dla mnie".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
-            b.Path = "/Music/Weekend - Ona tańczy dla mnie INSTRUMENTAL ^1.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-
-            b = new Backing();
-            sid = context.Songs.Where(x => x.Title.ToLower() == "Baśka".ToLower()).Select(y => y.SongID).First();
-            b.BackingStatus = Enums.BackingStatusEnum.Good;
-            b.Name = "Wilki - Baśka INSTRUMENTAL.mp3";
-            b.Path = "/Music/Wilki - Baśka INSTRUMENTAL.mp3";
-            b.SongID = sid;
-            b.MainBacking = false;
-            context.Backings.Add(b);
-            context.SaveChanges();
-             #endregion
-
-            #region place
-
-            Place plc = new Place();
-            plc.Name = "Remiza w Jaziewie";
-            plc.Address = "Jaziewo 47, podlaskie, gmina sztabin";
-            plc.Description = "dość kameralna sala główna, kominek, fajna sala z bilardem i kanapami, zadbana, po remoncie, toaleta, kuchnia, miejsce na ognisko";
-            context.Places.Add(plc);
-            context.SaveChanges();
-
-            plc = new Place();
-            plc.Name = "EmptyPlace";
-            plc.Address = "empty";
-            plc.Description = "empty";
-            context.Places.Add(plc);
-            context.SaveChanges();
-
-            plc = new Place();
-            plc.Name = "Sala Weselna Łapińscy";
-            plc.Address = "Stare Kupiski, ul.Janowska 1, Łomża";
-            context.Places.Add(plc);
-            context.SaveChanges();
-
-            Event e = new Event();
-            e.Date = new DateTime(2017, 12, 31, 19, 00, 0);
-            e.DateEnd = new DateTime(2018, 01, 01, 04, 00, 0);
-            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            e.Title = "Sylwester 2017";
-            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
-            e.EventType = Enums.EventType.granie;
-            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
-            e.UserID = ids;
-            context.Events.Add(e);
-            context.SaveChanges();
-
-            e = new Event();
-            e.Date = new DateTime(2018, 01, 04, 19, 00, 0);
-            e.DateEnd = new DateTime(2018, 01, 05, 04, 00, 0);
-
-            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            e.Title = "Sylwester 2017";
-            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
-            e.EventType = Enums.EventType.granie;
-            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
-            e.UserID = ids;
-            context.Events.Add(e);
-            context.SaveChanges();
-
-            e = new Event();
-            e.Date = new DateTime(2018, 01, 03, 19, 00, 0);
-            e.DateEnd = new DateTime(2018, 01, 04, 04, 00, 0);
-            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            e.Title = "Sylwester 2017";
-            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
-            e.EventType = Enums.EventType.granie;
-            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
-            e.UserID = ids;
-            context.Events.Add(e);
-            context.SaveChanges();
-
-            e = new Event();
-            e.Date = new DateTime(2018, 01, 02, 19, 00, 0);
-            e.DateEnd = new DateTime(2018, 01, 03, 04, 00, 0);
-            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            e.Title = "Sylwester 2017";
-            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
-            e.EventType = Enums.EventType.granie;
-            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
-            e.UserID = ids;
-            context.Events.Add(e);
-            context.SaveChanges();
-
-            e = new Event();
-            e.Date = new DateTime(2018, 01, 01, 19, 00, 0);
-            e.DateEnd = new DateTime(2018, 01, 02, 04, 00, 0);
-            e.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            e.Title = "Sylwester 2017";
-            e.Info = "Pierwsza konkretna impreza TYTANIKA w składzie Aneta, Monika, Tomek.";
-            e.EventType = Enums.EventType.granie;
-            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
-            e.UserID = ids;
-            context.Events.Add(e);
-            context.SaveChanges();
-
-            e = new Event();
-            e.Date = new DateTime(2018, 05, 12, 13, 00, 0);
-            e.DateEnd = new DateTime(2018, 05, 13, 04, 00, 0);
-            e.PlaceID = context.Places.Where(x => x.Name == "Sala Weselna Łapińscy").Select(y => y.PlaceID).FirstOrDefault();
-            e.Title = "Wesele";
-            e.Info = "Wesele, młodzi życzą sobie repertuar z ogrnaiczoną ilością discopolo";
-            e.EventType = Enums.EventType.granie;
-            ids = context.Users.Where(n => n.UserName == "Tomek").Select(n => n.Id).FirstOrDefault();
-            e.UserID = ids;
-            context.Events.Add(e);
-            context.SaveChanges();
-
-            Photo photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/remizaJ.PNG";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/dwl.PNG";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos1.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos2.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos3.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos4.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos5.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos6.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos7.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos8.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos9.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos10.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos11.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos12.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos13.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos14.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos15.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos16.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos17.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos18.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos19.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2016, 02, 01, 00, 00, 0);
-            photo.Path = "/images/Gallery/partyPhotos20.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2018, 01, 01, 03, 30, 0);
-            photo.Path = "/images/Gallery/md.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            photo = new Photo();
-            photo.DateCreated = new DateTime(2017, 12, 31, 22, 00, 0);
-            photo.Path = "/images/Gallery/sylw2.jpg";
-            context.Photos.Add(photo);
-            context.SaveChanges();
-
-            PlacePhoto pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/remizaJ.PNG").Select(y => y.PhotoID).FirstOrDefault();
-            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            context.PlacePhotos.Add(pp);
-            context.SaveChanges();
-
-            pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/dwl.PNG").Select(y => y.PhotoID).FirstOrDefault();
-            pp.PlaceID = context.Places.Where(x => x.Name == "Sala Weselna Łapińscy").Select(y => y.PlaceID).FirstOrDefault();
-            context.PlacePhotos.Add(pp);
-            context.SaveChanges();
-
-            pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/sylw2.jpg").Select(y => y.PhotoID).FirstOrDefault();
-            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            context.PlacePhotos.Add(pp);
-            context.SaveChanges();
-
-            pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/md.jpg").Select(y => y.PhotoID).FirstOrDefault();
-            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            context.PlacePhotos.Add(pp);
-            context.SaveChanges();
-
-            pp = new PlacePhoto();
-            pp.PhotoID = context.Photos.Where(x => x.Path == "/images/Gallery/partyPhotos16.jpg").Select(y => y.PhotoID).FirstOrDefault();
-            pp.PlaceID = context.Places.Where(x => x.Name == "Remiza w Jaziewie").Select(y => y.PlaceID).FirstOrDefault();
-            context.PlacePhotos.Add(pp);
+        }
+
+        private static void InsertAuthors(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            #region authors
+            Author a = new Author();
+            a.Name = "Akcent";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Exaited";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Andrzej Piaseczny";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Andrzej Rybiński";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Anna Jantar";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Antek Mójkowski";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Arctic Monkeys";
+            a.Country = Enums.CountryEnum.GB;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Bad Boys Blue";
+            a.Country = Enums.CountryEnum.Niemcy;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Big Cyc";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Basia Stępniak-Wilk";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Grzegorz Turnau";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Boys";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Bracia";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Chubby Checker";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Cliver";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Biesiadne";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Czerwone Gitary";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "David Gray";
+            a.Country = Enums.CountryEnum.GB;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Defis";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Marcin Miller";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Edyta Górniak";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Mieczysław Szcześniak";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Dżem";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Earth, Wind & Fire";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Elvis Presley";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Enej";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Fancy";
+            a.Country = Enums.CountryEnum.Niemcy;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Frank Sinatra";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "George Baker";
+            a.Country = Enums.CountryEnum.Holandia;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Golec Uorkiestra";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Green Day";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Grzegorz Tomczak";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Gusttavo";
+            a.Country = Enums.CountryEnum.Brazylia;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Ich troje";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Janusz Laskowski";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Jerzy Połomski";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Jorrgus";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Kombi";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Krzysztof Krawczyk";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Lady Pank";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Lionel Richie";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Maciej Kossowski";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Mamzel";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Marek Grechuta";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Marek Tranda";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Masters";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Michel Telo";
+            a.Country = Enums.CountryEnum.Brazylia;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Mig";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Modern Talking";
+            a.Country = Enums.CountryEnum.Niemcy;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Nazir";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Paweł Kukiz";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Piersi";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Piękni i Młodzi";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Pin";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Piotr Szczepanik";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Poparzeni Kawą Trzy";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Rezonans";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Rihanna";
+            a.Country = Enums.CountryEnum.Barbados;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Mikky Ekko";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Seweryn Krajewski";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Shakin' Stevens";
+            a.Country = Enums.CountryEnum.Walia;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Shantel";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Skaldowie";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Sławomir";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Tom Jones";
+            a.Country = Enums.CountryEnum.GB;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Village People";
+            a.Country = Enums.CountryEnum.USA;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Weekend";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
+            context.SaveChanges();
+
+            a = new Author();
+            a.Name = "Wilki";
+            a.Country = Enums.CountryEnum.Polska;
+            context.Authors.Add(a);
             context.SaveChanges();
 
             #endregion
-         }
+        }
+
+        private static void InsertCategories(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            #region categories
+            Category c = new Category();
+            c.Name = "Polskie";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Zagraniczne";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Disco polo";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Biesiadne i przyśpiewki";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Rock";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Pop";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Wolne";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Alternatywa";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Propozycje na I taniec";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Propozycje na podziękowania rodzicom";
+            context.Categories.Add(c);
+            context.SaveChanges();
+
+            c = new Category();
+            c.Name = "Oprawa ślubów";
+            context.Categories.Add(c);
+            context.SaveChanges();
+            #endregion
+        }
+
+        private static void InsertPosts(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            #region posts
+            Post p = new Post();
+            string ids;
+            ids = context.Users.Where(n => n.UserName == "witek102").Select(n => n.Id).FirstOrDefault();
+            p.ApplicationUserID = ids;
+            p.Text = "Świetny zespół!! Bawiliśmy się cudownie do białego rana, polecam.";
+            p.Status = Enums.PostStatusEnum.Approved;
+            p.Date = new DateTime(2017, 10, 08, 10, 10, 10);
+            context.Posts.Add(p);
+            context.SaveChanges();
+
+            p = new Post();
+            ids = context.Users.Where(n => n.UserName == "AleksandraSosnowska").Select(n => n.Id).FirstOrDefault();
+            p.ApplicationUserID = ids;
+            p.Text = "Gorąco polecam, super zespół. Pięknie zagrane, extra zaśpiewane, 10/10.";
+            p.Status = Enums.PostStatusEnum.Approved;
+            p.Date = new DateTime(2017, 06, 28, 11, 11, 11);
+            context.Posts.Add(p);
+            context.SaveChanges();
+
+            p = new Post();
+            ids = context.Users.Where(n => n.UserName == "Stefan").Select(n => n.Id).FirstOrDefault();
+            p.ApplicationUserID = ids;
+            p.Text = "fatalny zespół ja pierniczę";
+            p.Status = Enums.PostStatusEnum.Rejected;
+            p.Date = new DateTime(2017, 07, 24, 12, 12, 12);
+            context.Posts.Add(p);
+            context.SaveChanges();
+            #endregion
+        }
+
+        private static void InsertUsers(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        {
+            #region users
+            ApplicationUser u = new ApplicationUser { UserName = "Tomek", Email = "tomasz.suchwalko@gmail.com" };
+            userManager.CreateAsync(u, "Slightom20p+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "Admin").Wait();
+            userManager.AddToRoleAsync(u, "BandMember").Wait();
+
+            u = new ApplicationUser { UserName = "Stefan", Email = "zwyklyMail@gmail.com" };
+            userManager.CreateAsync(u, "Stefan20p+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "BandMember").Wait();
+
+            u = new ApplicationUser { UserName = "AleksandraSosnowska", Email = "szalonaOla@gmail.com" };
+            userManager.CreateAsync(u, "SzalonaOla20p+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "User").Wait();
+
+            u = new ApplicationUser { UserName = "witek102", Email = "witek15@gmail.com" };
+            userManager.CreateAsync(u, "Witek15+").Wait();
+            u = context.Users.Where(x => x.UserName == u.UserName).FirstOrDefault();
+            userManager.AddToRoleAsync(u, "User").Wait();
+            #endregion
+        }
 
         private static void DeleteAllRecords(ApplicationDbContext context)
         {

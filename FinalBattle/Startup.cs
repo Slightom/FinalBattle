@@ -120,7 +120,7 @@ namespace FinalBattle
 
         private async void RunDbInitializator(ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            //DbInitializer.InitializeAsync(context, roleManager, userManager).Wait();
+            DbInitializer.InitializeAsync(context, roleManager, userManager).Wait();
         }
     }
 }
