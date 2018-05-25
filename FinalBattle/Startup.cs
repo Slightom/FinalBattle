@@ -12,6 +12,7 @@ using FinalBattle.Data;
 using FinalBattle.Models;
 using FinalBattle.Services;
 using FinalBattle.Migrations;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace FinalBattle
 {
@@ -29,9 +30,8 @@ namespace FinalBattle
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddEntityFrameworkNpgsql();
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-
-
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -105,6 +105,11 @@ namespace FinalBattle
             app.UseStaticFiles();
 
             app.UseSession();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();
 
