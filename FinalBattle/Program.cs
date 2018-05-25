@@ -18,11 +18,14 @@ namespace FinalBattle
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-		.UseKestrel()
-		.UseUrls("http://*:80")
-		.UseContentRoot(Directory.GetCurrentDirectory())
+                        WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .Build();
+                //      WebHost.CreateDefaultBuilder(args)
+                //.UseKestrel()
+                //.UseUrls("http://*:80")
+                //.UseContentRoot(Directory.GetCurrentDirectory())
+                //              .UseStartup<Startup>()
+                //              .Build();
     }
 }
