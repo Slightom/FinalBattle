@@ -55,6 +55,11 @@ textarea {
     color: white !important;
 }
 
+.myCollapse {
+    text-align: center !important;
+    color: white !important;
+}
+
 .navbarList > li {
     color: #ffffff !important;
     border-right: 1px dashed #DDB600;
@@ -73,7 +78,7 @@ textarea {
     z-index: 100;
 }
 
-    /*.sticky + .container {
+/*.sticky + .container {
         padding-top: 140px;
     }*/
 
@@ -347,7 +352,7 @@ iframe {
 .container2 {
     display: block;
     position: relative;
-    vertical-align:central;
+    vertical-align: central;
     padding-bottom: 0px;
     padding-top: 0px;
     padding-left: 35px;
@@ -422,10 +427,10 @@ iframe {
     font-size: 13px
 }
 
-.selecetDeselectDiv{
+.selecetDeselectDiv {
     padding-top: 10px;
     padding-bottom: 5px;
-    padding-left:10px !important;
+    padding-left: 10px !important;
     text-align: left;
     height: 50px;
 }
@@ -451,7 +456,7 @@ audio {
     /*margin: 20px;*/
 }
 
-    /*audio:nth-child(2) {
+/*audio:nth-child(2) {
         width: 250px;
     }
 
@@ -460,12 +465,12 @@ audio {
     }*/
 
 .modal-content {
-    background-color: mediumseagreen !important; 
+    background-color: mediumseagreen !important;
     border: 1px solid #ffd800 !important;
 }
 
 .modal-header {
-    background-color: #ffd800 !important; 
+    background-color: #ffd800 !important;
     color: black !important;
 }
 
@@ -609,9 +614,9 @@ audio {
     height: 40px;
 }
 
-.fc-widget-header{
+.fc-widget-header {
     border: 1px solid white !important;
-    background-color:  rgba(20,20,20,0.8);
+    background-color: rgba(20,20,20,0.8);
 }
 
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
@@ -1084,9 +1089,11 @@ table.fc-border-separate {
 
 
 .actionLinkClass {
-    width: 100% !important; 
+    width: 100% !important;
     height: 100% !important;
     text-align: center !important;
+    color: #111111 !important;
+    /*color: #000000 !important;*/
 }
 
     .actionLinkClass:hover {
