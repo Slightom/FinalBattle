@@ -13,6 +13,8 @@ using FinalBattle.Models;
 using FinalBattle.Services;
 using FinalBattle.Migrations;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace FinalBattle
 {
@@ -87,6 +89,11 @@ namespace FinalBattle
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
                 options.Cookie.HttpOnly = true;
             });
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
@@ -119,6 +126,11 @@ namespace FinalBattle
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var options = new RewriteOptions()
+            .AddRedirectToHttps();
+
+            app.UseRewriter(options);
 
             RunDbInitializator(context, roleManager, userManager);
         }
