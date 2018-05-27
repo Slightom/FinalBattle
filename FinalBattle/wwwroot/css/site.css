@@ -63,7 +63,6 @@ textarea {
 .navbarList > li {
     color: #ffffff !important;
     border-right: 1px dashed #DDB600;
-    margin-left: -3px;
     width: 150px;
 }
 
@@ -1093,7 +1092,6 @@ table.fc-border-separate {
     height: 100% !important;
     text-align: center !important;
     color: #111111 !important;
-    /*color: #000000 !important;*/
 }
 
     .actionLinkClass:hover {
@@ -1117,6 +1115,7 @@ table.fc-border-separate {
     width: 100% !important;
     height: 100% !important;
     text-align: center !important;
+    color: #111111 !important;
 }
 
     .homeLink:hover {
@@ -1124,3 +1123,54 @@ table.fc-border-separate {
         background-color: #fffa22 !important;
         color: #303030 !important;
     }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
