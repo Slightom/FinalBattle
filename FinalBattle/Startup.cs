@@ -90,10 +90,10 @@ namespace FinalBattle
                 options.Cookie.HttpOnly = true;
             });
 
-            services.Configure<MvcOptions>(options =>
-            {
-                options.Filters.Add(new RequireHttpsAttribute());
-            });
+            //services.Configure<MvcOptions>(options =>
+            //{
+            //    options.Filters.Add(new RequireHttpsAttribute());
+            //});
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
@@ -127,10 +127,10 @@ namespace FinalBattle
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            var options = new RewriteOptions()
-            .AddRedirectToHttps();
+            //var options = new RewriteOptions()
+            //.AddRedirectToHttps();
 
-            app.UseRewriter(options);
+            //app.UseRewriter(options);
 
             RunDbInitializator(context, roleManager, userManager);
         }
