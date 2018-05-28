@@ -48,20 +48,24 @@
     </div>
 
     <div class="col-md-6">
+        <div class="alert alert-info alert-dismissible" style="font-size: 14px; margin-top: 10px; margin-bottom: 0px;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Info!</strong> Aktualny repertuar jest znacznie obszerniejszy od widocznego na stronie. Pracujemy nad jego aktualizacją.
+        </div>
         <div class="songListDiv" id="songListDivID">
 
             @if (ViewBag.SongList != null)
             {
-            <table class="table table-hover">
-                @foreach (var item in ViewBag.SongList)
-                {
-                    <tr>
-                        <td>
-                            @item.DisplayTitle
-                        </td>
-                    </tr>
+                <table class="table table-hover">
+                    @foreach (var item in ViewBag.SongList)
+                    {
+                        <tr>
+                            <td>
+                                @item.DisplayTitle
+                            </td>
+                        </tr>
                     }
-            </table>
+                </table>
             }
 
         </div>

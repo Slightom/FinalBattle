@@ -63,6 +63,9 @@ textarea {
 .navbarList > li {
     color: #ffffff !important;
     border-right: 1px dashed #DDB600;
+    /*border: 1px dotted black;*/
+    padding: 0px !important;
+    margin-left: -3px !important;
     width: 150px;
 }
 
