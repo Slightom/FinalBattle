@@ -320,7 +320,7 @@ iframe {
     }
 
     #circlePhotos{
-        display: none;
+        display: none !important;
     }
 
     .navbar-left, .navbar-right {
