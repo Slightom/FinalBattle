@@ -319,6 +319,10 @@ iframe {
         float: none;
     }
 
+    #circlePhotos{
+        display: none;
+    }
+
     .navbar-left, .navbar-right {
         float: none !important;
     }

@@ -127,16 +127,18 @@
 
 </head>
 <body onload="changeSlide(); checkNewPosts();">
-    <div class="header">
+    <div class="header" style="align-content: center !important">
         <div class="logo">
-            <img ondblclick="goToLogin()" id="statekLogo" src="~/images/statekZNetaAfterv1.png" />
-            <img src="~/images/AndrzejKolo.png" width="100"/>
-            <img src="~/images/MonikaKolo.png" width="100" />
-
-            <img src="~/images/WaldekKolo.png" width="100" />
-            <img src="~/images/AnetaKolo.png" width="100" />
-            <img src="~/images/TomekKolo.png" width="100" />
-
+            <div style="display: inline-block">
+                <img ondblclick="goToLogin()" id="statekLogo" src="~/images/statekZNetaAfterv1.png" />
+            </div>
+            <div id="circlePhotos" style="display: inline-block">
+                <img src="~/images/AndrzejKolo.png" width="100" />
+                <img src="~/images/MonikaKolo.png" width="100" />
+                <img src="~/images/WaldekKolo.png" width="100" />
+                <img src="~/images/AnetaKolo.png" width="100" />
+                <img src="~/images/TomekKolo.png" width="100" />
+            </div>
         </div>
     </div>
     <div id="navigationWrapper" style="height: 60px;">
