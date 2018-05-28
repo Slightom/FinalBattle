@@ -42,9 +42,10 @@ namespace FinalBattle.Controllers
 
         public ActionResult Index()
         {
-            var posts = db.Posts.Where(x => x.Status == Enums.PostStatusEnum.Approved).Include(p => p.ApplicationUser).ToList();
-            posts = posts.OrderByDescending(x => x.Date).ToList();
-            return View(posts);
+            //var posts = db.Posts.Where(x => x.Status == Enums.PostStatusEnum.Approved).Include(p => p.ApplicationUser).ToList();
+            //posts = posts.OrderByDescending(x => x.Date).ToList();
+            //return View(posts);
+            return View(null);
         }
 
 
