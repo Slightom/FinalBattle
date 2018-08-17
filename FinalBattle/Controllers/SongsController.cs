@@ -73,7 +73,7 @@ namespace FinalBattle.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind("SongID", "Title", "DisplayTitle", "WithBacking", "Info", "TextLanguage", "AuthorInTitle")] Song song, FormCollection fc)
+        public ActionResult Create([Bind("SongID", "Title", "DisplayTitle", "WithBacking", "Info", "TextLanguage", "AuthorInTitle")] Song song, IFormCollection fc)
         {
             if (song == null)
             {
