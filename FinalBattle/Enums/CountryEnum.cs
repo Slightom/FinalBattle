@@ -11,6 +11,8 @@
         Holandia,
         Brazylia,
         Barbados,
-        Walia
+        Walia,
+        Szwecja,
+        Mozambik
     }
 }
