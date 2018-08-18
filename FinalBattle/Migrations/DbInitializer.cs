@@ -22,24 +22,24 @@ namespace FinalBattle.Migrations
 
             // Look for any students.
 
-            //if (!context.Users.Any() && !context.Backings.Any())
-            //{
-            //    HandleRolesAsync(roleManager).Wait();
+            if (!context.Users.Any() && !context.Backings.Any())
+            {
+                HandleRolesAsync(roleManager).Wait();
 
-            //    InsertUsers(context, userManager);
-            //    InsertPosts(context, userManager);
-            //    InsertCategories(context, userManager);
-            //    InsertAuthors(context, userManager);
-            //    InsertSongs(context, userManager);
+                InsertUsers(context, userManager);
+                InsertPosts(context, userManager);
+                InsertCategories(context, userManager);
+                InsertAuthors(context, userManager);
+                InsertSongs(context, userManager);
 
-            //    if (!context.Backings.Any())
-            //    {
-            //        InsertBackings(context, userManager);
-            //        InsertPlace(context, userManager);
-            //    }
+                if (!context.Backings.Any())
+                {
+                    InsertBackings(context, userManager);
+                    InsertPlace(context, userManager);
+                }
 
-            //    return;
-            //}
+                return;
+            }
 
 
 
