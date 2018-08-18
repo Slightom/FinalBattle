@@ -16,32 +16,34 @@ namespace FinalBattle.Migrations
     {
         public static async Task InitializeAsync(ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-           context.Database.EnsureCreated();//if db is not exist ,it will create database .but ,do nothing .
+            context.Database.EnsureCreated();//if db is not exist ,it will create database .but ,do nothing .
 
             //DeleteAllRecords(context);
 
             // Look for any students.
-            if (!context.Users.Any() && !context.Backings.Any())
-            {
-                HandleRolesAsync(roleManager).Wait();
 
-                InsertUsers(context, userManager);
-                InsertPosts(context, userManager);
-                InsertCategories(context, userManager);
-                InsertAuthors(context, userManager);
-                InsertSongs(context, userManager);
+            //if (!context.Users.Any() && !context.Backings.Any())
+            //{
+            //    HandleRolesAsync(roleManager).Wait();
 
-                if (!context.Backings.Any())
-                {
-                    InsertBackings(context, userManager);
-                    InsertPlace(context, userManager);
-                }
+            //    InsertUsers(context, userManager);
+            //    InsertPosts(context, userManager);
+            //    InsertCategories(context, userManager);
+            //    InsertAuthors(context, userManager);
+            //    InsertSongs(context, userManager);
 
-                return;
-            }
+            //    if (!context.Backings.Any())
+            //    {
+            //        InsertBackings(context, userManager);
+            //        InsertPlace(context, userManager);
+            //    }
 
-            
-         }
+            //    return;
+            //}
+
+
+
+        }
 
         private static void InsertPlace(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
