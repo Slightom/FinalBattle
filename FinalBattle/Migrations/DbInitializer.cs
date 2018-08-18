@@ -16,7 +16,7 @@ namespace FinalBattle.Migrations
     {
         public static async Task InitializeAsync(ApplicationDbContext context, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
-            //context.Database.EnsureCreated();//if db is not exist ,it will create database .but ,do nothing .
+            context.Database.EnsureCreated();//if db is not exist ,it will create database .but ,do nothing .
 
             //DeleteAllRecords(context);
 
