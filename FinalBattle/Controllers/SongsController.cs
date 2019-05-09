@@ -124,11 +124,11 @@ namespace FinalBattle.Controllers
                 // handle with categories
                 foreach (var f in fc)
                 {
-                    string s = f.Value;
-                    if (s.Contains("Category-"))
+                    string sKey = f.Key;
+                    if (sKey.Contains("Category-"))
                     {
-                        s = s.Replace("Category-", "");
-                        int categoryID = Int32.Parse(s);
+                        sKey = sKey.Replace("Category-", "");
+                        int categoryID = Int32.Parse(sKey);
 
                         SongCategory sc = new SongCategory();
                         sc.SongID = songID;
@@ -253,7 +253,7 @@ namespace FinalBattle.Controllers
 
                 foreach (var f in fc)
                 {
-                    string s = f.Value;
+                    string s = f.Key;
                     if (s.Contains("Category-"))
                     {
                         s = s.Replace("Category-", "");
