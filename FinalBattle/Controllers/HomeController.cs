@@ -166,6 +166,8 @@ namespace FinalBattle.Controllers
                 searchedSongs = searchedSongs.Where(x => x.DisplayTitle.ToLower().Contains(SearchWord.ToLower())).ToList();
             }
 
+            searchedSongs = searchedSongs.OrderBy(x => x.DisplayTitle).ToList();
+
 
            HttpContext.Session.SetObject("searchedSongs", searchedSongs);
 
@@ -263,6 +265,7 @@ namespace FinalBattle.Controllers
                 searchedBackings = searchedBackings.Where(x => x.Name.ToLower().Contains(SearchWord.ToLower())).ToList();
             }
 
+            searchedBackings = searchedBackings.OrderBy(x => x.Name).ToList();
 
             HttpContext.Session.SetObject("searchedBackings", searchedBackings);
 
