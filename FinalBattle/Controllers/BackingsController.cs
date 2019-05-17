@@ -223,7 +223,7 @@ namespace FinalBattle.Controllers
                 Backing backing = db.Backings.Find(Int32.Parse(fc["BackingID"].ToString()));
 
                 //usuwanie starego
-                string fullPath = Path.Combine(_hostingEnvironment.WebRootPath, "Music\\" + backing.Name);
+                string fullPath = Path.Combine(_hostingEnvironment.WebRootPath, "Music", backing.Name);
                 if (System.IO.File.Exists(fullPath))
                 {
                     System.IO.File.Delete(fullPath);
@@ -249,10 +249,13 @@ namespace FinalBattle.Controllers
                     //newFileName = fileName + FileExtension;
 
                     // Combines two strings into a path.
-                    filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Music\\" + fileName);
+                    filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Music", fileName);
+
+                    ViewBag.filePath = filePath;
 
                     // if you want to store path of folder in database
                     PathDB = "/Music/" + fileName;
+                    PathDB = Path.Combine("Music", fileName);
 
                     using (FileStream fs = System.IO.File.Create(filePath))
                     {
