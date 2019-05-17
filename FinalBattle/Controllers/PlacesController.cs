@@ -197,6 +197,8 @@ namespace FinalBattle.Controllers
                     var fileName = file.FileName;
                     var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\Gallery\\" + fileName);
 
+                    ViewBag.filePath = filePath;
+
                     using (FileStream fs = System.IO.File.Create(filePath))
                     {
                         file.CopyTo(fs);
