@@ -60,9 +60,9 @@ namespace FinalBattle.Controllers
         // GET: Songs/Create
         public ActionResult Create()
         {
-            ViewBag.Authors = new SelectList(db.Authors.ToList(), "AuthorID", "Name", "----");
-            ViewBag.Authors2 = new SelectList(db.Authors.ToList(), "AuthorID", "Name", "----");
-            ViewBag.Authors3 = new SelectList(db.Authors.ToList(), "AuthorID", "Name", "----");
+            ViewBag.Authors = new SelectList(db.Authors.OrderBy(x => x.Name).ToList(), "AuthorID", "Name", "----");
+            ViewBag.Authors2 = new SelectList(db.Authors.OrderBy(x => x.Name).ToList(), "AuthorID", "Name", "----");
+            ViewBag.Authors3 = new SelectList(db.Authors.OrderBy(x => x.Name).ToList(), "AuthorID", "Name", "----");
             ViewBag.Categories = db.Categories.ToList();
             ViewBag.CategoriesAmount = db.Categories.Count();
             return View();

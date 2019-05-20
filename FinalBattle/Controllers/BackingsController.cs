@@ -72,7 +72,7 @@ namespace FinalBattle.Controllers
         // GET: Backings/Create
         public ActionResult Create()
         {
-            ViewBag.SongID = new SelectList(db.Songs, "SongID", "Title", "----");
+            ViewBag.SongID = new SelectList(db.Songs.OrderBy(x => x.DisplayTitle), "SongID", "DisplayTitle", "----");
             return View();
         }
 
@@ -121,7 +121,7 @@ namespace FinalBattle.Controllers
                 }
             }
 
-            ViewBag.SongID = new SelectList(db.Songs, "SongID", "Title", backing.SongID);
+            ViewBag.SongID = new SelectList(db.Songs.OrderBy(x => x.DisplayTitle), "SongID", "DisplayTitle", backing.SongID);
             return View(backing);
         }
 
@@ -137,7 +137,7 @@ namespace FinalBattle.Controllers
             {
                 return NotFound();
             }
-            ViewBag.SongID = new SelectList(db.Songs, "SongID", "Title", backing.SongID);
+            ViewBag.SongID = new SelectList(db.Songs.OrderBy(x => x.DisplayTitle), "SongID", "DisplayTitle", backing.SongID);
             return View(backing);
         }
 
@@ -154,7 +154,7 @@ namespace FinalBattle.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SongID = new SelectList(db.Songs, "SongID", "Title", backing.SongID);
+            ViewBag.SongID = new SelectList(db.Songs.OrderBy(x => x.DisplayTitle), "SongID", "DisplayTitle", backing.SongID);
             return View(backing);
         }
 
