@@ -195,7 +195,7 @@ namespace FinalBattle.Controllers
                 {
                     // and optionally write the file to disk
                     var fileName = file.FileName;
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\Gallery\\" + fileName);
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, GlobalStatic.pathImageFolder, GlobalStatic.pathGalleryFolder, fileName);
 
                     ViewBag.filePath = filePath;
 
