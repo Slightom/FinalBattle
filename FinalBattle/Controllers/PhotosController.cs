@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
+using FinalBattle.HelpfulClasses;
 
 namespace FinalBattle.Controllers
 {
@@ -104,7 +105,7 @@ namespace FinalBattle.Controllers
                         fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
                         // Combines two strings into a path.
-                        filePath = Path.Combine(_hostingEnvironment.WebRootPath, "images\\Gallery\\" + fileName);
+                        filePath = Path.Combine(_hostingEnvironment.WebRootPath, GlobalStatic.pathImageFolder, GlobalStatic.pathGalleryFolder, fileName);
 
                         using (FileStream fs = System.IO.File.Create(filePath))
                         {
@@ -112,7 +113,7 @@ namespace FinalBattle.Controllers
                             fs.Flush();
                         }
 
-                        photo.Path = "images/Photos/Gallery/" + fileName;
+                        photo.Path = "images/Gallery/" + fileName;
                         photo.DateCreated = DateTime.Now;
                         db.Photos.Add(photo);
                         db.SaveChanges();
