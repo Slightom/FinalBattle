@@ -101,7 +101,7 @@ namespace FinalBattle.Controllers
                         fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
 
                         // Combines two strings into a path.
-                        filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Music\\" + fileName);
+                        filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Music", fileName);
 
                         // if you want to store path of folder in database
                         PathDB = "/Music/" + fileName;
@@ -181,7 +181,7 @@ namespace FinalBattle.Controllers
             Backing backing = db.Backings.Find(id);
 
             //usuwanie starego
-            string fullPath = Path.Combine(_hostingEnvironment.WebRootPath, "Music/" + backing.Name);
+            string fullPath = Path.Combine(_hostingEnvironment.WebRootPath, "Music", backing.Name);
             if (System.IO.File.Exists(fullPath))
             {
                 System.IO.File.Delete(fullPath);
