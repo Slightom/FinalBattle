@@ -73,7 +73,9 @@ namespace FinalBattle.Controllers
         public ActionResult Create()
         {
             ViewBag.SongID = new SelectList(db.Songs.OrderBy(x => x.DisplayTitle), "SongID", "DisplayTitle", "----");
-            return View();
+            Backing model = new Backing();
+            model.MainBacking = true;
+            return View(model);
         }
 
         // POST: Backings/Create
