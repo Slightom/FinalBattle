@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        @if (Model.PostText == "")
+        @*@if (Model.PostText == "")
         {
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10" style="margin-top:7px">
@@ -53,7 +53,7 @@
                 @Html.EditorFor(model => model.PostText, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PostText, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         @if (Model.PostText != "")
         {
