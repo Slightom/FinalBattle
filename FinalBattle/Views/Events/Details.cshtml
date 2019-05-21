@@ -1,0 +1,62 @@
+﻿@model FinalBattle.Models.Event
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="homeRow">
+    <h2>Details</h2>
+
+    <div>
+        <h4>Event</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DateEnd)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateEnd)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Info)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Info)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EventType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EventType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Place)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Place.Address)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.Id)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.EventID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
