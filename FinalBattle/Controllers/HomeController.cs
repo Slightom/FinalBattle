@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using FinalBattle.HelpfulClasses;
+using System.Globalization;
 
 namespace FinalBattle.Controllers
 {
@@ -461,6 +462,9 @@ namespace FinalBattle.Controllers
 
             ViewBag.EventType = new SelectList(list, "Value", "Text", listString[0]);
             ViewBag.Place = new SelectList(list2, "Value", "Text", db.Places.Select(p => p.Name + " (" + p.Address + ")").FirstOrDefault());
+
+            // Display the name of the current thread culture.
+            ViewBag.oldCulture = CultureInfo.CurrentCulture.Name;
 
             return View();
         }

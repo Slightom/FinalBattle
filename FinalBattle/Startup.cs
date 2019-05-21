@@ -15,6 +15,7 @@ using FinalBattle.Migrations;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using System.Globalization;
 
 namespace FinalBattle
 {
@@ -131,6 +132,11 @@ namespace FinalBattle
             //.AddRedirectToHttps();
 
             //app.UseRewriter(options);
+
+            var cultureInfo = new CultureInfo("pl-PL");
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             RunDbInitializator(context, roleManager, userManager);
         }

@@ -3,6 +3,9 @@
     ViewBag.Title = "Index";
 }
 
+@ViewBag.oldCulture
+@ViewBag.newCulture
+
 <div class="row homeRow" id="mainDiv">
     <div id="calender"></div>
 
@@ -124,7 +127,6 @@
             FetchEventAndRenderCalendar();
 
             function FetchEventAndRenderCalendar() {
-                alert("Fetching Events");
                 events = [];
                 $.ajax({
                     type: "GET",
@@ -144,7 +146,6 @@
                                 placeName: v.placeName
                             });
                         })
-                        alert("events.length: " + events.length);
                         $('#mainDiv').height(700);
                         GenerateCalender(events);
                         $('#mainDiv').css('height', 'auto');
@@ -159,7 +160,6 @@
 
 
             function GenerateCalender(events) {
-                alert("generateCalendar");
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
                     contentHeight: 440,
