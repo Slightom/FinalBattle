@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalBattle.Data;
 using FinalBattle.Models;
+using FinalBattle.Enums;
 
 namespace FinalBattle.Controllers
 {
@@ -85,7 +86,12 @@ namespace FinalBattle.Controllers
                 return NotFound();
             }
             ViewData["PlaceID"] = new SelectList(_context.Places, "PlaceID", "Address", @event.PlaceID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", @event.UserID);
+            ViewData["UserID"] = new SelectList(_context.Users, "Id", "UserName", @event.UserID);
+            ViewData["EventTypeID"] = new SelectList(Enum.GetValues(typeof(EventType)).Cast<EventType>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text", @event.EventType);
             return View(@event);
         }
 
@@ -121,8 +127,15 @@ namespace FinalBattle.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["PlaceID"] = new SelectList(_context.Places, "PlaceID", "Address", @event.PlaceID);
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id", @event.UserID);
+            ViewData["UserID"] = new SelectList(_context.Users, "Id", "UserName", @event.UserID);
+            ViewData["EventTypeID"] = new SelectList(Enum.GetValues(typeof(EventType)).Cast<EventType>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList(), "Value", "Text", @event.EventType);
+
             return View(@event);
         }
 
