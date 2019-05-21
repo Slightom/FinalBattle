@@ -144,7 +144,7 @@
                                 placeName: v.placeName
                             });
                         })
-
+                        alert("events.length: " + events.length);
                         $('#mainDiv').height(700);
                         GenerateCalender(events);
                         $('#mainDiv').css('height', 'auto');
@@ -159,6 +159,7 @@
 
 
             function GenerateCalender(events) {
+                alert("generateCalendar");
                 $('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
                     contentHeight: 440,
