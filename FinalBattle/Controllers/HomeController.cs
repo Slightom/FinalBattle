@@ -366,7 +366,7 @@ namespace FinalBattle.Controllers
         [HttpPost]
         public JsonResult SaveEvent(EventModel em)
         {
-            var status = false;
+            Boolean status = false;
 
             if (em.EventModelID > 0)
             {
@@ -408,7 +408,8 @@ namespace FinalBattle.Controllers
                     e.PlaceID = db.Places.Where(x => x.Name == "EmptyPlace").Select(y => y.PlaceID).FirstOrDefault();
                 }
                 e.Info = em.Info;
-                e.UserID = HttpContext.User.Identity.Name;
+                //e.UserID = HttpContext.User.Identity.Name;
+                e.UserID = _userManager.GetUserId(HttpContext.User);
                 e.EventType = (Enums.EventType)Enum.Parse(typeof(Enums.EventType), em.EventType);
                 db.Events.Add(e);
                 db.SaveChanges();
