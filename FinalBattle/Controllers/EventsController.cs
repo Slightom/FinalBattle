@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FinalBattle.Data;
 using FinalBattle.Models;
 using FinalBattle.Enums;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FinalBattle.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
