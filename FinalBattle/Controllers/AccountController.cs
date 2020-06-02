@@ -427,9 +427,10 @@ namespace FinalBattle.Controllers
 
                 using (SmtpClient smtp = new SmtpClient("smtp.gmail.com"))
                 {
-                    smtp.EnableSsl = true;
-                    NetworkCredential NetworkCred = new NetworkCredential("zespoltytanik@gmail.com", "Kalejdoskop2010");
                     smtp.UseDefaultCredentials = false;
+                    smtp.EnableSsl = true;
+
+                    NetworkCredential NetworkCred = new NetworkCredential("zespoltytanik@gmail.com", "Kalejdoskop2010");                   
                     smtp.Credentials = NetworkCred;
                     smtp.Port = 587;
                     smtp.Send(mailMessage);
