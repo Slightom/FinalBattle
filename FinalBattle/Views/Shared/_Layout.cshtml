@@ -65,7 +65,7 @@
         });
 
 
-        var numer = Math.floor(Math.random() * 2) + 1;
+        var numer = 0;//Math.floor(Math.random() * 2) + 1;
 
         var timer1 = 0;
         var timer2 = 0;
@@ -85,7 +85,7 @@
         }
 
         function changeSlide() {
-            numer++; if (numer > 2) numer = 1;
+            numer++; if (numer > 3) numer = 1;
 
             var plik = "<img src=\"/images/index" + numer + ".jpg\"/>";
             document.getElementById("slider").innerHTML = plik;
@@ -136,9 +136,9 @@
             </div>
             <div id="circlePhotos" style="display: inline-block">
                 <img src="~/images/AndrzejKolo.png" width="100" />
-                <img src="~/images/MonikaKolo.png" width="100" />
-                <img src="~/images/WaldekKolo.png" width="100" />
-                <img src="~/images/AnetaKolo.png" width="100" />
+                <img src="~/images/MonikaKolo2.png" width="100" />
+                <img src="~/images/PiotrekKolo2.png" width="100" />
+                <img src="~/images/AnetaKolo2.png" width="100" />
                 <img src="~/images/TomekKolo.png" width="100" />
             </div>
         </div>
