@@ -73,23 +73,23 @@ namespace FinalBattle.Controllers
 
             ViewData["ReturnUrl"] = returnUrl;
 
-            MailMessage mailMessage = new MailMessage("zespoltytanik@gmail.com", "tomasz.suchwalko@gmail.com");
-            mailMessage.Subject = "TESTING hasła";
+            //MailMessage mailMessage = new MailMessage("zespoltytanik@gmail.com", "tomasz.suchwalko@gmail.com");
+            //mailMessage.Subject = "TESTING hasła";
 
-            mailMessage.Body = "Możesz zrese";
+            //mailMessage.Body = "Możesz zrese";
 
-            mailMessage.IsBodyHtml = true;
+            //mailMessage.IsBodyHtml = true;
 
-            using (SmtpClient smtp = new SmtpClient("smtp.gmail.com"))
-            {
-                smtp.UseDefaultCredentials = false;
-                smtp.EnableSsl = true;
+            //using (SmtpClient smtp = new SmtpClient("smtp.gmail.com"))
+            //{
+            //    smtp.UseDefaultCredentials = false;
+            //    smtp.EnableSsl = true;
 
-                NetworkCredential NetworkCred = new NetworkCredential("zespoltytanik@gmail.com", "Kalejdoskop2010");
-                smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
-                smtp.Send(mailMessage);
-            }
+            //    NetworkCredential NetworkCred = new NetworkCredential("zespoltytanik@gmail.com", "Kalejdoskop2010");
+            //    smtp.Credentials = NetworkCred;
+            //    smtp.Port = 587;
+            //    smtp.Send(mailMessage);
+            //}
             return View();
         }
 
