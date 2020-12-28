@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
 using FinalBattle.HelpfulClasses;
+using Microsoft.AspNetCore.Http;
 
 namespace FinalBattle.Controllers
 {
@@ -83,6 +84,33 @@ namespace FinalBattle.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult AddPhoto(string id2, IFormCollection fc)
+        {
+            foreach (var file in fc.Files)
+            {
+
+                // and optionally write the file to disk
+                var fileName = file.FileName;
+                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, GlobalStatic.pathImageFolder, GlobalStatic.pathGalleryFolder, fileName);
+
+                ViewBag.filePath = filePath;
+
+                using (FileStream fs = System.IO.File.Create(filePath))
+                {
+                    file.CopyTo(fs);
+                    fs.Flush();
+                }
+
+                Photo p = new Photo();
+                p.Path = "/images/Gallery/" + fileName;
+                p.DateCreated = DateTime.Now;
+                db.Photos.Add(p);
+                db.SaveChanges();
+
+            }
+            return RedirectToAction("Index");
+        }
         // POST: Photos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

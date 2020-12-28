@@ -65,7 +65,7 @@ namespace FinalBattle.Controllers
             var placePhotos = db.PlacePhotos.Select(y => y.PhotoID).Distinct();
             var photos = db.Photos.Where(
                     x => !placePhotos.Contains(x.PhotoID)
-                ).ToList();
+                ).OrderByDescending(x => x.DateCreated).ToList();
             return View(photos);
         }
 
